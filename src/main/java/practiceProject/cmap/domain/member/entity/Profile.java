@@ -1,0 +1,39 @@
+package practiceProject.cmap.domain.member.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
+
+@Entity
+@Getter
+@DynamicInsert
+public class Profile extends BaseTimeEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "profile_id")
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ColumnDefault("'0'")
+    private Integer boardNum;
+
+    @ColumnDefault("'0'")
+    private Integer reviewNum;
+
+    @Column(length = 254)
+    private String introduce;
+
+    private String profileImageUrl;
+    private String favoriteCafeImageUrl;
+
+    @Column(length = 50)
+    private String favoriteCafeTitle;
+
+    @Lob
+    private String favoriteCafeBody;
+}
