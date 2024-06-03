@@ -1,12 +1,11 @@
 package practiceProject.cmap.config.apiCode;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @Builder
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class ApiResponseDTO {
 
