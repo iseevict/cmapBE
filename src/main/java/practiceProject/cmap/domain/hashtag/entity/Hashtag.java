@@ -1,4 +1,4 @@
-package practiceProject.cmap.domain.board.entity;
+package practiceProject.cmap.domain.hashtag.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

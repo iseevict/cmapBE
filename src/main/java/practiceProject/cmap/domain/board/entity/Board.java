@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.mapping.BoardHashtag;
+import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.comment.entity.Comments;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
@@ -44,8 +45,9 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    // 카페 추가해야 함
-    // private Cafe cafe;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cafe_id")
+    private Cafe cafe;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardHashtag> boardHashtagList = new ArrayList<>();

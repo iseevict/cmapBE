@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.Board;
-import practiceProject.cmap.domain.board.entity.Hashtag;
+import practiceProject.cmap.domain.hashtag.entity.Hashtag;
 
 @Entity
 @Getter
