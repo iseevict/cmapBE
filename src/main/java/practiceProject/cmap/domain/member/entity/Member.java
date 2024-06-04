@@ -7,8 +7,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.LastModifiedDate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.Board;
+import practiceProject.cmap.domain.cmap.entity.Cmap;
 import practiceProject.cmap.domain.comment.entity.Comments;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
+import practiceProject.cmap.domain.review.entity.Review;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,4 +63,10 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comments> commentsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Cmap> cmapList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
 }
