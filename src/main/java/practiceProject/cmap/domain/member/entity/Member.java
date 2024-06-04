@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.LastModifiedDate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
+import practiceProject.cmap.domain.board.entity.Board;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class Member extends BaseTimeEntity {
     private Profile profile;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    List<Mate> mates = new ArrayList<>();
+    private List<Mate> mateList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Board> boardList = new ArrayList<>();
 
 }
