@@ -8,6 +8,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.cafe.entity.mapping.CafeThema;
+import practiceProject.cmap.domain.cmap.entity.Cmap;
+import practiceProject.cmap.domain.review.entity.Review;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,4 +51,10 @@ public class Cafe extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
     private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
+    private List<Cmap> cmapList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
 }
