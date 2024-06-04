@@ -18,8 +18,9 @@ public class Hashtag {
     @Column(name = "hashtag_id")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "hashtag", cascade = CascadeType.ALL)
-    private List<BoardHashtag> boardHashtagList = new ArrayList<>(); // 이거 필요한가 싶긴 함
+    private List<BoardHashtag> boardHashtagList = new ArrayList<>();
 }

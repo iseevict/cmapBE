@@ -7,7 +7,9 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.mapping.BoardHashtag;
+import practiceProject.cmap.domain.comment.entity.Comments;
 import practiceProject.cmap.domain.member.entity.Member;
+import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +27,14 @@ public class Board extends BaseTimeEntity {
     @Column(name = "board_id")
     private Long id;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 50)
     private String title;
 
     @Lob
+    @Column(nullable = false)
     private String body;
 
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private String writer;
 
     @ColumnDefault("'0'")
@@ -46,4 +49,10 @@ public class Board extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardHashtag> boardHashtagList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<MemberLikeBoard> memberLikeBoardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Comments> commentsList = new ArrayList<>();
 }
