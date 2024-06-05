@@ -32,7 +32,7 @@ public class Review extends BaseTimeEntity {
     @ColumnDefault("'0'")
     private Float score;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String writer;
 
     @ManyToOne(fetch = FetchType.LAZY)

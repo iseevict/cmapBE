@@ -46,8 +46,11 @@ public class Board extends BaseTimeEntity {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cafe_id")
+    @JoinColumn(name = "cafe_id", updatable = false)
     private Cafe cafe;
+
+    @ColumnDefault("'0'")
+    private Integer commentNum;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardHashtag> boardHashtagList = new ArrayList<>();
