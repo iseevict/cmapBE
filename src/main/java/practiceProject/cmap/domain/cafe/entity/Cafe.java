@@ -40,6 +40,9 @@ public class Cafe extends BaseTimeEntity {
     @ColumnDefault("'0'")
     private Integer reviewNum;
 
+    @Column(length = 50)
+    private String introduce;
+
     @Column(precision = 13, scale = 10, nullable = false)
     private BigDecimal posX;
 
