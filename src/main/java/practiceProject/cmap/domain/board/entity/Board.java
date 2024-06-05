@@ -42,7 +42,7 @@ public class Board extends BaseTimeEntity {
     private Integer likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", updatable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
