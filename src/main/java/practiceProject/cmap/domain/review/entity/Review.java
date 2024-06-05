@@ -32,14 +32,14 @@ public class Review extends BaseTimeEntity {
     @ColumnDefault("'0'")
     private Float score;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cafe_id")
+    @JoinColumn(name = "cafe_id", updatable = false)
     private Cafe cafe;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", updatable = false)
     private Member member;
 }

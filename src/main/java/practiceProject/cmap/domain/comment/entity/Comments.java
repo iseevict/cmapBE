@@ -24,14 +24,14 @@ public class Comments extends BaseTimeEntity {
     @Lob
     private String body;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", updatable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "board_id", updatable = false)
     private Board board;
 }
