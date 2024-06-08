@@ -31,7 +31,10 @@ public class Profile extends BaseTimeEntity {
     @Column(length = 254)
     private String introduce;
 
+    @ColumnDefault("'default_image_url'")
     private String profileImageUrl;
+
+    @ColumnDefault("'default_image_url'")
     private String favoriteCafeImageUrl;
 
     @Column(length = 50)
