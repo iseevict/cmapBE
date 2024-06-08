@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @DynamicInsert
 @DynamicUpdate
-@Builder
 @AllArgsConstructor
 public class Member extends BaseTimeEntity {
 
@@ -46,7 +46,6 @@ public class Member extends BaseTimeEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'USER'")
     private MemberRole role;
 
-    @LastModifiedDate
     private LocalDateTime inactiveAt;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)

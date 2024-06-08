@@ -13,9 +13,11 @@ public enum ErrorStatus {
     _INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "COMMON500", "서버 에러, 관리자에게 문의 바랍니다."),
     _BAD_REQUEST(HttpStatus.BAD_REQUEST, "COMMON400", "잘못된 요청입니다."),
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "COMMON401", "인증이 필요합니다."),
-    _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다.");
+    _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-    // 추가 예정
+    // 멤버 관련
+    _EMAIL_EXIST(HttpStatus.CONFLICT, "MEMBER1001", "이메일 중복입니다."),
+    _NICKNAME_EXIST(HttpStatus.CONFLICT, "MEMBER1002", "닉네임 중복입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
