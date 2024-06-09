@@ -72,6 +72,10 @@ public class Member extends BaseTimeEntity {
     // 연관관계 편의 메서드
 
     // 비즈니스 로직
+
+    /**
+     * 회원 상태 변경 메서드
+     */
     public void changeStatus() {
         if (this.status == MemberStatus.ACTIVE) {
             this.status = MemberStatus.INACTIVE;
@@ -80,6 +84,18 @@ public class Member extends BaseTimeEntity {
         else {
             this.status = MemberStatus.ACTIVE;
             this.inactiveAt = null;
+        }
+    }
+
+    /**
+     * 회원 역할 변경 메서드
+     */
+    public void changeRole() {
+        if (this.role == MemberRole.USER) {
+            this.role = MemberRole.MANAGER;
+        }
+        else {
+            this.role = MemberRole.USER;
         }
     }
 }

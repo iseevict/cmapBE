@@ -30,4 +30,11 @@ public class MemberResponseDTO {
         Long memberId;
         LocalDateTime inactiveAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberChangeRoleResponseDto {
+
+        Long memberId;
+        LocalDateTime updatedAt;
+    }
 }

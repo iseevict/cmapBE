@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     @Transactional
-    public Member MemberInactive (@Valid MemberParameterDTO.MemberChangeStatusParamDto param) {
+    public Member MemberChangeStatus (@Valid MemberParameterDTO.MemberChangeStatusParamDto param) {
 
         // 멤버 찾기
         Member findMember = memberRepository.findById(param.getMemberId())
@@ -82,6 +82,23 @@ public class MemberServiceImpl implements MemberService {
 
 
         findMember.changeStatus();
+
+        return findMember;
+    }
+
+    /**
+     * 관리자 전환 API
+     * 반환 : Member
+     */
+    @Override
+    @Transactional
+    public Member MemberChangeRole(@Valid MemberParameterDTO.MemberChangeRoleParamDto param) {
+
+        // 멤버 찾기
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        findMember.changeRole();
 
         return findMember;
     }

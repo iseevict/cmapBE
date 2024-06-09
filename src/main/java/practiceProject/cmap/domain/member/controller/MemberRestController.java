@@ -56,9 +56,21 @@ public class MemberRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
-    public ApiResponse<MemberResponseDTO.MemberChangeStatusResponseDto> MemberInactive(@PathVariable("memberId") Long memberId) {
+    public ApiResponse<MemberResponseDTO.MemberChangeStatusResponseDto> MemberChangeStatus(@PathVariable("memberId") Long memberId) {
         MemberParameterDTO.MemberChangeStatusParamDto memberChangeStatusParamDto = MemberDtoConverter.INSTANCE.toMemberChangeStatusParamDto(memberId);
-        Member member = memberService.MemberInactive(memberChangeStatusParamDto);
+        Member member = memberService.MemberChangeStatus(memberChangeStatusParamDto);
         return ApiResponse.onSuccess(MemberConverter.toMemberChangeStatusDto(member));
+    }
+
+    @PatchMapping("/{memberId}")
+    @Operation(summary = "관리자 변경 API", description = "회원 role 변경 API, 회원 역할을 MANAGER/USER 전환")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    public ApiResponse<MemberResponseDTO.MemberChangeRoleResponseDto> MemberChangeRole(@PathVariable("memberId") Long memberId) {
+        MemberParameterDTO.MemberChangeRoleParamDto memberChangeRoleParamDto = MemberDtoConverter.INSTANCE.toMemberChangeRoleParamDto(memberId);
+        Member member = memberService.MemberChangeRole(memberChangeRoleParamDto);
+        return ApiResponse.onSuccess(MemberConverter.toMemberChangeRoleDto(member));
     }
 }
