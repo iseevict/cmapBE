@@ -13,4 +13,5 @@ public interface MemberDtoConverter {
     MemberParameterDTO.MemberSignupParamDto toMemberSignupParamDto(MemberRequestDTO.MemberSignupRequestDto request);
     MemberParameterDTO.MemberSigninParamDto toMemberSigninParamDto(MemberRequestDTO.MemberSigninRequestDto request);
     MemberParameterDTO.MemberChangeStatusParamDto toMemberChangeStatusParamDto(Long memberId);
+    MemberParameterDTO.MemberChangeRoleParamDto toMemberChangeRoleParamDto(Long memberId);
 }

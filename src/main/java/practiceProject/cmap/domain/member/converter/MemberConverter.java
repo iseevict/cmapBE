@@ -37,6 +37,13 @@ public class MemberConverter {
                 .build();
     }
 
+    public static MemberResponseDTO.MemberChangeRoleResponseDto toMemberChangeRoleDto(Member member) {
+        return MemberResponseDTO.MemberChangeRoleResponseDto.builder()
+                .memberId(member.getId())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Member toNewMember (MemberParameterDTO.MemberSignupParamDto param) {
 
         return Member.builder()

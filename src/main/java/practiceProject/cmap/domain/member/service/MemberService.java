@@ -9,5 +9,6 @@ public interface MemberService {
 
     public Member MemberSignup(@Valid MemberParameterDTO.MemberSignupParamDto param);
     public Map<Long, String> MemberSignin(@Valid MemberParameterDTO.MemberSigninParamDto param);
-    public Member MemberInactive(@Valid MemberParameterDTO.MemberChangeStatusParamDto param);
+    public Member MemberChangeStatus(@Valid MemberParameterDTO.MemberChangeStatusParamDto param);
+    public Member MemberChangeRole(@Valid MemberParameterDTO.MemberChangeRoleParamDto param);
 }

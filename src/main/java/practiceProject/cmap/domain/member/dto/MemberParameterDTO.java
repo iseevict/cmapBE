@@ -38,4 +38,11 @@ public class MemberParameterDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberChangeRoleParamDto {
+
+        @NotNull
+        Long memberId;
+    }
 }
