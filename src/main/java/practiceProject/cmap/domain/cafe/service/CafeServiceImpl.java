@@ -44,9 +44,9 @@ public class CafeServiceImpl implements CafeService{
         Cafe newCafe = CafeConverter.toCafe(param, cafeOwner);
 
         // 위치 겹치는지 확인
-        List<Cafe> cafeList = cafeRepository.findAllByPosX(param.getPosX()).stream().toList();
+        List<Cafe> cafeList = cafeRepository.findAllByPosX(param.getPosX()).get();
         if (!cafeList.isEmpty()) {
-            if(cafeList.stream().anyMatch(findCafe -> findCafe.getPosY().equals(param.getPosY()))) {
+            if(cafeList.stream().anyMatch(findCafe -> findCafe.getPosY().stripTrailingZeros().equals(param.getPosY()))) {
                 throw new CommonHandler(ErrorStatus._CAFE_POS_EXIST);
             }
         }
