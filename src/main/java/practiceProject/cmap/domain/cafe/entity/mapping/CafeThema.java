@@ -23,4 +23,14 @@ public class CafeThema extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
+
+    // 연관관계 편의 메서드
+
+    public void setCafe(Cafe cafe) {
+        if (this.cafe != null) {
+            this.cafe.getCafeThemaList().remove(this);
+        }
+        this.cafe = cafe;
+        cafe.getCafeThemaList().add(this);
+    }
 }
