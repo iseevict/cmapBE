@@ -9,6 +9,7 @@ import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.cafe.entity.mapping.CafeThema;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
+import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.review.entity.Review;
 
 import java.math.BigDecimal;
@@ -49,6 +50,10 @@ public class Cafe extends BaseTimeEntity {
     @Column(precision = 13, scale = 10, nullable = false)
     private BigDecimal posY;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
+
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
     private List<CafeThema> cafeThemaList = new ArrayList<>();
 
@@ -60,4 +65,14 @@ public class Cafe extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
+
+    // 연관관계 편의 메서드
+
+    public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getCafeList().remove(this);
+        }
+        this.member = member;
+        member.getCafeList().add(this);
+    }
 }
