@@ -30,6 +30,13 @@ public class MemberConverter {
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._INTERNAL_SERVER_ERROR));
     }
 
+    public static MemberResponseDTO.MemberChangeStatusResponseDto toMemberChangeStatusDto(Member member) {
+        return MemberResponseDTO.MemberChangeStatusResponseDto.builder()
+                .memberId(member.getId())
+                .inactiveAt(member.getInactiveAt())
+                .build();
+    }
+
     public static Member toNewMember (MemberParameterDTO.MemberSignupParamDto param) {
 
         return Member.builder()

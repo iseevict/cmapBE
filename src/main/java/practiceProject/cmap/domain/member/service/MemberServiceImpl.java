@@ -27,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 회원가입 API 메서드 (멤버, 프로필 엔티티 생성/저장)
+     * 반환 : Member
      */
     @Override
     @Transactional
@@ -49,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 로그인 메서드
+     * 로그인 API
      * 반환 : Map<MemberId[Long], Token[String]>
      */
     @Override
@@ -65,5 +66,23 @@ public class MemberServiceImpl implements MemberService {
         else {
             throw new CommonHandler(ErrorStatus._PASSWORD_WRONG);
         }
+    }
+
+    /**
+     * 회원 탈퇴 API
+     * 반환 : Member
+     */
+    @Override
+    @Transactional
+    public Member MemberInactive (@Valid MemberParameterDTO.MemberChangeStatusParamDto param) {
+
+        // 멤버 찾기
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+
+        findMember.changeStatus();
+
+        return findMember;
     }
 }

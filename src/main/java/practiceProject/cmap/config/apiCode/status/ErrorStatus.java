@@ -19,7 +19,8 @@ public enum ErrorStatus {
     _EMAIL_EXIST(HttpStatus.CONFLICT, "MEMBER1001", "이메일 중복입니다."),
     _NICKNAME_EXIST(HttpStatus.CONFLICT, "MEMBER1002", "닉네임 중복입니다."),
     _EMAIL_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER1003", "틀린 이메일 또는 비밀번호 입니다."),
-    _PASSWORD_WRONG(HttpStatus.BAD_REQUEST, "MEMBER1003", "틀린 이메일 또는 비밀번호 입니다.");
+    _PASSWORD_WRONG(HttpStatus.BAD_REQUEST, "MEMBER1003", "틀린 이메일 또는 비밀번호 입니다."),
+    _MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER1004", "멤버를 찾지 못했습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

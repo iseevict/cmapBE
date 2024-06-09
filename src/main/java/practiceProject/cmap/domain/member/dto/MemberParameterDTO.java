@@ -31,4 +31,11 @@ public class MemberParameterDTO {
         @NotNull @NotBlank
         String password;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberChangeStatusParamDto {
+
+        @NotNull
+        Long memberId;
+    }
 }
