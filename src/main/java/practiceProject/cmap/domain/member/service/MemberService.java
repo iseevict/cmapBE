@@ -1,10 +1,12 @@
 package practiceProject.cmap.domain.member.service;
 
+import jakarta.validation.Valid;
 import practiceProject.cmap.domain.member.dto.MemberParameterDTO;
-import practiceProject.cmap.domain.member.dto.MemberRequestDTO;
 import practiceProject.cmap.domain.member.entity.Member;
+import java.util.*;
 
 public interface MemberService {
 
-    public Member MemberSignup(MemberParameterDTO.MemberSignupParamDto param);
+    public Member MemberSignup(@Valid MemberParameterDTO.MemberSignupParamDto param);
+    public Map<Long, String> MemberSignin(@Valid MemberParameterDTO.MemberSigninParamDto param);
 }

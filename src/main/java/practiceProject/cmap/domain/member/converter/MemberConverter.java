@@ -1,11 +1,14 @@
 package practiceProject.cmap.domain.member.converter;
 
+import practiceProject.cmap.config.apiCode.status.ErrorStatus;
+import practiceProject.cmap.config.exception.handler.CommonHandler;
 import practiceProject.cmap.domain.member.dto.MemberParameterDTO;
 import practiceProject.cmap.domain.member.dto.MemberRequestDTO;
 import practiceProject.cmap.domain.member.dto.MemberResponseDTO;
 import practiceProject.cmap.domain.member.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class MemberConverter {
 
@@ -14,6 +17,17 @@ public class MemberConverter {
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
+    }
+
+    public static MemberResponseDTO.MemberSigninResponseDto toMemberSigninResultDto(Map<Long, String> loginData) {
+        return loginData.entrySet().stream()
+                .findFirst()
+                .map(entry -> MemberResponseDTO.MemberSigninResponseDto.builder()
+                        .memberId(entry.getKey())
+                        .Token(entry.getValue())
+                        .loginAt(LocalDateTime.now())
+                        .build())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._INTERNAL_SERVER_ERROR));
     }
 
     public static Member toNewMember (MemberParameterDTO.MemberSignupParamDto param) {

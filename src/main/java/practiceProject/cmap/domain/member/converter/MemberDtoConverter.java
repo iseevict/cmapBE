@@ -5,12 +5,11 @@ import org.mapstruct.factory.Mappers;
 import practiceProject.cmap.domain.member.dto.MemberParameterDTO;
 import practiceProject.cmap.domain.member.dto.MemberRequestDTO;
 
-import java.time.LocalDateTime;
-
 @Mapper
-public interface DtoConverter {
+public interface MemberDtoConverter {
 
-    DtoConverter INSTANCE = Mappers.getMapper(DtoConverter.class);
+    MemberDtoConverter INSTANCE = Mappers.getMapper(MemberDtoConverter.class);
 
     MemberParameterDTO.MemberSignupParamDto toMemberSignupParamDto(MemberRequestDTO.MemberSignupRequestDto request);
+    MemberParameterDTO.MemberSigninParamDto toMemberSigninParamDto(MemberRequestDTO.MemberSigninRequestDto request);
 }

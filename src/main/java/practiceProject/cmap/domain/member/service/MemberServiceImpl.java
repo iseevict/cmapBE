@@ -1,5 +1,6 @@
 package practiceProject.cmap.domain.member.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,10 @@ import practiceProject.cmap.domain.member.dto.MemberParameterDTO;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
 import practiceProject.cmap.domain.member.repository.ProfileRepository;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,22 +30,40 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     @Transactional
-    public Member MemberSignup(MemberParameterDTO.MemberSignupParamDto param) {
+    public Member MemberSignup(@Valid MemberParameterDTO.MemberSignupParamDto param) {
 
-        Member newSavedMember = MemberConverter.toNewMember(param);
+        Member newMember = MemberConverter.toNewMember(param);
         // 닉네임 중복 확인
-        if (memberRepository.findByName(newSavedMember.getName()).isPresent()) {
+        if (memberRepository.findByName(newMember.getName()).isPresent()) {
             throw new CommonHandler(ErrorStatus._NICKNAME_EXIST);
         }
         // 이메일 중복 확인
-        if (memberRepository.findByEmail(newSavedMember.getEmail()).isPresent()) {
+        if (memberRepository.findByEmail(newMember.getEmail()).isPresent()) {
             throw new CommonHandler(ErrorStatus._EMAIL_EXIST);
         }
 
-        memberRepository.save(newSavedMember); // 멤버 DB 저장
+        Member newSavedMember = memberRepository.save(newMember); // 멤버 DB 저장
         profileRepository.save(ProfileConverter.toProfile(newSavedMember)); // 멤버 프로필 DB 저장
 
         return newSavedMember;
     }
 
+    /**
+     * 로그인 메서드
+     * 반환 : Map<MemberId[Long], Token[String]>
+     */
+    @Override
+    public Map<Long, String> MemberSignin(@Valid MemberParameterDTO.MemberSigninParamDto param) {
+
+        // 이메일 이용해서 멤버 찾기
+        Member findMember = memberRepository.findByEmail(param.getEmail())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._EMAIL_NOT_EXIST));
+
+        if (findMember.getPassword().equals(param.getPassword())) {
+            return Collections.singletonMap(findMember.getId(), "cmapToken" + findMember.getName());
+        }
+        else {
+            throw new CommonHandler(ErrorStatus._PASSWORD_WRONG);
+        }
+    }
 }
