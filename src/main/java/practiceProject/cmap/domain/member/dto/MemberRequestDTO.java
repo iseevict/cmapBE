@@ -1,6 +1,7 @@
 package practiceProject.cmap.domain.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -9,20 +10,20 @@ public class MemberRequestDTO {
     @Getter
     public static class MemberSignupRequestDto {
 
-        @NotNull @NotBlank
+        @NotEmpty
         String email;
-        @NotNull @NotBlank
+        @NotEmpty
         String password;
-        @NotNull @NotBlank
+        @NotEmpty
         String name;
     }
 
     @Getter
     public static class MemberSigninRequestDto {
 
-        @NotNull @NotBlank
+        @NotEmpty
         String email;
-        @NotNull @NotBlank
+        @NotEmpty
         String password;
     }
 

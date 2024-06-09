@@ -1,6 +1,7 @@
 package practiceProject.cmap.domain.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,20 +16,20 @@ public class MemberParameterDTO {
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class MemberSignupParamDto {
 
-        @NotNull @NotBlank
+        @NotEmpty
         String email;
-        @NotNull @NotBlank
+        @NotEmpty
         String password;
-        @NotNull @NotBlank
+        @NotEmpty
         String name;
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class MemberSigninParamDto {
 
-        @NotNull @NotBlank
+        @NotEmpty
         String email;
-        @NotNull @NotBlank
+        @NotEmpty
         String password;
     }
 

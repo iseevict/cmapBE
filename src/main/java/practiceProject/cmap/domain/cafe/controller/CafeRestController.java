@@ -30,7 +30,9 @@ public class CafeRestController {
     @Operation(summary = "카페 추가 API", description = "카페 추가 API 입니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1001", description = "이미 카페가 존재하는 위치입니다.")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1001", description = "이미 카페가 존재하는 위치입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "THEMA1001", description = "없는 테마입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "없는 회원입니다.")
     })
     public ApiResponse<CafeResponseDTO.CafeCreateResponseDto> CafeCreate(@RequestBody @Valid CafeRequestDTO.CafeCreateRequestDto request) {
         CafeParameterDTO.CafeCreateParamDTO cafeCreateParamDTO = CafeDtoConverter.INSTANCE.toCafeCreateParamDto(request);
