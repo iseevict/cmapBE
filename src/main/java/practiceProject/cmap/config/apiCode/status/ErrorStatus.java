@@ -20,7 +20,10 @@ public enum ErrorStatus {
     _NICKNAME_EXIST(HttpStatus.CONFLICT, "MEMBER1002", "닉네임 중복입니다."),
     _EMAIL_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER1003", "틀린 이메일 또는 비밀번호 입니다."),
     _PASSWORD_WRONG(HttpStatus.BAD_REQUEST, "MEMBER1003", "틀린 이메일 또는 비밀번호 입니다."),
-    _MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER1004", "멤버를 찾지 못했습니다.");
+    _MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER1004", "멤버를 찾지 못했습니다."),
+
+    // 카페 관련
+    _CAFE_POS_EXIST(HttpStatus.CONFLICT, "CAFE1001", "이미 카페가 존재하는 위치입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

@@ -1,6 +1,8 @@
 package practiceProject.cmap.domain.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -56,6 +58,9 @@ public class MemberRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
+    @Parameters({
+            @Parameter(name = "memberId", description = "회원 식별자, PathVariable")
+    })
     public ApiResponse<MemberResponseDTO.MemberChangeStatusResponseDto> MemberChangeStatus(@PathVariable("memberId") Long memberId) {
         MemberParameterDTO.MemberChangeStatusParamDto memberChangeStatusParamDto = MemberDtoConverter.INSTANCE.toMemberChangeStatusParamDto(memberId);
         Member member = memberService.MemberChangeStatus(memberChangeStatusParamDto);
@@ -67,6 +72,9 @@ public class MemberRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "회원 식별자, PathVariable")
     })
     public ApiResponse<MemberResponseDTO.MemberChangeRoleResponseDto> MemberChangeRole(@PathVariable("memberId") Long memberId) {
         MemberParameterDTO.MemberChangeRoleParamDto memberChangeRoleParamDto = MemberDtoConverter.INSTANCE.toMemberChangeRoleParamDto(memberId);
