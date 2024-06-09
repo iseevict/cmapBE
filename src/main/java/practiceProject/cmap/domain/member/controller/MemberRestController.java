@@ -39,7 +39,7 @@ public class MemberRestController {
     }
 
     @PostMapping("/signin")
-    @Operation(summary = "로그인 API", description = "멤버 로그인 API, 이메일/패스워드 확인 후 토큰 반환")
+    @Operation(summary = "로그인 API", description = "회원 로그인 API, 이메일/패스워드 확인 후 토큰 반환")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1003", description = "틀린 이메일 또는 비밀번호입니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
@@ -48,5 +48,17 @@ public class MemberRestController {
         MemberParameterDTO.MemberSigninParamDto memberSigninParamDto = MemberDtoConverter.INSTANCE.toMemberSigninParamDto(request);
         Map<Long, String> loginData = memberService.MemberSignin(memberSigninParamDto);
         return ApiResponse.onSuccess(MemberConverter.toMemberSigninResultDto(loginData));
+    }
+
+    @PatchMapping("/members/{memberId}")
+    @Operation(summary = "회원 상태변경 API", description = "회원 상태변경 API, 회원 상태를 ACTIVE/INACTIVE 전환")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    public ApiResponse<MemberResponseDTO.MemberChangeStatusResponseDto> MemberInactive(@PathVariable("memberId") Long memberId) {
+        MemberParameterDTO.MemberChangeStatusParamDto memberChangeStatusParamDto = MemberDtoConverter.INSTANCE.toMemberChangeStatusParamDto(memberId);
+        Member member = memberService.MemberInactive(memberChangeStatusParamDto);
+        return ApiResponse.onSuccess(MemberConverter.toMemberChangeStatusDto(member));
     }
 }

@@ -25,4 +25,5 @@ public class MemberRequestDTO {
         @NotNull @NotBlank
         String password;
     }
+
 }

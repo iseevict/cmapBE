@@ -68,4 +68,18 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
+
+    // 연관관계 편의 메서드
+
+    // 비즈니스 로직
+    public void changeStatus() {
+        if (this.status == MemberStatus.ACTIVE) {
+            this.status = MemberStatus.INACTIVE;
+            this.inactiveAt = LocalDateTime.now();
+        }
+        else {
+            this.status = MemberStatus.ACTIVE;
+            this.inactiveAt = null;
+        }
+    }
 }

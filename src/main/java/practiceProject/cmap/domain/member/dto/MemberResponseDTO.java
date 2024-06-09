@@ -23,4 +23,11 @@ public class MemberResponseDTO {
         String Token;
         LocalDateTime loginAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberChangeStatusResponseDto {
+
+        Long memberId;
+        LocalDateTime inactiveAt;
+    }
 }
