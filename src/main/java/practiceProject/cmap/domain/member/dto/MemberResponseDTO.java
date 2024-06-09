@@ -15,4 +15,12 @@ public class MemberResponseDTO {
         Long memberId;
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberSigninResponseDto {
+
+        Long memberId;
+        String Token;
+        LocalDateTime loginAt;
+    }
 }

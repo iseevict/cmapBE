@@ -16,4 +16,13 @@ public class MemberRequestDTO {
         @NotNull @NotBlank
         String name;
     }
+
+    @Getter
+    public static class MemberSigninRequestDto {
+
+        @NotNull @NotBlank
+        String email;
+        @NotNull @NotBlank
+        String password;
+    }
 }

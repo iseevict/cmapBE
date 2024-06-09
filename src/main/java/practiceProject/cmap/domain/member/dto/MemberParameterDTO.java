@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 public class MemberParameterDTO {
 
-    @Getter @Builder @AllArgsConstructor @NoArgsConstructor
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class MemberSignupParamDto {
 
         @NotNull @NotBlank
@@ -21,5 +21,14 @@ public class MemberParameterDTO {
         String password;
         @NotNull @NotBlank
         String name;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberSigninParamDto {
+
+        @NotNull @NotBlank
+        String email;
+        @NotNull @NotBlank
+        String password;
     }
 }
