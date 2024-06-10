@@ -55,9 +55,7 @@ public class Review extends BaseTimeEntity {
         this.cafe.updateReviewNum();
 
         // 카페 평점 처리 로직
-        Integer totalReviewNum = this.cafe.getReviewList().size();
-        Float totalScore = this.cafe.getScore() * (totalReviewNum - 1);
-        Float updateScore = (totalScore + this.score) / totalReviewNum;
+        float updateScore = getScoreAvg();
         this.cafe.updateScore(updateScore);
     }
 
@@ -69,5 +67,12 @@ public class Review extends BaseTimeEntity {
         this.writer = member.getName();
         this.member.getReviewList().add(this);
         this.member.updateReviewNum();
+    }
+
+    // 비즈니스 로직
+    public float getScoreAvg() {
+        int totalReviewNum = this.cafe.getReviewList().size();
+        float totalScore = this.cafe.getScore() * (totalReviewNum - 1);
+        return (totalScore + this.score) / totalReviewNum;
     }
 }
