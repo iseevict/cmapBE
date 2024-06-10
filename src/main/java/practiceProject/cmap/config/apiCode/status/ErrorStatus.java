@@ -24,9 +24,13 @@ public enum ErrorStatus {
 
     // 카페 관련
     _CAFE_POS_EXIST(HttpStatus.CONFLICT, "CAFE1001", "이미 카페가 존재하는 위치입니다."),
+    _CAFE_NOT_FOUND(HttpStatus.NOT_FOUND, "CAFE1002", "카페를 찾지 못했습니다."),
     
     // 테마 관련
-    _THEMA_NOT_FOUND(HttpStatus.NOT_FOUND, "THEMA1001", "테마를 찾을 수 없습니다.");
+    _THEMA_NOT_FOUND(HttpStatus.NOT_FOUND, "THEMA1001", "테마를 찾을 수 없습니다."),
+
+    // 리뷰 관련
+    _OWNER_CANT_REVIEW(HttpStatus.FORBIDDEN, "REVIEW1001", "카페 주인은 자신의 카페에 리뷰를 달 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

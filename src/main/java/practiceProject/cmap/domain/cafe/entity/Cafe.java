@@ -75,4 +75,19 @@ public class Cafe extends BaseTimeEntity {
         this.member = member;
         member.getCafeList().add(this);
     }
+
+    // 비즈니스 로직
+    /**
+     * 리뷰 생성 시 카페 리뷰 수 추가
+     */
+    public void updateReviewNum() {
+        reviewNum = reviewList.size();
+    }
+
+    /**
+     * 리뷰 생성 시 별점 갱신
+     */
+    public void updateScore(Float updateScore) {
+        this.score = updateScore;
+    }
 }
