@@ -42,4 +42,32 @@ public class Review extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", updatable = false)
     private Member member;
+
+    // 연관관계 편의 메서드
+    public void setCafe(Cafe cafe) {
+        if (this.cafe != null) {
+            this.cafe.getReviewList().remove(this);
+        }
+        this.cafe = cafe;
+        this.cafe.getReviewList().add(this);
+
+        // 카페 리뷰 수 처리 로직
+        this.cafe.updateReviewNum();
+
+        // 카페 평점 처리 로직
+        Integer totalReviewNum = this.cafe.getReviewList().size();
+        Float totalScore = this.cafe.getScore() * (totalReviewNum - 1);
+        Float updateScore = (totalScore + this.score) / totalReviewNum;
+        this.cafe.updateScore(updateScore);
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getReviewList().remove(this);
+        }
+        this.member = member;
+        this.writer = member.getName();
+        this.member.getReviewList().add(this);
+        this.member.updateReviewNum();
+    }
 }

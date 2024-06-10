@@ -42,4 +42,12 @@ public class Profile extends BaseTimeEntity {
 
     @Lob
     private String favoriteCafeBody;
+
+    // 비즈니스 로직
+    /**
+     * 리뷰 작성 시 리뷰 수 추가 메서드
+     */
+    public void updateReviewNum(int reviewNum) {
+        this.reviewNum = reviewNum;
+    }
 }
