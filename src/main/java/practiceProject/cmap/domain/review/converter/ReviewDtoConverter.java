@@ -12,4 +12,5 @@ public interface ReviewDtoConverter {
 
     ReviewParameterDTO.ReviewWriteParamDto toReviewWriteParamDto(ReviewRequestDTO.ReviewWriteRequestDto request, Long cafeId);
     ReviewParameterDTO.ReviewModifyParamDto toReviewModifyParamDto(ReviewRequestDTO.ReviewModifyRequestDto request, Long cafeId, Long reviewId);
+    ReviewParameterDTO.ReviewDeleteParamDto toReviewDeleteParamDto(Long cafeId, Long reviewId);
 }

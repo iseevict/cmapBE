@@ -8,4 +8,5 @@ public interface ReviewService {
 
     public Review ReviewWrite(@Valid ReviewParameterDTO.ReviewWriteParamDto param);
     public Review ReviewModify(@Valid ReviewParameterDTO.ReviewModifyParamDto param);
+    public void ReviewDelete(@Valid ReviewParameterDTO.ReviewDeleteParamDto param);
 }

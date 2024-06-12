@@ -59,4 +59,22 @@ public class ReviewRestController {
         Review review = reviewService.ReviewModify(reviewModifyParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toReviewModifyResultDto(review));
     }
+
+    @DeleteMapping("/cafes/{cafeId}/reviews/{reviewId}")
+    @Operation(summary = "리뷰 삭제 API", description = "리뷰 삭제 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "REVIEW1003", description = "해당 카페의 리뷰가 아닙니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "REVIEW1002", description = "리뷰를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "cafeId", description = "카페 식별자, PathVariable"),
+            @Parameter(name = "reviewId", description = "리뷰 식별자, PathVariable")
+    })
+    public ApiResponse<ReviewResponseDTO.ReviewDeleteResponseDto> DeleteReview(@PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
+        ReviewParameterDTO.ReviewDeleteParamDto reviewDeleteParamDto = ReviewDtoConverter.INSTANCE.toReviewDeleteParamDto(cafeId, reviewId);
+        reviewService.ReviewDelete(reviewDeleteParamDto);
+        return ApiResponse.onSuccess(ReviewConverter.toReviewDeleteResultDto());
+    }
 }

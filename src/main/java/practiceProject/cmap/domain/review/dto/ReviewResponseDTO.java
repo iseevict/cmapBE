@@ -28,4 +28,13 @@ public class ReviewResponseDTO {
         @NotEmpty
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ReviewDeleteResponseDto {
+
+        @NotEmpty
+        String message;
+        @NotEmpty
+        LocalDateTime deletedAt;
+    }
 }

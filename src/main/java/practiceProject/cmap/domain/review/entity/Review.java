@@ -68,6 +68,12 @@ public class Review extends BaseTimeEntity {
         this.member.updateReviewNum();
     }
 
+    public void deleteReview() {
+        this.cafe.getReviewList().remove(this);
+        this.cafe.updateReviewNum();
+        this.cafe.updateScore();
+    }
+
     // 비즈니스 로직
     public void modifyReview(String title, String body, Float score) {
         this.title = title;
@@ -76,4 +82,5 @@ public class Review extends BaseTimeEntity {
         // 수정한 평점 적용
         this.cafe.updateScore();
     }
+
 }

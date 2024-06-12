@@ -38,4 +38,12 @@ public class ReviewParameterDTO {
         Float score;
     }
 
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ReviewDeleteParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long reviewId;
+    }
 }
