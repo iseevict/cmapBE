@@ -26,6 +26,14 @@ public class ReviewConverter {
                 .build();
     }
 
+    public static ReviewResponseDTO.ReviewDeleteResponseDto toReviewDeleteResultDto() {
+
+        return ReviewResponseDTO.ReviewDeleteResponseDto.builder()
+                .message("삭제 성공입니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Review toReview(ReviewParameterDTO.ReviewWriteParamDto param) {
 
         return Review.builder()
