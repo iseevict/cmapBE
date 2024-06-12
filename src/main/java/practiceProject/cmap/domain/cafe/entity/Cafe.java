@@ -87,7 +87,16 @@ public class Cafe extends BaseTimeEntity {
     /**
      * 리뷰 생성 시 별점 갱신
      */
-    public void updateScore(Float updateScore) {
-        this.score = updateScore;
+    public void updateScore() {
+        if (this.reviewNum == 0) {
+            this.score = 0.0f;
+        }
+        else {
+            float totalScore = (float) this.reviewList.stream()
+                    .mapToDouble(Review::getScore)
+                    .sum();
+
+            this.score = totalScore / this.reviewNum;
+        }
     }
 }

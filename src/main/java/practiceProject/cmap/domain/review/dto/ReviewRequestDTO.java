@@ -17,4 +17,15 @@ public class ReviewRequestDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter
+    public static class ReviewModifyRequestDto {
+
+        @NotEmpty
+        String title;
+        @NotEmpty
+        String body;
+        @DecimalMin(value = "0.0") @DecimalMax(value = "5.0")
+        Float score;
+    }
 }

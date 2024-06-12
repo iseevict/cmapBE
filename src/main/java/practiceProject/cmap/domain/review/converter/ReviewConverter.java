@@ -18,6 +18,14 @@ public class ReviewConverter {
                 .build();
     }
 
+    public static ReviewResponseDTO.ReviewModifyResponseDto toReviewModifyResultDto(Review review) {
+
+        return ReviewResponseDTO.ReviewModifyResponseDto.builder()
+                .reviewId(review.getId())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Review toReview(ReviewParameterDTO.ReviewWriteParamDto param) {
 
         return Review.builder()

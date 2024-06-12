@@ -50,4 +50,31 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.save(newReview);
     }
+
+    /**
+     * 리뷰 수정 API
+     * 반환 : Review
+     */
+    @Override
+    @Transactional
+    public Review ReviewModify(@Valid ReviewParameterDTO.ReviewModifyParamDto param) {
+
+        // 카페 데이터 찾기
+        Cafe cafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        // 리뷰 데이터 찾기
+        Review findReview = reviewRepository.findById(param.getReviewId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._REVIEW_NOT_FOUND));
+
+        // 카페 : 리뷰 검사
+        if (!findReview.getCafe().equals(cafe)) {
+            throw new CommonHandler(ErrorStatus._REVIEW_CAFE_NOT_MATCHING);
+        }
+
+        // 수정
+        findReview.modifyReview(param.getTitle(), param.getBody(), param.getScore());
+
+        return findReview;
+    }
 }

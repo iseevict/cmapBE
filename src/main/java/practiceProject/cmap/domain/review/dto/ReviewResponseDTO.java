@@ -19,4 +19,13 @@ public class ReviewResponseDTO {
         @NotEmpty
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ReviewModifyResponseDto {
+
+        @NotNull
+        Long reviewId;
+        @NotEmpty
+        LocalDateTime updatedAt;
+    }
 }

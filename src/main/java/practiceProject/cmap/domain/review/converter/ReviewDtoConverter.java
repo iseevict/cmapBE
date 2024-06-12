@@ -11,4 +11,5 @@ public interface ReviewDtoConverter {
     ReviewDtoConverter INSTANCE = Mappers.getMapper(ReviewDtoConverter.class);
 
     ReviewParameterDTO.ReviewWriteParamDto toReviewWriteParamDto(ReviewRequestDTO.ReviewWriteRequestDto request, Long cafeId);
+    ReviewParameterDTO.ReviewModifyParamDto toReviewModifyParamDto(ReviewRequestDTO.ReviewModifyRequestDto request, Long cafeId, Long reviewId);
 }

@@ -41,4 +41,22 @@ public class ReviewRestController {
         Review newReview = reviewService.ReviewWrite(reviewWriteParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toReviewWriteResultDto(newReview));
     }
+
+    @PatchMapping("/cafes/{cafeId}/reviews/{reviewId}")
+    @Operation(summary = "리뷰 수정 API", description = "리뷰 수정 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "REVIEW1003", description = "해당 카페의 리뷰가 아닙니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "REVIEW1002", description = "리뷰를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "cafeId", description = "카페 식별자, PathVariable"),
+            @Parameter(name = "reviewId", description = "리뷰 식별자, PathVariable")
+    })
+    public ApiResponse<ReviewResponseDTO.ReviewModifyResponseDto> ModifyReview(@RequestBody @Valid ReviewRequestDTO.ReviewModifyRequestDto request, @PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
+        ReviewParameterDTO.ReviewModifyParamDto reviewModifyParamDto = ReviewDtoConverter.INSTANCE.toReviewModifyParamDto(request, cafeId, reviewId);
+        Review review = reviewService.ReviewModify(reviewModifyParamDto);
+        return ApiResponse.onSuccess(ReviewConverter.toReviewModifyResultDto(review));
+    }
 }

@@ -23,4 +23,19 @@ public class ReviewParameterDTO {
         Long memberId;
     }
 
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ReviewModifyParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long reviewId;
+        @NotEmpty
+        String title;
+        @NotEmpty
+        String body;
+        @DecimalMin(value = "0.0") @DecimalMax("5.0")
+        Float score;
+    }
+
 }
