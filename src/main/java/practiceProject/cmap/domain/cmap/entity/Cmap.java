@@ -31,4 +31,16 @@ public class Cmap extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    // 연관관계 편의 메서드
+    public void setCmap(Member member, Cafe cafe) {
+        if (this.cafe != null) {
+            this.cafe.getCmapList().remove(this);
+        }
+        if (this.member != null) {
+            this.member.getCmapList().remove(this);
+        }
+        this.cafe = cafe;
+        this.member = member;
+    }
 }

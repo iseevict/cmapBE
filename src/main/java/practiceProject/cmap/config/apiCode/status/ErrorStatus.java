@@ -32,7 +32,10 @@ public enum ErrorStatus {
     // 리뷰 관련
     _OWNER_CANT_REVIEW(HttpStatus.FORBIDDEN, "REVIEW1001", "카페 주인은 자신의 카페에 리뷰를 달 수 없습니다."),
     _REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW1002", "리뷰를 찾지 못했습니다."),
-    _REVIEW_CAFE_NOT_MATCHING(HttpStatus.BAD_REQUEST, "REVIEW1003", "해당 카페의 리뷰가 아닙니다.");
+    _REVIEW_CAFE_NOT_MATCHING(HttpStatus.BAD_REQUEST, "REVIEW1003", "해당 카페의 리뷰가 아닙니다."),
+
+    // cmap 관련
+    _ALREADY_CMAP(HttpStatus.CONFLICT, "CMAP1001", "이미 Cmap에 저장된 카페입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
