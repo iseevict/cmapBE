@@ -35,7 +35,8 @@ public enum ErrorStatus {
     _REVIEW_CAFE_NOT_MATCHING(HttpStatus.BAD_REQUEST, "REVIEW1003", "해당 카페의 리뷰가 아닙니다."),
 
     // cmap 관련
-    _ALREADY_CMAP(HttpStatus.CONFLICT, "CMAP1001", "이미 Cmap에 저장된 카페입니다.");
+    _ALREADY_CMAP(HttpStatus.CONFLICT, "CMAP1001", "이미 Cmap에 저장된 카페입니다."),
+    _CMAP_NOT_FOUND(HttpStatus.NOT_FOUND, "CMAP1002", "Cmap을 찾지 못했습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

@@ -1,5 +1,6 @@
 package practiceProject.cmap.domain.cmap.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +19,16 @@ public class CmapParameterDTO {
         CmapStatus status;
         @NotNull
         Long memberId;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapStatusChangeParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long memberId;
+        @NotNull
+        CmapStatus status;
     }
 }

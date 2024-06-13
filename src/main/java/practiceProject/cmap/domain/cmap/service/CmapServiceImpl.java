@@ -38,16 +38,38 @@ public class CmapServiceImpl implements CmapService{
         Member findMember = memberRepository.findById(param.getMemberId())
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
 
-        findMember.getCmapList().stream()
-                .map(Cmap::getCafe)
-                .filter(cafe -> cafe.equals(findCafe))
-                .findAny()
-                .ifPresent(c -> {throw new CommonHandler(ErrorStatus._ALREADY_CMAP); });
+        cmapRepository.findByCafeAndMember(findCafe, findMember)
+                .ifPresent(a -> {
+                    throw new CommonHandler(ErrorStatus._ALREADY_CMAP);
+                });
 
         Cmap newCmap = CmapConverter.toCmap(param);
         // 관계 연결
         newCmap.setCmap(findMember, findCafe);
 
         return cmapRepository.save(newCmap);
+    }
+
+    /**
+     * Cmap 상태 수정 API
+     * 반환 : Cmap
+     */
+    @Override
+    @Transactional
+    public Cmap CmapStatusChange(@Valid CmapParameterDTO.CmapStatusChangeParamDto param) {
+
+        Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Cmap findCmap = cmapRepository.findByCafeAndMember(findCafe, findMember)
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CMAP_NOT_FOUND));
+
+        // 상태 변경
+        findCmap.setStatus(param.getStatus());
+
+        return findCmap;
     }
 }

@@ -18,6 +18,15 @@ public class CmapConverter {
                 .build();
     }
 
+    public static CmapResponseDTO.CmapStatusChangeResponseDto toCmapStatusChangeResultDto (Cmap cmap) {
+
+        return CmapResponseDTO.CmapStatusChangeResponseDto.builder()
+                .cmapId(cmap.getId())
+                .status(cmap.getStatus())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Cmap toCmap(CmapParameterDTO.CmapCreateParamDto param) {
 
         return Cmap.builder()

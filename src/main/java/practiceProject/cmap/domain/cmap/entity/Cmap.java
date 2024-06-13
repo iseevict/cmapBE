@@ -43,4 +43,11 @@ public class Cmap extends BaseTimeEntity {
         this.cafe = cafe;
         this.member = member;
     }
+
+    // 비즈니스 로직
+    public void setStatus(CmapStatus status) {
+        if (this.status != status) {
+            this.status = status;
+        }
+    }
 }

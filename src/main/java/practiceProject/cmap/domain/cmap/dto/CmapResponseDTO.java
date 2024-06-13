@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 
 import java.time.LocalDateTime;
 
@@ -18,5 +19,16 @@ public class CmapResponseDTO {
         Long cmapId;
         @NotEmpty
         LocalDateTime createdAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapStatusChangeResponseDto {
+
+        @NotNull
+        Long cmapId;
+        @NotEmpty
+        CmapStatus status;
+        @NotEmpty
+        LocalDateTime updatedAt;
     }
 }

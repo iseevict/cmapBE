@@ -7,4 +7,5 @@ import practiceProject.cmap.domain.cmap.entity.Cmap;
 public interface CmapService {
 
     public Cmap CmapCreate(@Valid CmapParameterDTO.CmapCreateParamDto param);
+    public Cmap CmapStatusChange(@Valid CmapParameterDTO.CmapStatusChangeParamDto param);
 }

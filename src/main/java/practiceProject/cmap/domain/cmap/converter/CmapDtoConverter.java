@@ -11,4 +11,5 @@ public interface CmapDtoConverter {
     CmapDtoConverter INSTANCE = Mappers.getMapper(CmapDtoConverter.class);
 
     CmapParameterDTO.CmapCreateParamDto toCmapCreateParamDto(CmapRequestDTO.CmapCreateRequestDto request, Long cafeId);
+    CmapParameterDTO.CmapStatusChangeParamDto toCmapStatusChangeParamDto(CmapRequestDTO.CmapStatusChangeRequestDto request, Long cafeId);
 }
