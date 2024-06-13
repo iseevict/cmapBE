@@ -24,4 +24,11 @@ public class CmapRequestDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter
+    public static class CmapDeleteRequestDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

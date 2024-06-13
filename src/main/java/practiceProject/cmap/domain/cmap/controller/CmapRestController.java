@@ -49,7 +49,8 @@ public class CmapRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CMAP1002", description = "Cmap을 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
@@ -58,5 +59,22 @@ public class CmapRestController {
         CmapParameterDTO.CmapStatusChangeParamDto cmapStatusChangeParamDto = CmapDtoConverter.INSTANCE.toCmapStatusChangeParamDto(request, cafeId);
         Cmap cmap = cmapService.CmapStatusChange(cmapStatusChangeParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapStatusChangeResultDto(cmap));
+    }
+
+    @DeleteMapping("/cmaps/{cafeId}")
+    @Operation(summary = "Cmap 삭제 API", description = "Cmap 삭제 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "멤버를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CMAP1002", description = "Cmap을 찾지 못했습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
+    })
+    public ApiResponse<CmapResponseDTO.CmapDeleteResponseDto> DeleteCmap(@RequestBody @Valid CmapRequestDTO.CmapDeleteRequestDto request, @PathVariable("cafeId") Long cafeId) {
+        CmapParameterDTO.CmapDeleteParamDto cmapDeleteParamDto = CmapDtoConverter.INSTANCE.toCmapDeleteParamDto(request, cafeId);
+        cmapService.CmapDelete(cmapDeleteParamDto);
+        return ApiResponse.onSuccess(CmapConverter.toCmapDeleteResultDto());
     }
 }

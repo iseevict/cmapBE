@@ -31,4 +31,13 @@ public class CmapResponseDTO {
         @NotEmpty
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDeleteResponseDto {
+
+        @NotEmpty
+        String message;
+        @NotEmpty
+        LocalDateTime deletedAt;
+    }
 }

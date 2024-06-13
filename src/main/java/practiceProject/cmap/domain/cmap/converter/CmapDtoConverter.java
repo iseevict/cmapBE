@@ -12,4 +12,5 @@ public interface CmapDtoConverter {
 
     CmapParameterDTO.CmapCreateParamDto toCmapCreateParamDto(CmapRequestDTO.CmapCreateRequestDto request, Long cafeId);
     CmapParameterDTO.CmapStatusChangeParamDto toCmapStatusChangeParamDto(CmapRequestDTO.CmapStatusChangeRequestDto request, Long cafeId);
+    CmapParameterDTO.CmapDeleteParamDto toCmapDeleteParamDto(CmapRequestDTO.CmapDeleteRequestDto request, Long cafeId);
 }

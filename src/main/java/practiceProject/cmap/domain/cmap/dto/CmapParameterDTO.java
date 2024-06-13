@@ -31,4 +31,13 @@ public class CmapParameterDTO {
         @NotNull
         CmapStatus status;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDeleteParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long memberId;
+    }
 }
