@@ -8,4 +8,5 @@ public interface CmapService {
 
     public Cmap CmapCreate(@Valid CmapParameterDTO.CmapCreateParamDto param);
     public Cmap CmapStatusChange(@Valid CmapParameterDTO.CmapStatusChangeParamDto param);
+    public void CmapDelete(@Valid CmapParameterDTO.CmapDeleteParamDto param);
 }

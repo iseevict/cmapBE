@@ -72,4 +72,24 @@ public class CmapServiceImpl implements CmapService{
 
         return findCmap;
     }
+
+    /**
+     * Cmap 삭제 API
+     * 반환 : Cmap
+     */
+    @Override
+    @Transactional
+    public void CmapDelete(@Valid CmapParameterDTO.CmapDeleteParamDto param) {
+
+        Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Cmap findCmap = cmapRepository.findByCafeAndMember(findCafe, findMember)
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CMAP_NOT_FOUND));
+
+        cmapRepository.delete(findCmap);
+    }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class CmapConverter {
 
-    public static CmapResponseDTO.CmapCreateResponseDto toCmapCreateResultDto (Cmap cmap) {
+    public static CmapResponseDTO.CmapCreateResponseDto toCmapCreateResultDto(Cmap cmap) {
 
         return CmapResponseDTO.CmapCreateResponseDto.builder()
                 .cmapId(cmap.getId())
@@ -18,12 +18,20 @@ public class CmapConverter {
                 .build();
     }
 
-    public static CmapResponseDTO.CmapStatusChangeResponseDto toCmapStatusChangeResultDto (Cmap cmap) {
+    public static CmapResponseDTO.CmapStatusChangeResponseDto toCmapStatusChangeResultDto(Cmap cmap) {
 
         return CmapResponseDTO.CmapStatusChangeResponseDto.builder()
                 .cmapId(cmap.getId())
                 .status(cmap.getStatus())
                 .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static CmapResponseDTO.CmapDeleteResponseDto toCmapDeleteResultDto() {
+
+        return CmapResponseDTO.CmapDeleteResponseDto.builder()
+                .message("삭제 성공했습니다.")
+                .deletedAt(LocalDateTime.now())
                 .build();
     }
 
