@@ -18,7 +18,15 @@ public class CafeConverter {
                 .build();
     }
 
-    public static Cafe toCafe (CafeParameterDTO.CafeCreateParamDTO param, Member member) {
+    public static CafeResponseDTO.CafeDeleteResponseDto toCafeDeleteResultDto() {
+
+        return CafeResponseDTO.CafeDeleteResponseDto.builder()
+                .message("삭제 성공입니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static Cafe toCafe (CafeParameterDTO.CafeCreateParamDto param, Member member) {
 
         return Cafe.builder()
                 .name(param.getName())

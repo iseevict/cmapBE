@@ -22,12 +22,6 @@ public class Profile extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ColumnDefault("'0'")
-    private Integer boardNum;
-
-    @ColumnDefault("'0'")
-    private Integer reviewNum;
-
     @Column(length = 254)
     private String introduce;
 
@@ -44,10 +38,5 @@ public class Profile extends BaseTimeEntity {
     private String favoriteCafeBody;
 
     // 비즈니스 로직
-    /**
-     * 리뷰 작성 시 리뷰 수 추가 메서드
-     */
-    public void updateReviewNum(int reviewNum) {
-        this.reviewNum = reviewNum;
-    }
+
 }

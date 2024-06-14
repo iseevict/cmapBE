@@ -35,7 +35,7 @@ public class CafeServiceImpl implements CafeService{
      */
     @Override
     @Transactional
-    public Cafe CafeCreate(@Valid CafeParameterDTO.CafeCreateParamDTO param) {
+    public Cafe CafeCreate(@Valid CafeParameterDTO.CafeCreateParamDto param) {
 
         // 멤버 데이터 확인
         Member cafeOwner = memberRepository.findById(param.getMemberId())
@@ -66,5 +66,27 @@ public class CafeServiceImpl implements CafeService{
 
         Cafe newSavedCafe = cafeRepository.save(newCafe);
         return newSavedCafe;
+    }
+
+    /**
+     * 카페 삭제 API
+     * 반환 : Void
+     */
+    @Override
+    @Transactional
+    public void CafeDelete(@Valid CafeParameterDTO.CafeDeleteParamDto param) {
+
+        Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        if (findCafe.getMember().equals(findMember)) {
+            cafeRepository.delete(findCafe);
+        }
+        else {
+            throw new CommonHandler(ErrorStatus._NOT_MEMBERS_CAFE);
+        }
     }
 }

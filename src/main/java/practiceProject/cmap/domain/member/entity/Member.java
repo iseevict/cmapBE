@@ -102,11 +102,4 @@ public class Member extends BaseTimeEntity {
             this.role = MemberRole.USER;
         }
     }
-
-    /**
-     * 리뷰 작성 시 리뷰 수 추가 메서드
-     */
-    public void updateReviewNum() {
-        this.profile.updateReviewNum(this.reviewList.size());
-    }
 }
