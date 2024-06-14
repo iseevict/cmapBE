@@ -10,5 +10,6 @@ public interface CafeDtoConverter {
 
     CafeDtoConverter INSTANCE = Mappers.getMapper(CafeDtoConverter.class);
 
-    CafeParameterDTO.CafeCreateParamDTO toCafeCreateParamDto(CafeRequestDTO.CafeCreateRequestDto request);
+    CafeParameterDTO.CafeCreateParamDto toCafeCreateParamDto(CafeRequestDTO.CafeCreateRequestDto request);
+    CafeParameterDTO.CafeDeleteParamDto toCafeDeleteParamDto(CafeRequestDTO.CafeDeleteRequestDto request, Long cafeId);
 }

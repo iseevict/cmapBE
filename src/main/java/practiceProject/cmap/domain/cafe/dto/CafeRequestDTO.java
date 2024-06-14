@@ -26,4 +26,11 @@ public class CafeRequestDTO {
         Long memberId;
         List<Long> themaList;
     }
+
+    @Getter
+    public static class CafeDeleteRequestDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

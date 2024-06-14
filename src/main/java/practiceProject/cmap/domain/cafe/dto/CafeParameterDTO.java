@@ -15,7 +15,7 @@ import java.util.List;
 public class CafeParameterDTO {
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CafeCreateParamDTO {
+    public static class CafeCreateParamDto {
 
         @NotEmpty
         String name;
@@ -28,5 +28,14 @@ public class CafeParameterDTO {
         @NotEmpty
         Long memberId;
         List<Long> themaList;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeDeleteParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long cafeId;
     }
 }

@@ -35,12 +35,6 @@ public class Cafe extends BaseTimeEntity {
     @ColumnDefault("'0'")
     private Float score;
 
-    @ColumnDefault("'0'")
-    private Integer boardNum;
-
-    @ColumnDefault("'0'")
-    private Integer reviewNum;
-
     @Column(length = 50)
     private String introduce;
 
@@ -77,18 +71,12 @@ public class Cafe extends BaseTimeEntity {
     }
 
     // 비즈니스 로직
-    /**
-     * 리뷰 생성 시 카페 리뷰 수 추가
-     */
-    public void updateReviewNum() {
-        reviewNum = reviewList.size();
-    }
 
     /**
      * 리뷰 생성 시 별점 갱신
      */
     public void updateScore() {
-        if (this.reviewNum == 0) {
+        if (this.reviewList.isEmpty()) {
             this.score = 0.0f;
         }
         else {
@@ -96,7 +84,8 @@ public class Cafe extends BaseTimeEntity {
                     .mapToDouble(Review::getScore)
                     .sum();
 
-            this.score = totalScore / this.reviewNum;
+            this.score = totalScore / this.reviewList.size();
         }
     }
+
 }

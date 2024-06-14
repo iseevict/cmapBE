@@ -51,9 +51,6 @@ public class Review extends BaseTimeEntity {
         this.cafe = cafe;
         this.cafe.getReviewList().add(this);
 
-        // 카페 리뷰 수 처리 로직
-        this.cafe.updateReviewNum();
-
         // 카페 평점 처리 로직
         this.cafe.updateScore();
     }
@@ -65,12 +62,10 @@ public class Review extends BaseTimeEntity {
         this.member = member;
         this.writer = member.getName();
         this.member.getReviewList().add(this);
-        this.member.updateReviewNum();
     }
 
     public void deleteReview() {
         this.cafe.getReviewList().remove(this);
-        this.cafe.updateReviewNum();
         this.cafe.updateScore();
     }
 
