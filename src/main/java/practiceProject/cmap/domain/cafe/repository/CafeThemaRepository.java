@@ -2,12 +2,11 @@ package practiceProject.cmap.domain.cafe.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
+import practiceProject.cmap.domain.cafe.entity.mapping.CafeThema;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface CafeRepository extends JpaRepository<Cafe, Long> {
-
-    Optional<Cafe> findByPosXAndPosY(BigDecimal posX, BigDecimal posY);
+public interface CafeThemaRepository extends JpaRepository<CafeThema, Long> {
+    Optional<List<CafeThema>> findAllByCafe(Cafe cafe);
 }

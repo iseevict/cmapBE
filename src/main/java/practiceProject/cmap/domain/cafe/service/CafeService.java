@@ -8,4 +8,5 @@ public interface CafeService {
 
     public Cafe CafeCreate(@Valid CafeParameterDTO.CafeCreateParamDto param);
     public void CafeDelete(@Valid CafeParameterDTO.CafeDeleteParamDto param);
+    public Cafe CafeModify(@Valid CafeParameterDTO.CafeModifyParamDto param);
 }

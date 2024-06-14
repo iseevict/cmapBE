@@ -31,6 +31,24 @@ public class CafeParameterDTO {
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeModifyParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long memberId;
+        @NotEmpty
+        String name;
+        @NotNull
+        BigDecimal posX;
+        @NotNull
+        BigDecimal posY;
+        @Length(max = 50)
+        String introduce;
+        List<Long> themaList;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CafeDeleteParamDto {
 
         @NotNull
