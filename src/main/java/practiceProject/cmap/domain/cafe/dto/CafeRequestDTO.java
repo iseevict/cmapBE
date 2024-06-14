@@ -28,6 +28,22 @@ public class CafeRequestDTO {
     }
 
     @Getter
+    public static class CafeModifyRequestDto {
+
+        @NotNull
+        Long memberId;
+        @NotEmpty
+        String name;
+        @NotNull
+        BigDecimal posX;
+        @NotNull
+        BigDecimal posY;
+        @Length(max = 50)
+        String introduce;
+        List<Long> themaList;
+    }
+
+    @Getter
     public static class CafeDeleteRequestDto {
 
         @NotNull

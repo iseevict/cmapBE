@@ -26,6 +26,14 @@ public class CafeConverter {
                 .build();
     }
 
+    public static CafeResponseDTO.CafeModifyResponseDto toCafeModifyResultDto(Cafe cafe) {
+
+        return CafeResponseDTO.CafeModifyResponseDto.builder()
+                .cafeId(cafe.getId())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Cafe toCafe (CafeParameterDTO.CafeCreateParamDto param, Member member) {
 
         return Cafe.builder()

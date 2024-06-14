@@ -11,6 +11,7 @@ import practiceProject.cmap.domain.cafe.entity.mapping.CafeThema;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.review.entity.Review;
+import practiceProject.cmap.domain.thema.entity.Thema;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -86,6 +87,20 @@ public class Cafe extends BaseTimeEntity {
 
             this.score = totalScore / this.reviewList.size();
         }
+    }
+
+    /**
+     * 카페 수정 로직
+     */
+    public void modifyCafe(String name, String introduce, BigDecimal posX, BigDecimal posY, List<CafeThema> cafeThemaList) {
+        this.name = name;
+        this.introduce = introduce;
+        this.posX = posX;
+        this.posY = posY;
+        if (!this.cafeThemaList.isEmpty()) {
+            this.cafeThemaList.clear();
+        }
+        this.cafeThemaList = cafeThemaList;
     }
 
 }

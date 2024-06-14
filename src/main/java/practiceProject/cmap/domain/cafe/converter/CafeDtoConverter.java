@@ -12,4 +12,5 @@ public interface CafeDtoConverter {
 
     CafeParameterDTO.CafeCreateParamDto toCafeCreateParamDto(CafeRequestDTO.CafeCreateRequestDto request);
     CafeParameterDTO.CafeDeleteParamDto toCafeDeleteParamDto(CafeRequestDTO.CafeDeleteRequestDto request, Long cafeId);
+    CafeParameterDTO.CafeModifyParamDto toCafeModifyParamDto(CafeRequestDTO.CafeModifyRequestDto request, Long cafeId);
 }

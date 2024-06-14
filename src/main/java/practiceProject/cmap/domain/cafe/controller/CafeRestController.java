@@ -37,6 +37,25 @@ public class CafeRestController {
         return ApiResponse.onSuccess(CafeConverter.toCafeCreateResultDto(cafe));
     }
 
+    @PatchMapping("/cafes/{cafeId}")
+    @Operation(summary = "카페 수정 API", description = "카페 수정 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1002", description = "카페를 찾지 못했습니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1003", description = "카페 주인이 아닙니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1001", description = "이미 카페가 존재하는 위치입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "THEMA1001", description = "없는 테마입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "없는 회원입니다.")
+    })
+    @Parameters({
+            @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
+    })
+    public ApiResponse<CafeResponseDTO.CafeModifyResponseDto> ModifyCafe(@RequestBody @Valid CafeRequestDTO.CafeModifyRequestDto request, @PathVariable("cafeId") Long cafeId) {
+        CafeParameterDTO.CafeModifyParamDto cafeModifyParamDto = CafeDtoConverter.INSTANCE.toCafeModifyParamDto(request, cafeId);
+        Cafe cafe = cafeService.CafeModify(cafeModifyParamDto);
+        return ApiResponse.onSuccess(CafeConverter.toCafeModifyResultDto(cafe));
+    }
+
     @DeleteMapping("/cafes/{cafeId}")
     @Operation(summary = "카페 삭제 API", description = "카페 삭제 API 입니다.")
     @ApiResponses({

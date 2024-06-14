@@ -21,6 +21,15 @@ public class CafeResponseDTO {
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeModifyResponseDto {
+
+        @NotNull
+        Long cafeId;
+        @NotEmpty
+        LocalDateTime updatedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CafeDeleteResponseDto {
 
         @NotEmpty
