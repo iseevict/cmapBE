@@ -43,4 +43,11 @@ public class BoardRequestDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter
+    public static class BoardHeartOnRequestDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

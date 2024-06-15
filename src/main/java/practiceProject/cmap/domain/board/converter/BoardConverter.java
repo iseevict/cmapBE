@@ -3,6 +3,7 @@ package practiceProject.cmap.domain.board.converter;
 import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
+import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public class BoardConverter {
         return BoardResponseDTO.BoardDeleteResponseDto.builder()
                 .message("삭제 성공입니다.")
                 .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static BoardResponseDTO.BoardHeartOnResponseDto toBoardHeartOnResultDto(MemberLikeBoard memberLikeBoard) {
+
+        return BoardResponseDTO.BoardHeartOnResponseDto.builder()
+                .memberLikeBoardId(memberLikeBoard.getId())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 

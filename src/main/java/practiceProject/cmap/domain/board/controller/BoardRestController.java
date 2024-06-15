@@ -15,6 +15,7 @@ import practiceProject.cmap.domain.board.dto.BoardRequestDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.board.service.BoardService;
+import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
 @RestController
 @RequiredArgsConstructor
@@ -71,5 +72,21 @@ public class BoardRestController {
         BoardParameterDTO.BoardDeleteParamDto boardDeleteParamDto = BoardDtoConverter.INSTANCE.toBoardDeleteParamDto(request, boardId);
         boardService.BoardDelete(boardDeleteParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardDeleteResultDto());
+    }
+
+    @PostMapping("/boards/{boardId}")
+    @Operation(summary = "게시글 하트 누르기 API", description = "게시글 하트 누르기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOARD1001", description = "게시글을 찾지 못했습니다.")
+    })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable")
+    })
+    public ApiResponse<BoardResponseDTO.BoardHeartOnResponseDto> BoardHeartOn(@RequestBody @Valid BoardRequestDTO.BoardHeartOnRequestDto request, @PathVariable("boardId") Long boardId) {
+
+        BoardParameterDTO.BoardHeartOnParamDto boardHeartOnParamDto = BoardDtoConverter.INSTANCE.toBoardHeartOnParamDto(request, boardId);
+        MemberLikeBoard memberLikeBoard = boardService.BoardHeartOn(boardHeartOnParamDto);
+        return ApiResponse.onSuccess(BoardConverter.toBoardHeartOnResultDto(memberLikeBoard));
     }
 }

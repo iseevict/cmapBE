@@ -50,4 +50,13 @@ public class BoardParameterDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardHeartOnParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long boardId;
+    }
 }

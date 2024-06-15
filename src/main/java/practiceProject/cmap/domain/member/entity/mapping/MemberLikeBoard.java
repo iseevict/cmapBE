@@ -28,6 +28,18 @@ public class MemberLikeBoard {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    // 연관관게 편의 메서드
+    public void setMemberAndBoard(Member member, Board board) {
+
+        if (this.member != null) {
+            this.member.getMemberLikeBoardList().remove(this);
+        }
+        if (this.board != null) {
+            this.board.getMemberLikeBoardList().remove(this);
+        }
+        this.member = member;
+        this.board = board;
+        this.member.getMemberLikeBoardList().add(this);
+        this.board.getMemberLikeBoardList().add(this);
+    }
 }

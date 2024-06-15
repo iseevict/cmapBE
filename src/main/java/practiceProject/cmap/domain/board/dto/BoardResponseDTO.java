@@ -37,4 +37,13 @@ public class BoardResponseDTO {
         @NotEmpty
         LocalDateTime deletedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardHeartOnResponseDto {
+
+        @NotNull
+        Long memberLikeBoardId;
+        @NotEmpty
+        LocalDateTime createdAt;
+    }
 }
