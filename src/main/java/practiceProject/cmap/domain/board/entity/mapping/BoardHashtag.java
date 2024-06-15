@@ -23,4 +23,14 @@ public class BoardHashtag extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    // 연관관계 편의 메서드
+    public void setBoard(Board board) {
+
+        if (this.board != null) {
+            this.board.getBoardHashtagList().remove(this);
+        }
+        this.board = board;
+        this.board.getBoardHashtagList().add(this);
+    }
 }

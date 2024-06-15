@@ -35,12 +35,6 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private String body;
 
-    @Column(updatable = false, nullable = false)
-    private String writer;
-
-    @ColumnDefault("'0'")
-    private Integer likes;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", updatable = false)
     private Member member;
@@ -48,9 +42,6 @@ public class Board extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id", updatable = false)
     private Cafe cafe;
-
-    @ColumnDefault("'0'")
-    private Integer commentNum;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardHashtag> boardHashtagList = new ArrayList<>();
@@ -60,4 +51,23 @@ public class Board extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comments> commentsList = new ArrayList<>();
+
+    // 연관관계 편의 메서드
+    public void setMember(Member member) {
+
+        if (this.member != null) {
+            this.member.getBoardList().remove(this);
+        }
+        this.member = member;
+        this.member.getBoardList().add(this);
+    }
+
+    public void setCafe(Cafe cafe) {
+
+        if (this.cafe != null) {
+            this.cafe.getBoardList().remove(this);
+        }
+        this.cafe = cafe;
+        this.cafe.getBoardList().add(this);
+    }
 }

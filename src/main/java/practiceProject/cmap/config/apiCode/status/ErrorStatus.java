@@ -37,7 +37,11 @@ public enum ErrorStatus {
 
     // cmap 관련
     _ALREADY_CMAP(HttpStatus.CONFLICT, "CMAP1001", "이미 Cmap에 저장된 카페입니다."),
-    _CMAP_NOT_FOUND(HttpStatus.NOT_FOUND, "CMAP1002", "Cmap을 찾지 못했습니다.");
+    _CMAP_NOT_FOUND(HttpStatus.NOT_FOUND, "CMAP1002", "Cmap을 찾지 못했습니다."),
+
+    // hashtag 관련
+    _HASHTAG_NOT_FOUND(HttpStatus.NOT_FOUND, "TAG1001", "해시태그를 찾지 못했습니다."),
+    _FORBIDDEN_HASHTAG(HttpStatus.FORBIDDEN, "TAG1002", "권한이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
