@@ -36,4 +36,11 @@ public class BoardRequestDTO {
 
         List<Long> hashtagList;
     }
+
+    @Getter
+    public static class BoardDeleteRequestDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

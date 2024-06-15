@@ -13,4 +13,5 @@ public interface BoardDtoConverter {
 
     BoardParameterDTO.BoardWriteParamDto toBoardWriteParamDto(BoardRequestDTO.BoardWriteRequestDto request);
     BoardParameterDTO.BoardModifyParamDto toBoardModifyParamDto(BoardRequestDTO.BoardModifyRequestDto request, Long boardId);
+    BoardParameterDTO.BoardDeleteParamDto toBoardDeleteParamDto(BoardRequestDTO.BoardDeleteRequestDto request, Long boardId);
 }

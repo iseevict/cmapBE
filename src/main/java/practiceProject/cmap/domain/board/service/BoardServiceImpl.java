@@ -121,4 +121,23 @@ public class BoardServiceImpl implements BoardService{
 
         return findBoard;
     }
+
+    /**
+     * 게시글 삭제 API
+     * 반환 : Void
+     */
+    @Override
+    @Transactional
+    public void BoardDelete(@Valid BoardParameterDTO.BoardDeleteParamDto param) {
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        Member writer = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        if (!findBoard.getMember().equals(writer)) throw new CommonHandler(ErrorStatus._NOT_MEMBERS_BOARD);
+
+        boardRepository.delete(findBoard);
+    }
 }

@@ -31,6 +31,7 @@ public class BoardRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "TAG1002", description = "권한이 없습니다.")
     })
     public ApiResponse<BoardResponseDTO.BoardWriteResponseDto> BoardWrite(@RequestBody @Valid BoardRequestDTO.BoardWriteRequestDto request) {
+
         BoardParameterDTO.BoardWriteParamDto boardWriteParamDto = BoardDtoConverter.INSTANCE.toBoardWriteParamDto(request);
         Board board = boardService.BoardWrite(boardWriteParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardWriteResultDto(board));
@@ -49,8 +50,26 @@ public class BoardRestController {
             @Parameter(name = "boardId", description = "게시글 식별자, PathVariable")
     })
     public ApiResponse<BoardResponseDTO.BoardModifyResponseDto> BoardModify(@RequestBody @Valid BoardRequestDTO.BoardModifyRequestDto request, @PathVariable("boardId") Long boardId) {
+
         BoardParameterDTO.BoardModifyParamDto boardModifyParamDto = BoardDtoConverter.INSTANCE.toBoardModifyParamDto(request, boardId);
         Board board = boardService.BoardModify(boardModifyParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardModifyResultDto(board));
+    }
+
+    @DeleteMapping("/boards/{boardId}")
+    @Operation(summary = "게시글 삭제 API", description = "게시글 삭제 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOARD1001", description = "게시글을 찾지 못했습니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "BOARD1002", description = "게시글 작성자가 아닙니다.")
+    })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable")
+    })
+    public ApiResponse<BoardResponseDTO.BoardDeleteResponseDto> BoardDelete(@RequestBody @Valid BoardRequestDTO.BoardDeleteRequestDto request, @PathVariable("boardId") Long boardId) {
+
+        BoardParameterDTO.BoardDeleteParamDto boardDeleteParamDto = BoardDtoConverter.INSTANCE.toBoardDeleteParamDto(request, boardId);
+        boardService.BoardDelete(boardDeleteParamDto);
+        return ApiResponse.onSuccess(BoardConverter.toBoardDeleteResultDto());
     }
 }

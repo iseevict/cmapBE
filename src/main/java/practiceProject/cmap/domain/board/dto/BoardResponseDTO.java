@@ -28,4 +28,13 @@ public class BoardResponseDTO {
         @NotEmpty
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardDeleteResponseDto {
+
+        @NotEmpty
+        String message;
+        @NotEmpty
+        LocalDateTime deletedAt;
+    }
 }
