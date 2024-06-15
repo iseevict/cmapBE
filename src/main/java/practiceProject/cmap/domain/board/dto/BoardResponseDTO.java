@@ -46,4 +46,13 @@ public class BoardResponseDTO {
         @NotEmpty
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardHeartOffResponseDto {
+
+        @NotEmpty
+        String message;
+        @NotEmpty
+        LocalDateTime deletedAt;
+    }
 }

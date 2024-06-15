@@ -59,4 +59,13 @@ public class BoardParameterDTO {
         @NotNull
         Long boardId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardHeartOffParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long boardId;
+    }
 }

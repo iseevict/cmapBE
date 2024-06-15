@@ -50,4 +50,5 @@ public class BoardRequestDTO {
         @NotNull
         Long memberId;
     }
+
 }

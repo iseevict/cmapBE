@@ -89,4 +89,21 @@ public class BoardRestController {
         MemberLikeBoard memberLikeBoard = boardService.BoardHeartOn(boardHeartOnParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardHeartOnResultDto(memberLikeBoard));
     }
+
+    @DeleteMapping("/{memberId}/boards/{boardId}")
+    @Operation(summary = "게시글 하트 삭제 API", description = "게시글 하트 삭제 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "HEART1001", description = "이미 좋아요를 누르지 않은 상태입니다.")
+    })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable"),
+            @Parameter(name = "memberId", description = "멤버 식별자, PathVariable")
+    })
+    public ApiResponse<BoardResponseDTO.BoardHeartOffResponseDto> BoardHeartOff(@PathVariable("memberId") Long memberId, @PathVariable("boardId") Long boardId) {
+
+        BoardParameterDTO.BoardHeartOffParamDto boardHeartOffParamDto = BoardDtoConverter.INSTANCE.toBoardHeartOffParamDto(memberId, boardId);
+        boardService.BoardHeartOff(boardHeartOffParamDto);
+        return ApiResponse.onSuccess(BoardConverter.toBoardHeartOffResultDto());
+    }
 }

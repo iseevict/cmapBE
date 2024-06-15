@@ -167,4 +167,24 @@ public class BoardServiceImpl implements BoardService{
 
         return memberLikeBoardRepository.save(memberLikeBoard);
     }
+
+    /**
+     * 게시글 하트 삭제 API
+     * 반환 : Void
+     */
+    @Override
+    @Transactional
+    public void BoardHeartOff(@Valid BoardParameterDTO.BoardHeartOffParamDto param) {
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        MemberLikeBoard findMemberLikeBoard = memberLikeBoardRepository.findByMemberAndBoard(findMember, findBoard)
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._HEART_NOT_FOUND));
+
+        memberLikeBoardRepository.delete(findMemberLikeBoard);
+    }
 }
