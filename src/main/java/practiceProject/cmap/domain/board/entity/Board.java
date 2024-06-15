@@ -70,4 +70,14 @@ public class Board extends BaseTimeEntity {
         this.cafe = cafe;
         this.cafe.getBoardList().add(this);
     }
+
+    // 비즈니스 로직
+    public void modifyBoard(String title, String body, List<BoardHashtag> boardHashtagList) {
+        this.title = title;
+        this.body = body;
+        if (!this.boardHashtagList.isEmpty()) {
+            this.boardHashtagList.clear();
+        }
+        this.boardHashtagList = boardHashtagList;
+    }
 }

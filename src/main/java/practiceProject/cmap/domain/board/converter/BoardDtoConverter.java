@@ -12,4 +12,5 @@ public interface BoardDtoConverter {
     BoardDtoConverter INSTANCE = Mappers.getMapper(BoardDtoConverter.class);
 
     BoardParameterDTO.BoardWriteParamDto toBoardWriteParamDto(BoardRequestDTO.BoardWriteRequestDto request);
+    BoardParameterDTO.BoardModifyParamDto toBoardModifyParamDto(BoardRequestDTO.BoardModifyRequestDto request, Long boardId);
 }

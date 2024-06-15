@@ -19,4 +19,13 @@ public class BoardResponseDTO {
         @NotEmpty
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardModifyResponseDto {
+
+        @NotNull
+        Long boardId;
+        @NotEmpty
+        LocalDateTime updatedAt;
+    }
 }

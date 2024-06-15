@@ -26,4 +26,19 @@ public class BoardParameterDTO {
 
         List<Long> hashtagList;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardModifyParamDto {
+
+        @NotNull
+        Long boardId;
+        @NotNull
+        Long memberId;
+        @NotEmpty
+        String title;
+        @NotEmpty
+        String body;
+
+        List<Long> hashtagList;
+    }
 }

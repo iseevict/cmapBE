@@ -41,7 +41,11 @@ public enum ErrorStatus {
 
     // hashtag 관련
     _HASHTAG_NOT_FOUND(HttpStatus.NOT_FOUND, "TAG1001", "해시태그를 찾지 못했습니다."),
-    _FORBIDDEN_HASHTAG(HttpStatus.FORBIDDEN, "TAG1002", "권한이 없습니다.");
+    _FORBIDDEN_HASHTAG(HttpStatus.FORBIDDEN, "TAG1002", "권한이 없습니다."),
+
+    // 게시판 관련
+    _BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "BOARD1001", "게시글을 찾지 못했습니다."),
+    _NOT_MEMBERS_BOARD(HttpStatus.FORBIDDEN, "BOARD1002", "게시글 작성자가 아닙니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

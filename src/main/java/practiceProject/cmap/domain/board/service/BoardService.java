@@ -8,4 +8,5 @@ import practiceProject.cmap.domain.board.entity.Board;
 public interface BoardService {
 
     public Board BoardWrite(@Valid BoardParameterDTO.BoardWriteParamDto param);
+    public Board BoardModify(@Valid BoardParameterDTO.BoardModifyParamDto param);
 }

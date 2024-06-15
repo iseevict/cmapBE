@@ -23,4 +23,17 @@ public class BoardRequestDTO {
 
         List<Long> hashtagList;
     }
+
+    @Getter
+    public static class BoardModifyRequestDto {
+
+        @NotNull
+        Long memberId;
+        @NotEmpty
+        String title;
+        @NotEmpty
+        String body;
+
+        List<Long> hashtagList;
+    }
 }
