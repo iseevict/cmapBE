@@ -41,4 +41,13 @@ public class BoardParameterDTO {
 
         List<Long> hashtagList;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardDeleteParamDto {
+
+        @NotNull
+        Long boardId;
+        @NotNull
+        Long memberId;
+    }
 }

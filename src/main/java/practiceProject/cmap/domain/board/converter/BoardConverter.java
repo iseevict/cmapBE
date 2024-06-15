@@ -25,6 +25,14 @@ public class BoardConverter {
                 .build();
     }
 
+    public static BoardResponseDTO.BoardDeleteResponseDto toBoardDeleteResultDto() {
+
+        return BoardResponseDTO.BoardDeleteResponseDto.builder()
+                .message("삭제 성공입니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Board toBoard(BoardParameterDTO.BoardWriteParamDto param) {
 
         return Board.builder()
