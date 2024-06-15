@@ -18,9 +18,12 @@ import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.repository.CafeRepository;
 import practiceProject.cmap.domain.hashtag.entity.Hashtag;
 import practiceProject.cmap.domain.hashtag.repository.HashtagRepository;
+import practiceProject.cmap.domain.member.converter.MemberLikeBoardConverter;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.entity.MemberRole;
 import practiceProject.cmap.domain.member.entity.MemberStatus;
+import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
+import practiceProject.cmap.domain.member.repository.MemberLikeBoardRepository;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
 
 import java.util.List;
@@ -36,6 +39,7 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
     private final HashtagRepository hashtagRepository;
     private final BoardHashtagRepository boardHashtagRepository;
+    private final MemberLikeBoardRepository memberLikeBoardRepository;
 
     /**
      * 게시판 작성 API
@@ -139,5 +143,28 @@ public class BoardServiceImpl implements BoardService{
         if (!findBoard.getMember().equals(writer)) throw new CommonHandler(ErrorStatus._NOT_MEMBERS_BOARD);
 
         boardRepository.delete(findBoard);
+    }
+
+    /**
+     * 게시글 하트 누르기 API
+     * 반환 : MemberLikeBoard
+     */
+    @Override
+    @Transactional
+    public MemberLikeBoard BoardHeartOn(@Valid BoardParameterDTO.BoardHeartOnParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        // 이미 있는 경우 삭제
+        memberLikeBoardRepository.findByMemberAndBoard(findMember, findBoard).ifPresent(memberLikeBoardRepository::delete);
+
+        MemberLikeBoard memberLikeBoard = MemberLikeBoardConverter.toMemberLikeBoard();
+        memberLikeBoard.setMemberAndBoard(findMember, findBoard);
+
+        return memberLikeBoardRepository.save(memberLikeBoard);
     }
 }
