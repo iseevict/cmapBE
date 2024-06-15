@@ -12,4 +12,5 @@ public interface BoardService {
     public Board BoardModify(@Valid BoardParameterDTO.BoardModifyParamDto param);
     public void BoardDelete(@Valid BoardParameterDTO.BoardDeleteParamDto param);
     public MemberLikeBoard BoardHeartOn(@Valid BoardParameterDTO.BoardHeartOnParamDto param);
+    public void BoardHeartOff(@Valid BoardParameterDTO.BoardHeartOffParamDto param);
 }
