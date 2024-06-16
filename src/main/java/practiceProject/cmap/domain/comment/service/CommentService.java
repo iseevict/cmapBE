@@ -6,4 +6,5 @@ import practiceProject.cmap.domain.comment.entity.Comment;
 public interface CommentService {
 
     public Comment CommentWrite(CommentParameterDTO.CommentWriteParamDto param);
+    public Comment CommentModify(CommentParameterDTO.CommentModifyParamDto param);
 }

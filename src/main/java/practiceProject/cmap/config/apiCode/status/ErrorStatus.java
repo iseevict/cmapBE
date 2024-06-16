@@ -49,7 +49,8 @@ public enum ErrorStatus {
     _HEART_NOT_FOUND(HttpStatus.NOT_FOUND, "HEART1001", "이미 좋아요를 누르지 않은 상태입니다."),
 
     // 댓글 관련
-    _COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT1001", "댓글을 찾지 못했습니다.");
+    _COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT1001", "댓글을 찾지 못했습니다."),
+    _NOT_MEMBERS_COMMENT(HttpStatus.FORBIDDEN, "COMMENT1002", "댓글 작성자가 아닙니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

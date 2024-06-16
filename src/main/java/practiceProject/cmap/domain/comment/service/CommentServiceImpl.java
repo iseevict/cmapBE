@@ -41,4 +41,28 @@ public class CommentServiceImpl implements CommentService{
 
         return commentRepository.save(newComment);
     }
+
+    /**
+     * 댓글 수정 API
+     * 반환 : Comment
+     */
+    @Override
+    @Transactional
+    public Comment CommentModify(CommentParameterDTO.CommentModifyParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Comment findComment = commentRepository.findById(param.getCommentId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._COMMENT_NOT_FOUND));
+
+        if (!findComment.getMember().equals(findMember)) {
+            throw new CommonHandler(ErrorStatus._NOT_MEMBERS_COMMENT);
+        }
+
+
+        findComment.modifyComment(param.getBody());
+
+        return findComment;
+    }
 }
