@@ -2,13 +2,12 @@ package practiceProject.cmap.domain.board.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.mapping.BoardHashtag;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
-import practiceProject.cmap.domain.comment.entity.Comments;
+import practiceProject.cmap.domain.comment.entity.Comment;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
@@ -50,7 +49,7 @@ public class Board extends BaseTimeEntity {
     private List<MemberLikeBoard> memberLikeBoardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<Comments> commentsList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     // 연관관계 편의 메서드
     public void setMember(Member member) {
