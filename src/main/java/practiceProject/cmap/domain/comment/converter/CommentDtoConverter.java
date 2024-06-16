@@ -12,4 +12,5 @@ public interface CommentDtoConverter {
 
     CommentParameterDTO.CommentWriteParamDto toCommentWriteParamDto(CommentRequestDTO.CommentWriteRequestDto request, Long boardId);
     CommentParameterDTO.CommentModifyParamDto toCommentModifyParamDto(CommentRequestDTO.CommentModifyRequestDto request, Long commentId);
+    CommentParameterDTO.CommentDeleteParamDto toCommentDeleteParamDto(CommentRequestDTO.CommentDeleteRequestDto request, Long boardId, Long commentId);
 }

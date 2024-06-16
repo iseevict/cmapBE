@@ -56,4 +56,23 @@ public class CommentRestController {
         Comment comment = commentService.CommentModify(commentModifyParamDto);
         return ApiResponse.onSuccess(CommentConverter.toCommentModifyResultDto(comment));
     }
+
+    @DeleteMapping("/boards/{boardId}/comments/{commentId}")
+    @Operation(summary = "댓글 삭제 API", description = "댓글 삭제 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1001", description = "댓글을 찾지 못했습니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1002", description = "댓글 작성자가 아닙니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1003", description = "해당 게시글의 댓글이 아닙니다.")
+    })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable"),
+            @Parameter(name = "commentId", description = "댓글 식별자, PathVariable")
+    })
+    public ApiResponse<CommentResponseDTO.CommentDeleteResponseDto> CommentDelete(@RequestBody @Valid CommentRequestDTO.CommentDeleteRequestDto request, @PathVariable("boardId") Long boardId, @PathVariable("commentId") Long commentId) {
+
+        CommentParameterDTO.CommentDeleteParamDto commentDeleteParamDto = CommentDtoConverter.INSTANCE.toCommentDeleteParamDto(request, boardId, commentId);
+        commentService.CommentDelete(commentDeleteParamDto);
+        return ApiResponse.onSuccess(CommentConverter.toCommentDeleteResultDto());
+    }
 }
