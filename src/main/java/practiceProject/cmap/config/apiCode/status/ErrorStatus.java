@@ -46,7 +46,10 @@ public enum ErrorStatus {
     // 게시판 관련
     _BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "BOARD1001", "게시글을 찾지 못했습니다."),
     _NOT_MEMBERS_BOARD(HttpStatus.FORBIDDEN, "BOARD1002", "게시글 작성자가 아닙니다."),
-    _HEART_NOT_FOUND(HttpStatus.NOT_FOUND, "HEART1001", "이미 좋아요를 누르지 않은 상태입니다.");
+    _HEART_NOT_FOUND(HttpStatus.NOT_FOUND, "HEART1001", "이미 좋아요를 누르지 않은 상태입니다."),
+
+    // 댓글 관련
+    _COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT1001", "댓글을 찾지 못했습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

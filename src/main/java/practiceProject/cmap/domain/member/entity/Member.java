@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.LastModifiedDate;
 import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
-import practiceProject.cmap.domain.comment.entity.Comments;
+import practiceProject.cmap.domain.comment.entity.Comment;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 import practiceProject.cmap.domain.review.entity.Review;
 
@@ -62,7 +61,7 @@ public class Member extends BaseTimeEntity {
     private List<MemberLikeBoard> memberLikeBoardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Comments> commentsList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Cmap> cmapList = new ArrayList<>();
