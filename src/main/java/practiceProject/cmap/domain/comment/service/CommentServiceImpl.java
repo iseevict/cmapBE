@@ -56,9 +56,13 @@ public class CommentServiceImpl implements CommentService{
         Comment findComment = commentRepository.findById(param.getCommentId())
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._COMMENT_NOT_FOUND));
 
-        if (!findComment.getMember().equals(findMember)) {
-            throw new CommonHandler(ErrorStatus._NOT_MEMBERS_COMMENT);
-        }
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        if (!findComment.getMember().equals(findMember)) throw new CommonHandler(ErrorStatus._NOT_MEMBERS_COMMENT);
+
+        if (!findComment.getBoard().equals(findBoard)) throw new CommonHandler(ErrorStatus._NOT_BOARDS_COMMENT);
+
 
         findComment.modifyComment(param.getBody());
 

@@ -44,15 +44,16 @@ public class CommentRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1001", description = "댓글을 찾지 못했습니다."),
-            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1002", description = "댓글 작성자가 아닙니다.")
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1002", description = "댓글 작성자가 아닙니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMENT1003", description = "해당 게시글의 댓글이 아닙니다.")
     })
     @Parameters({
             @Parameter(name = "boardId", description = "게시글 식별자, PathVariable"),
             @Parameter(name = "commentId", description = "댓글 식별자, PathVariable")
     })
-    public ApiResponse<CommentResponseDTO.CommentModifyResponseDto> CommentModify(@RequestBody @Valid CommentRequestDTO.CommentModifyRequestDto request, @PathVariable("commentId") Long commentId) {
+    public ApiResponse<CommentResponseDTO.CommentModifyResponseDto> CommentModify(@RequestBody @Valid CommentRequestDTO.CommentModifyRequestDto request, @PathVariable("boardId") Long boardId, @PathVariable("commentId") Long commentId) {
 
-        CommentParameterDTO.CommentModifyParamDto commentModifyParamDto = CommentDtoConverter.INSTANCE.toCommentModifyParamDto(request, commentId);
+        CommentParameterDTO.CommentModifyParamDto commentModifyParamDto = CommentDtoConverter.INSTANCE.toCommentModifyParamDto(request, boardId, commentId);
         Comment comment = commentService.CommentModify(commentModifyParamDto);
         return ApiResponse.onSuccess(CommentConverter.toCommentModifyResultDto(comment));
     }
