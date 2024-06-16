@@ -16,6 +16,14 @@ public class CommentConverter {
                 .build();
     }
 
+    public static CommentResponseDTO.CommentModifyResponseDto toCommentModifyResultDto(Comment comment) {
+
+        return CommentResponseDTO.CommentModifyResponseDto.builder()
+                .commentId(comment.getId())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Comment toComment(CommentParameterDTO.CommentWriteParamDto param) {
 
         return Comment.builder()

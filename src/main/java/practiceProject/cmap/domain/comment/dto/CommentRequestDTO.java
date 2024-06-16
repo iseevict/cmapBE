@@ -14,4 +14,13 @@ public class CommentRequestDTO {
         @NotEmpty
         String body;
     }
+
+    @Getter
+    public static class CommentModifyRequestDto {
+
+        @NotNull
+        Long memberId;
+        @NotEmpty
+        String body;
+    }
 }

@@ -11,4 +11,5 @@ public interface CommentDtoConverter {
     CommentDtoConverter INSTANCE = Mappers.getMapper(CommentDtoConverter.class);
 
     CommentParameterDTO.CommentWriteParamDto toCommentWriteParamDto(CommentRequestDTO.CommentWriteRequestDto request, Long boardId);
+    CommentParameterDTO.CommentModifyParamDto toCommentModifyParamDto(CommentRequestDTO.CommentModifyRequestDto request, Long commentId);
 }

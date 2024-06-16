@@ -19,4 +19,15 @@ public class CommentParameterDTO {
         @NotEmpty
         String body;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CommentModifyParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long commentId;
+        @NotEmpty
+        String body;
+    }
 }

@@ -19,4 +19,13 @@ public class CommentResponseDTO {
         @NotEmpty
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CommentModifyResponseDto {
+
+        @NotNull
+        Long commentId;
+        @NotEmpty
+        LocalDateTime updatedAt;
+    }
 }

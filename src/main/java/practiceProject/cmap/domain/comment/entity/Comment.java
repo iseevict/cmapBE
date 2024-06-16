@@ -46,4 +46,10 @@ public class Comment extends BaseTimeEntity {
         this.member.getCommentList().add(this);
         this.board.getCommentList().add(this);
     }
+
+    // 비즈니스 로직
+    public void modifyComment(String body) {
+
+        this.body = body;
+    }
 }
