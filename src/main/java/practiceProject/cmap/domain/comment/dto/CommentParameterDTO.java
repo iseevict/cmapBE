@@ -27,6 +27,8 @@ public class CommentParameterDTO {
         Long memberId;
         @NotNull
         Long commentId;
+        @NotNull
+        Long boardId;
         @NotEmpty
         String body;
     }
