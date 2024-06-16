@@ -24,6 +24,14 @@ public class CommentConverter {
                 .build();
     }
 
+    public static CommentResponseDTO.CommentDeleteResponseDto toCommentDeleteResultDto() {
+
+        return CommentResponseDTO.CommentDeleteResponseDto.builder()
+                .message("삭제 성공입니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Comment toComment(CommentParameterDTO.CommentWriteParamDto param) {
 
         return Comment.builder()

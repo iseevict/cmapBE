@@ -28,4 +28,13 @@ public class CommentResponseDTO {
         @NotEmpty
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CommentDeleteResponseDto {
+
+        @NotEmpty
+        String message;
+        @NotEmpty
+        LocalDateTime deletedAt;
+    }
 }

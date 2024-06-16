@@ -30,4 +30,15 @@ public class CommentParameterDTO {
         @NotEmpty
         String body;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CommentDeleteParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long commentId;
+        @NotNull
+        Long boardId;
+    }
 }

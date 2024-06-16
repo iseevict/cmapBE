@@ -60,9 +60,32 @@ public class CommentServiceImpl implements CommentService{
             throw new CommonHandler(ErrorStatus._NOT_MEMBERS_COMMENT);
         }
 
-
         findComment.modifyComment(param.getBody());
 
         return findComment;
+    }
+
+    /**
+     * 댓글 삭제 API
+     * 반환 : Void
+     */
+    @Override
+    @Transactional
+    public void CommentDelete(CommentParameterDTO.CommentDeleteParamDto param) {
+
+        Comment findComment = commentRepository.findById(param.getCommentId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._COMMENT_NOT_FOUND));
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        if (!findComment.getMember().equals(findMember)) throw new CommonHandler(ErrorStatus._NOT_MEMBERS_COMMENT);
+
+        if (!findComment.getBoard().equals(findBoard)) throw new CommonHandler(ErrorStatus._NOT_BOARDS_COMMENT);
+
+        commentRepository.delete(findComment);
     }
 }
