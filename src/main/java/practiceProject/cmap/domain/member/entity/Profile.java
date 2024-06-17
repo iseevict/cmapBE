@@ -38,5 +38,11 @@ public class Profile extends BaseTimeEntity {
     private String favoriteCafeBody;
 
     // 비즈니스 로직
+    public void modifyProfile(String introduce, String favoriteCafeTitle, String favoriteCafeBody) {
+
+        this.introduce = introduce;
+        this.favoriteCafeTitle = favoriteCafeTitle;
+        this.favoriteCafeBody = favoriteCafeBody;
+    }
 
 }

@@ -51,7 +51,10 @@ public enum ErrorStatus {
     // 댓글 관련
     _COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT1001", "댓글을 찾지 못했습니다."),
     _NOT_MEMBERS_COMMENT(HttpStatus.FORBIDDEN, "COMMENT1002", "댓글 작성자가 아닙니다."),
-    _NOT_BOARDS_COMMENT(HttpStatus.FORBIDDEN, "COMMENT1003", "해당 게시글의 댓글이 아닙니다.");
+    _NOT_BOARDS_COMMENT(HttpStatus.FORBIDDEN, "COMMENT1003", "해당 게시글의 댓글이 아닙니다."),
+
+    // 프로필 관련
+    _PROFILE_NOT_FOUND(HttpStatus.NOT_FOUND, "PROFILE1001", "프로필을 찾지 못했습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
