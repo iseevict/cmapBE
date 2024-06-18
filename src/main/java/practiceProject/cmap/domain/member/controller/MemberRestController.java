@@ -81,4 +81,15 @@ public class MemberRestController {
         Member member = memberService.MemberChangeRole(memberChangeRoleParamDto);
         return ApiResponse.onSuccess(MemberConverter.toMemberChangeRoleDto(member));
     }
+
+    @DeleteMapping("/members")
+    @Operation(summary = "회원 삭제 API", description = "회원 삭제 API. INACTIVE DATE 후 1달 지나면 삭제")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<MemberResponseDTO.MemberDeleteResponseDto> MemberDelete() {
+
+        int deleteNum = memberService.MemberDelete();
+        return ApiResponse.onSuccess(MemberConverter.toMemberDeleteResultDto(deleteNum));
+    }
 }

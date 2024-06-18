@@ -10,12 +10,13 @@ import practiceProject.cmap.domain.member.converter.MemberConverter;
 import practiceProject.cmap.domain.member.converter.ProfileConverter;
 import practiceProject.cmap.domain.member.dto.MemberParameterDTO;
 import practiceProject.cmap.domain.member.entity.Member;
+import practiceProject.cmap.domain.member.entity.MemberStatus;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
 import practiceProject.cmap.domain.member.repository.ProfileRepository;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -101,5 +102,31 @@ public class MemberServiceImpl implements MemberService {
         findMember.changeRole();
 
         return findMember;
+    }
+
+    /**
+     * 회원 삭제 API
+     * 반환 : Int (삭제한 계정 수)
+     */
+    @Override
+    @Transactional
+    public int MemberDelete() {
+
+        List<Member> inactiveMemberList = memberRepository.findAllByStatus(MemberStatus.INACTIVE)
+                .get();
+
+        if (inactiveMemberList.isEmpty()) return 0;
+        else {
+            List<Member> deleteMemberList = new ArrayList<>();
+            LocalDateTime nowTime = LocalDateTime.now();
+            inactiveMemberList.forEach(
+                    member -> {
+                        Duration timeDifference = Duration.between(member.getInactiveAt(), nowTime);
+                        if (timeDifference.toDays() >= 100) deleteMemberList.add(member);
+                    });
+            int deleteNum = deleteMemberList.size();
+            memberRepository.deleteAll(deleteMemberList);
+            return deleteNum;
+        }
     }
 }

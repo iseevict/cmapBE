@@ -37,4 +37,11 @@ public class MemberResponseDTO {
         Long memberId;
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberDeleteResponseDto {
+
+        String message;
+        LocalDateTime deletedAt;
+    }
 }
