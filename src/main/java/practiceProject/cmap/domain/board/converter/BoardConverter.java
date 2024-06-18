@@ -7,8 +7,23 @@ import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BoardConverter {
+
+    public static BoardResponseDTO.HomeRandomBoardResponseDto toHomeRandomBoardResultDto(List<Board> boardList) {
+
+        return BoardResponseDTO.HomeRandomBoardResponseDto.builder()
+                .firstBoard(BoardResponseDTO.RandomBoardDataDto.builder()
+                        .boardId(boardList.get(0).getId())
+                        .cafeName(boardList.get(0).getCafe().getName())
+                        .build())
+                .secondBoard(BoardResponseDTO.RandomBoardDataDto.builder()
+                        .boardId(boardList.get(1).getId())
+                        .cafeName(boardList.get(1).getCafe().getName())
+                        .build())
+                .build();
+    }
 
     public static BoardResponseDTO.BoardWriteResponseDto toBoardWriteResultDto(Board board) {
 

@@ -26,7 +26,10 @@ import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 import practiceProject.cmap.domain.member.repository.MemberLikeBoardRepository;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +43,37 @@ public class BoardServiceImpl implements BoardService{
     private final HashtagRepository hashtagRepository;
     private final BoardHashtagRepository boardHashtagRepository;
     private final MemberLikeBoardRepository memberLikeBoardRepository;
+
+    /**
+     * 홈 화면 API
+     * 반환 : List<Board>
+     */
+    @Override
+    public List<Board> HomeRandomBoard() {
+
+        Hashtag cmapHashtag = hashtagRepository.findById(1L).orElseThrow(() -> new CommonHandler(ErrorStatus._HASHTAG_NOT_FOUND));
+
+        List<BoardHashtag> boardHashtagList = boardHashtagRepository.findAllByHashtag(cmapHashtag).get();
+
+        List<Board> boardList = boardHashtagList.stream()
+                .map(BoardHashtag::getBoard)
+                .collect(Collectors.toList());
+
+
+        if (boardList.size() > 1) {
+            Collections.shuffle(boardList);
+
+            List<Board> randomBoardList = new ArrayList<>();
+
+            randomBoardList.add(boardList.get(0));
+            randomBoardList.add(boardList.get(1));
+
+            return randomBoardList;
+        }
+        else {
+            return boardList;
+        }
+    }
 
     /**
      * 게시판 작성 API
