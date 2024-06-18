@@ -44,6 +44,14 @@ public class MemberConverter {
                 .build();
     }
 
+    public static MemberResponseDTO.MemberDeleteResponseDto toMemberDeleteResultDto(int deleteNum) {
+
+        return MemberResponseDTO.MemberDeleteResponseDto.builder()
+                .message("총 " + deleteNum + "개의 계정을 삭제했습니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
+
     public static Member toNewMember (MemberParameterDTO.MemberSignupParamDto param) {
 
         return Member.builder()

@@ -11,4 +11,5 @@ public interface MemberService {
     public Map<Long, String> MemberSignin(@Valid MemberParameterDTO.MemberSigninParamDto param);
     public Member MemberChangeStatus(@Valid MemberParameterDTO.MemberChangeStatusParamDto param);
     public Member MemberChangeRole(@Valid MemberParameterDTO.MemberChangeRoleParamDto param);
+    public int MemberDelete();
 }

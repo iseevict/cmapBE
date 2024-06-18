@@ -46,4 +46,5 @@ public class MemberParameterDTO {
         @NotNull
         Long memberId;
     }
+
 }
