@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface CafeRepository extends JpaRepository<Cafe, Long> {
+public interface CafeRepository extends JpaRepository<Cafe, Long>, CafeCustomRepository{
 
     Optional<Cafe> findByPosXAndPosY(BigDecimal posX, BigDecimal posY);
 }

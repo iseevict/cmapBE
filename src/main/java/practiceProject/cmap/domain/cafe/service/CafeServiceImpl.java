@@ -135,4 +135,16 @@ public class CafeServiceImpl implements CafeService{
             throw new CommonHandler(ErrorStatus._NOT_MEMBERS_CAFE);
         }
     }
+
+    /**
+     * 지도 화면 API
+     * 반환 : List<Cafe>
+     */
+    @Override
+    public List<Cafe> CafeLocationGet(@Valid CafeParameterDTO.CafeLocationParamDto param) {
+
+        List<Cafe> cafeList = cafeRepository.findAllByPosXAndPosY(param.getCenterX(), param.getCenterY(), param.getRadius());
+
+        return cafeList;
+    }
 }

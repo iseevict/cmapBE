@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CafeResponseDTO {
 
@@ -36,5 +38,20 @@ public class CafeResponseDTO {
         String message;
         @NotEmpty
         LocalDateTime deletedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeLocationResponseDto {
+        List<CafeLocationDataDto> cafeLocationDataDtoList;
+        Integer totalCafeNum;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeLocationDataDto {
+
+        BigDecimal posX;
+        BigDecimal posY;
+        Long cafeId;
+        String cafeName;
     }
 }
