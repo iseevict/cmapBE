@@ -17,12 +17,25 @@ import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.board.service.BoardService;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cmap")
 public class BoardRestController {
 
     private final BoardService boardService;
+
+    @GetMapping("/")
+    @Operation(summary = "홈 화면 API", description = "홈 화면 API 입니다. 랜덤 공지 2개 가져옵니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<BoardResponseDTO.HomeRandomBoardResponseDto> HomeRandomBoard() {
+
+        List<Board> boardList = boardService.HomeRandomBoard();
+        return ApiResponse.onSuccess(BoardConverter.toHomeRandomBoardResultDto(boardList));
+    }
 
     @PostMapping("/boards")
     @Operation(summary = "게시글 작성 API", description = "게시글 작성 API 입니다.")

@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import practiceProject.cmap.domain.board.entity.Board;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoardResponseDTO {
 
@@ -54,5 +56,18 @@ public class BoardResponseDTO {
         String message;
         @NotEmpty
         LocalDateTime deletedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class HomeRandomBoardResponseDto {
+        RandomBoardDataDto firstBoard;
+        RandomBoardDataDto secondBoard;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class RandomBoardDataDto {
+
+        Long boardId;
+        String cafeName;
     }
 }
