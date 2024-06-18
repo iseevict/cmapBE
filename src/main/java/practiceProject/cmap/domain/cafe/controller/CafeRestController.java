@@ -16,6 +16,9 @@ import practiceProject.cmap.domain.cafe.dto.CafeResponseDTO;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.service.CafeService;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cmap")
@@ -31,7 +34,7 @@ public class CafeRestController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "THEMA1001", description = "없는 테마입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER1004", description = "없는 회원입니다.")
     })
-    public ApiResponse<CafeResponseDTO.CafeCreateResponseDto> CreateCafe(@RequestBody @Valid CafeRequestDTO.CafeCreateRequestDto request) {
+    public ApiResponse<CafeResponseDTO.CafeCreateResponseDto> CafeCreate(@RequestBody @Valid CafeRequestDTO.CafeCreateRequestDto request) {
         CafeParameterDTO.CafeCreateParamDto cafeCreateParamDto = CafeDtoConverter.INSTANCE.toCafeCreateParamDto(request);
         Cafe cafe = cafeService.CafeCreate(cafeCreateParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeCreateResultDto(cafe));
@@ -50,7 +53,7 @@ public class CafeRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<CafeResponseDTO.CafeModifyResponseDto> ModifyCafe(@RequestBody @Valid CafeRequestDTO.CafeModifyRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<CafeResponseDTO.CafeModifyResponseDto> CafeModify(@RequestBody @Valid CafeRequestDTO.CafeModifyRequestDto request, @PathVariable("cafeId") Long cafeId) {
         CafeParameterDTO.CafeModifyParamDto cafeModifyParamDto = CafeDtoConverter.INSTANCE.toCafeModifyParamDto(request, cafeId);
         Cafe cafe = cafeService.CafeModify(cafeModifyParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeModifyResultDto(cafe));
@@ -66,10 +69,24 @@ public class CafeRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<CafeResponseDTO.CafeDeleteResponseDto> DeleteCafe(@RequestBody @Valid CafeRequestDTO.CafeDeleteRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<CafeResponseDTO.CafeDeleteResponseDto> CafeDelete(@RequestBody @Valid CafeRequestDTO.CafeDeleteRequestDto request, @PathVariable("cafeId") Long cafeId) {
         CafeParameterDTO.CafeDeleteParamDto cafeDeleteParamDto = CafeDtoConverter.INSTANCE.toCafeDeleteParamDto(request, cafeId);
         cafeService.CafeDelete(cafeDeleteParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeDeleteResultDto());
     }
 
+    @GetMapping("/cafes")
+    @Operation(summary = "지도 화면 API", description = "지도 화면 API 입니다. 범위 내에 있는 카페들의 위경도 데이터를 가져옵니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CafeResponseDTO.CafeLocationResponseDto> CafeLocationGet(
+            @RequestParam BigDecimal centerX,
+            @RequestParam BigDecimal centerY,
+            @RequestParam BigDecimal radius) {
+
+        CafeParameterDTO.CafeLocationParamDto cafeLocationParamDto = CafeDtoConverter.INSTANCE.toCafeLocationParamDto(centerX, centerY, radius);
+        List<Cafe> cafeList = cafeService.CafeLocationGet(cafeLocationParamDto);
+        return ApiResponse.onSuccess(CafeConverter.toCafeLocationResultDto(cafeList));
+    }
 }

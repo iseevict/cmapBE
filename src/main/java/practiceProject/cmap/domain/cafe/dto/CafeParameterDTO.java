@@ -56,4 +56,15 @@ public class CafeParameterDTO {
         @NotNull
         Long cafeId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeLocationParamDto {
+
+        @NotNull
+        BigDecimal centerX;
+        @NotNull
+        BigDecimal centerY;
+        @NotNull
+        BigDecimal radius;
+    }
 }

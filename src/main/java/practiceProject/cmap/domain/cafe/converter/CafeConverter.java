@@ -7,6 +7,8 @@ import practiceProject.cmap.domain.member.entity.Member;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CafeConverter {
 
@@ -31,6 +33,25 @@ public class CafeConverter {
         return CafeResponseDTO.CafeModifyResponseDto.builder()
                 .cafeId(cafe.getId())
                 .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static CafeResponseDTO.CafeLocationResponseDto toCafeLocationResultDto(List<Cafe> cafeList) {
+
+        List<CafeResponseDTO.CafeLocationDataDto> cafeLocationDataDtoList = cafeList.stream()
+                .map(cafe -> {
+                    return CafeResponseDTO.CafeLocationDataDto.builder()
+                            .posX(cafe.getPosX())
+                            .posY(cafe.getPosY())
+                            .cafeId(cafe.getId())
+                            .cafeName(cafe.getName())
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        return CafeResponseDTO.CafeLocationResponseDto.builder()
+                .cafeLocationDataDtoList(cafeLocationDataDtoList)
+                .totalCafeNum(cafeLocationDataDtoList.size())
                 .build();
     }
 
