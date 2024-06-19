@@ -1,5 +1,6 @@
 package practiceProject.cmap.domain.thema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -23,6 +24,6 @@ public class Thema {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "thema", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "thema", cascade = CascadeType.ALL) @JsonIgnore
     private List<CafeThema> cafeThemaList = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package practiceProject.cmap.domain.cafe.converter;
 
+import practiceProject.cmap.domain.cafe.dto.CafeDataDTO;
 import practiceProject.cmap.domain.cafe.dto.CafeParameterDTO;
 import practiceProject.cmap.domain.cafe.dto.CafeResponseDTO;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
@@ -38,9 +39,9 @@ public class CafeConverter {
 
     public static CafeResponseDTO.CafeLocationResponseDto toCafeLocationResultDto(List<Cafe> cafeList) {
 
-        List<CafeResponseDTO.CafeLocationDataDto> cafeLocationDataDtoList = cafeList.stream()
+        List<CafeDataDTO.CafeLocationDataDto> cafeLocationDataDtoList = cafeList.stream()
                 .map(cafe -> {
-                    return CafeResponseDTO.CafeLocationDataDto.builder()
+                    return CafeDataDTO.CafeLocationDataDto.builder()
                             .posX(cafe.getPosX())
                             .posY(cafe.getPosY())
                             .cafeId(cafe.getId())
@@ -52,6 +53,24 @@ public class CafeConverter {
         return CafeResponseDTO.CafeLocationResponseDto.builder()
                 .cafeLocationDataDtoList(cafeLocationDataDtoList)
                 .totalCafeNum(cafeLocationDataDtoList.size())
+                .build();
+    }
+
+    public static CafeResponseDTO.CafeSearchResponseDto toCafeSearchResultDto(List<Cafe> cafeList) {
+
+        List<CafeDataDTO.CafeSearchDataDto> cafeSearchDataDtoList = cafeList.stream()
+                .map(cafe -> {
+                    return CafeDataDTO.CafeSearchDataDto.builder()
+                            .cafeName(cafe.getName())
+                            .introduce(cafe.getIntroduce())
+                            .reviewNum(cafe.getReviewList().size())
+                            .score(cafe.getScore())
+                            .build();
+                }).collect(Collectors.toList());
+
+        return CafeResponseDTO.CafeSearchResponseDto.builder()
+                .cafeSearchDataDtoList(cafeSearchDataDtoList)
+                .totalCafeNum(cafeSearchDataDtoList.size())
                 .build();
     }
 

@@ -67,4 +67,15 @@ public class CafeParameterDTO {
         @NotNull
         BigDecimal radius;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeSearchParamDto {
+
+        @NotNull
+        BigDecimal centerX;
+        @NotNull
+        BigDecimal centerY;
+        @NotNull
+        BigDecimal radius;
+    }
 }

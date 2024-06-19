@@ -80,13 +80,28 @@ public class CafeRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
-    public ApiResponse<CafeResponseDTO.CafeLocationResponseDto> CafeLocationGet(
+    public ApiResponse<CafeResponseDTO.CafeLocationResponseDto> CafeLocation(
             @RequestParam BigDecimal centerX,
             @RequestParam BigDecimal centerY,
             @RequestParam BigDecimal radius) {
 
         CafeParameterDTO.CafeLocationParamDto cafeLocationParamDto = CafeDtoConverter.INSTANCE.toCafeLocationParamDto(centerX, centerY, radius);
-        List<Cafe> cafeList = cafeService.CafeLocationGet(cafeLocationParamDto);
+        List<Cafe> cafeList = cafeService.CafeLocation(cafeLocationParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeLocationResultDto(cafeList));
+    }
+
+    @GetMapping("/cafes/search")
+    @Operation(summary = "지도 검색창 API", description = "지도 검색창 API 입니다. 범위 내에 있는 카페들의 데이터를 가져옵니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CafeResponseDTO.CafeSearchResponseDto> CafeSearch(
+            @RequestParam BigDecimal centerX,
+            @RequestParam BigDecimal centerY,
+            @RequestParam BigDecimal radius ) {
+
+        CafeParameterDTO.CafeSearchParamDto cafeSearchParamDto = CafeDtoConverter.INSTANCE.toCafeSearchParamDto(centerX, centerY, radius);
+        List<Cafe> cafeList = cafeService.CafeSearch(cafeSearchParamDto);
+        return ApiResponse.onSuccess(CafeConverter.toCafeSearchResultDto(cafeList));
     }
 }
