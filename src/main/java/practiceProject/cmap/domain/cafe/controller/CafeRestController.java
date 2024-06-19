@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.cafe.converter.CafeConverter;
@@ -14,7 +16,13 @@ import practiceProject.cmap.domain.cafe.dto.CafeParameterDTO;
 import practiceProject.cmap.domain.cafe.dto.CafeRequestDTO;
 import practiceProject.cmap.domain.cafe.dto.CafeResponseDTO;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
+import practiceProject.cmap.domain.cafe.entity.mapping.CafeThema;
 import practiceProject.cmap.domain.cafe.service.CafeService;
+import practiceProject.cmap.domain.cmap.entity.CmapStatus;
+import practiceProject.cmap.domain.cmap.service.CmapService;
+import practiceProject.cmap.domain.review.entity.Review;
+import practiceProject.cmap.domain.review.service.ReviewService;
+import practiceProject.cmap.domain.thema.entity.Thema;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,6 +33,8 @@ import java.util.List;
 public class CafeRestController {
 
     private final CafeService cafeService;
+    private final ReviewService reviewService;
+    private final CmapService cmapService;
 
     @PostMapping("/cafes")
     @Operation(summary = "카페 추가 API", description = "카페 추가 API 입니다.")
@@ -103,5 +113,24 @@ public class CafeRestController {
         CafeParameterDTO.CafeSearchParamDto cafeSearchParamDto = CafeDtoConverter.INSTANCE.toCafeSearchParamDto(centerX, centerY, radius);
         List<Cafe> cafeList = cafeService.CafeSearch(cafeSearchParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeSearchResultDto(cafeList));
+    }
+
+    @GetMapping("/cafes/{cafeId}")
+    @Operation(summary = "카페 데이터 가져오기 API", description = "카페 데이터 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CafeResponseDTO.CafeDetailResponseDto> CafeDetail(
+            @RequestParam Long memberId,
+            @PathVariable("cafeId") Long cafeId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        CafeParameterDTO.CafeDetailParamDto cafeDetailParamDto = CafeDtoConverter.INSTANCE.toCafeDetailParamDto(memberId, cafeId);
+        Cafe cafe = cafeService.CafeDetail(cafeDetailParamDto);
+        Slice<Review> reviewSlice = reviewService.CafeDetailReviewList(cafe, PageRequest.of(page, size));
+        List<CafeThema> cafeThemaList = cafeService.CafeDetailThema(cafe);
+        CmapStatus cmapStatus = cmapService.CmapStatusCheck(cafeDetailParamDto);
+        return ApiResponse.onSuccess(CafeConverter.toCafeDetailResultDto(cafe, reviewSlice, cafeThemaList, cmapStatus));
     }
 }

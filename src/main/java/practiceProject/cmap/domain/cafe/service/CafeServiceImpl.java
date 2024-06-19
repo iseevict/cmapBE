@@ -15,9 +15,12 @@ import practiceProject.cmap.domain.cafe.repository.CafeRepository;
 import practiceProject.cmap.domain.cafe.repository.CafeThemaRepository;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
+import practiceProject.cmap.domain.review.entity.Review;
+import practiceProject.cmap.domain.review.repository.ReviewRepository;
 import practiceProject.cmap.domain.thema.entity.Thema;
 import practiceProject.cmap.domain.thema.repository.ThemaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,7 @@ public class CafeServiceImpl implements CafeService{
     private final ThemaRepository themaRepository;
     private final MemberRepository memberRepository;
     private final CafeThemaRepository cafeThemaRepository;
+    private final ReviewRepository reviewRepository;
 
     /**
      * 카페 생성 API
@@ -159,4 +163,28 @@ public class CafeServiceImpl implements CafeService{
 
         return cafeList;
     }
+
+    /**
+     * 카페 정보 가져오기 API
+     * 반환 : Cafe
+     */
+    @Override
+        public Cafe CafeDetail(@Valid CafeParameterDTO.CafeDetailParamDto param) {
+
+            Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                    .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        return findCafe;
+    }
+
+    /**
+     * 카페 정보 가져오기 API
+     * 반환 : List<CafeThema>
+     */
+    @Override
+    public List<CafeThema> CafeDetailThema(Cafe cafe) {
+
+        return cafeThemaRepository.findAllByCafe(cafe).orElse(new ArrayList<>());
+    }
+
 }

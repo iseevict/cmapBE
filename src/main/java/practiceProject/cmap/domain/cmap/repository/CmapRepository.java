@@ -7,6 +7,6 @@ import practiceProject.cmap.domain.member.entity.Member;
 
 import java.util.Optional;
 
-public interface CmapRepository extends JpaRepository<Cmap, Long> {
+public interface CmapRepository extends JpaRepository<Cmap, Long>, CmapCustomRepository {
     Optional<Cmap> findByCafeAndMember(Cafe cafe, Member member);
 }

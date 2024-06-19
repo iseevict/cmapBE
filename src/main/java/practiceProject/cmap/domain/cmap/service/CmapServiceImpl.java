@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practiceProject.cmap.config.apiCode.status.ErrorStatus;
 import practiceProject.cmap.config.exception.handler.CommonHandler;
+import practiceProject.cmap.domain.cafe.dto.CafeParameterDTO;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.repository.CafeRepository;
 import practiceProject.cmap.domain.cmap.converter.CmapConverter;
 import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
+import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 import practiceProject.cmap.domain.cmap.repository.CmapRepository;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
@@ -91,5 +93,21 @@ public class CmapServiceImpl implements CmapService{
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._CMAP_NOT_FOUND));
 
         cmapRepository.delete(findCmap);
+    }
+
+    /**
+     * 카페 정보 가져오기 API
+     * 반환 : CmapStatus
+     */
+    @Override
+    public CmapStatus CmapStatusCheck(@Valid CafeParameterDTO.CafeDetailParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
+
+        return cmapRepository.findCampStatusByCafeAndMember(findCafe, findMember);
     }
 }

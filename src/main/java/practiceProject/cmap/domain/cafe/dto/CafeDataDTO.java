@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
+import practiceProject.cmap.domain.review.dto.ReviewDataDTO;
 import practiceProject.cmap.domain.review.entity.Review;
 import practiceProject.cmap.domain.thema.entity.Thema;
 
@@ -31,5 +32,19 @@ public class CafeDataDTO {
         Integer reviewNum;
         Float score;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeDetailDataDto {
+
+        String cafeName;
+        String introduce;
+        Float score;
+        Integer boardNum;
+        Integer reviewNum;
+        List<Long> themaList;
+        CmapStatus status;
+        ReviewDataDTO.ReviewPreviewListDataDto reviewPreviewListDataDto;
+    }
+
 
 }

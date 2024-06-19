@@ -78,4 +78,13 @@ public class CafeParameterDTO {
         @NotNull
         BigDecimal radius;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeDetailParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long cafeId;
+    }
 }

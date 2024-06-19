@@ -1,5 +1,6 @@
 package practiceProject.cmap.domain.cafe.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -59,6 +60,7 @@ public class Cafe extends BaseTimeEntity {
     private List<Cmap> cmapList = new ArrayList<>();
 
     @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Review> reviewList = new ArrayList<>();
 
     // 연관관계 편의 메서드
