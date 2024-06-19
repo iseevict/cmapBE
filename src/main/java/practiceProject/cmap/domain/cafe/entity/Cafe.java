@@ -85,7 +85,8 @@ public class Cafe extends BaseTimeEntity {
                     .mapToDouble(Review::getScore)
                     .sum();
 
-            this.score = totalScore / this.reviewList.size();
+            float score = totalScore / this.reviewList.size();
+            this.score = Math.round(score * 10) / 10f;
         }
     }
 

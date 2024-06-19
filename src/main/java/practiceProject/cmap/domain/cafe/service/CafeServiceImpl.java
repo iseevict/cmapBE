@@ -141,7 +141,19 @@ public class CafeServiceImpl implements CafeService{
      * 반환 : List<Cafe>
      */
     @Override
-    public List<Cafe> CafeLocationGet(@Valid CafeParameterDTO.CafeLocationParamDto param) {
+    public List<Cafe> CafeLocation(@Valid CafeParameterDTO.CafeLocationParamDto param) {
+
+        List<Cafe> cafeList = cafeRepository.findAllByPosXAndPosY(param.getCenterX(), param.getCenterY(), param.getRadius());
+
+        return cafeList;
+    }
+
+    /**
+     * 지도 검색창 API
+     * 반환 : List<Cafe>
+     */
+    @Override
+    public List<Cafe> CafeSearch(@Valid CafeParameterDTO.CafeSearchParamDto param) {
 
         List<Cafe> cafeList = cafeRepository.findAllByPosXAndPosY(param.getCenterX(), param.getCenterY(), param.getRadius());
 

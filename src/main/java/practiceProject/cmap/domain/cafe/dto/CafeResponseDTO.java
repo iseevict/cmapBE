@@ -42,16 +42,16 @@ public class CafeResponseDTO {
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CafeLocationResponseDto {
-        List<CafeLocationDataDto> cafeLocationDataDtoList;
+
+        List<CafeDataDTO.CafeLocationDataDto> cafeLocationDataDtoList;
         Integer totalCafeNum;
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CafeLocationDataDto {
+    public static class CafeSearchResponseDto {
 
-        BigDecimal posX;
-        BigDecimal posY;
-        Long cafeId;
-        String cafeName;
+        List<CafeDataDTO.CafeSearchDataDto> cafeSearchDataDtoList;
+        Integer totalCafeNum;
     }
+
 }
