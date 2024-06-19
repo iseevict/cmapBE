@@ -8,4 +8,6 @@ import java.util.List;
 public interface CafeCustomRepository {
 
     List<Cafe> findAllByPosXAndPosY(BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
+    Cafe findWithReviewAndThema(Long cafeId);
+
 }

@@ -2,6 +2,8 @@ package practiceProject.cmap.domain.review.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practiceProject.cmap.config.apiCode.status.ErrorStatus;
@@ -103,6 +105,15 @@ public class ReviewServiceImpl implements ReviewService{
 
         // 리뷰 삭제
         reviewRepository.delete(findReview);
+    }
 
+    /**
+     * 카페 정보 가져오기 API
+     * 반환 : Slice<Review>
+     */
+    @Override
+    public Slice<Review> CafeDetailReviewList(Cafe cafe, Pageable pageable) {
+
+        return reviewRepository.findAllByCafeToSlice(cafe, pageable);
     }
 }

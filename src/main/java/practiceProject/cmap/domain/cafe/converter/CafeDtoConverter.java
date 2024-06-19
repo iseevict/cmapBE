@@ -17,4 +17,5 @@ public interface CafeDtoConverter {
     CafeParameterDTO.CafeModifyParamDto toCafeModifyParamDto(CafeRequestDTO.CafeModifyRequestDto request, Long cafeId);
     CafeParameterDTO.CafeLocationParamDto toCafeLocationParamDto(BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
     CafeParameterDTO.CafeSearchParamDto toCafeSearchParamDto(BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
+    CafeParameterDTO.CafeDetailParamDto toCafeDetailParamDto(Long memberId, Long cafeId);
 }

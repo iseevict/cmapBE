@@ -32,9 +32,6 @@ public class Review extends BaseTimeEntity {
     @ColumnDefault("'0'")
     private Float score;
 
-    @Column(nullable = false, updatable = false)
-    private String writer;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id", updatable = false)
     private Cafe cafe;
@@ -60,7 +57,6 @@ public class Review extends BaseTimeEntity {
             this.member.getReviewList().remove(this);
         }
         this.member = member;
-        this.writer = member.getName();
         this.member.getReviewList().add(this);
     }
 

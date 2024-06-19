@@ -54,4 +54,10 @@ public class CafeResponseDTO {
         Integer totalCafeNum;
     }
 
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CafeDetailResponseDto {
+
+        CafeDataDTO.CafeDetailDataDto cafeDetailDataDtoList;
+    }
+
 }
