@@ -57,7 +57,8 @@ public enum ErrorStatus {
     _PROFILE_NOT_FOUND(HttpStatus.NOT_FOUND, "PROFILE1001", "프로필을 찾지 못했습니다."),
 
     // Mate 관련
-    _ALREADY_MATE(HttpStatus.CONFLICT, "MATE1001", "이미 Mate 입니다.");
+    _ALREADY_MATE(HttpStatus.CONFLICT, "MATE1001", "이미 Mate 입니다."),
+    _MATE_NOT_FOUND(HttpStatus.NOT_FOUND, "MATE1002", "Mate를 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

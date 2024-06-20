@@ -11,4 +11,11 @@ public class MateRequestDTO {
         @NotNull
         Long memberId;
     }
+
+    @Getter
+    public static class MateDeleteRequestDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

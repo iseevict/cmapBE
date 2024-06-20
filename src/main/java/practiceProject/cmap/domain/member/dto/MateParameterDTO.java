@@ -16,4 +16,13 @@ public class MateParameterDTO {
         @NotNull
         Long mateId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MateDeleteParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Long mateId;
+    }
 }

@@ -11,4 +11,5 @@ public interface MateDtoConverter {
     MateDtoConverter INSTANCE = Mappers.getMapper(MateDtoConverter.class);
 
     MateParameterDTO.MateCreateParamDto toMateCreateParamDto(MateRequestDTO.MateCreateRequestDto request, Long mateId);
+    MateParameterDTO.MateDeleteParamDto toMateDeleteParamDto(MateRequestDTO.MateDeleteRequestDto request, Long mateId);
 }

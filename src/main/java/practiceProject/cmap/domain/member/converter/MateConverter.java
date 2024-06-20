@@ -15,4 +15,12 @@ public class MateConverter {
                 .createdAt(LocalDateTime.now())
                 .build();
     }
+
+    public static MateResponseDTO.MateDeleteResponseDto toMateDeleteResultDto() {
+
+        return MateResponseDTO.MateDeleteResponseDto.builder()
+                .message("삭제 성공입니다.")
+                .deletedAt(LocalDateTime.now())
+                .build();
+    }
 }
