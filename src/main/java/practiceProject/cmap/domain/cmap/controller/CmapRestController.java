@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.cmap.converter.CmapConverter;
 import practiceProject.cmap.domain.cmap.converter.CmapDtoConverter;
+import practiceProject.cmap.domain.cmap.dto.CmapDataDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapRequestDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapResponseDTO;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
 import practiceProject.cmap.domain.cmap.service.CmapService;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,7 +41,7 @@ public class CmapRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<CmapResponseDTO.CmapCreateResponseDto> CreateCmap(@RequestBody @Valid CmapRequestDTO.CmapCreateRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<CmapResponseDTO.CmapCreateResponseDto> CmapCreate(@RequestBody @Valid CmapRequestDTO.CmapCreateRequestDto request, @PathVariable("cafeId") Long cafeId) {
         CmapParameterDTO.CmapCreateParamDto cmapCreateParamDto = CmapDtoConverter.INSTANCE.toCmapCreateParamDto(request, cafeId);
         Cmap cmap = cmapService.CmapCreate(cmapCreateParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapCreateResultDto(cmap));
@@ -55,7 +58,7 @@ public class CmapRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<CmapResponseDTO.CmapStatusChangeResponseDto> ChangeCmapStatus(@RequestBody @Valid CmapRequestDTO.CmapStatusChangeRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<CmapResponseDTO.CmapStatusChangeResponseDto> CmapStatusChange(@RequestBody @Valid CmapRequestDTO.CmapStatusChangeRequestDto request, @PathVariable("cafeId") Long cafeId) {
         CmapParameterDTO.CmapStatusChangeParamDto cmapStatusChangeParamDto = CmapDtoConverter.INSTANCE.toCmapStatusChangeParamDto(request, cafeId);
         Cmap cmap = cmapService.CmapStatusChange(cmapStatusChangeParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapStatusChangeResultDto(cmap));
@@ -72,9 +75,24 @@ public class CmapRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<CmapResponseDTO.CmapDeleteResponseDto> DeleteCmap(@RequestBody @Valid CmapRequestDTO.CmapDeleteRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<CmapResponseDTO.CmapDeleteResponseDto> CmapDelete(@RequestBody @Valid CmapRequestDTO.CmapDeleteRequestDto request, @PathVariable("cafeId") Long cafeId) {
         CmapParameterDTO.CmapDeleteParamDto cmapDeleteParamDto = CmapDtoConverter.INSTANCE.toCmapDeleteParamDto(request, cafeId);
         cmapService.CmapDelete(cmapDeleteParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapDeleteResultDto());
+    }
+
+    @GetMapping("/cmaps/{memberId}")
+    @Operation(summary = "Cmap 지도 화면 API", description = "Cmap 지도 화면 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CmapResponseDTO.CmapLocationResponseDto> CmapLocation(@PathVariable("memberId") Long memberId,
+                                                                             @RequestParam BigDecimal centerX,
+                                                                             @RequestParam BigDecimal centerY,
+                                                                             @RequestParam BigDecimal radius) {
+
+        CmapParameterDTO.CmapLocationParamDto cmapLocationParamDto = CmapDtoConverter.INSTANCE.toCmapLocationParamDto(memberId, centerX, centerY, radius);
+        List<CmapDataDTO.CmapJoinCafeDataDto> cmapJoinCafeDataDtoList = cmapService.CmapLocation(cmapLocationParamDto);
+        return ApiResponse.onSuccess(CmapConverter.toCmapLocationResultDto(cmapJoinCafeDataDtoList));
     }
 }

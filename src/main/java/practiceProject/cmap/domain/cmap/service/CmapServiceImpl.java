@@ -10,12 +10,16 @@ import practiceProject.cmap.domain.cafe.dto.CafeParameterDTO;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.repository.CafeRepository;
 import practiceProject.cmap.domain.cmap.converter.CmapConverter;
+import practiceProject.cmap.domain.cmap.dto.CmapDataDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 import practiceProject.cmap.domain.cmap.repository.CmapRepository;
 import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -109,5 +113,15 @@ public class CmapServiceImpl implements CmapService{
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._CAFE_NOT_FOUND));
 
         return cmapRepository.findCampStatusByCafeAndMember(findCafe, findMember);
+    }
+
+    /**
+     * Cmap 지도 화면 API
+     * 반환 : List<Cafe>
+     */
+    @Override
+    public List<CmapDataDTO.CmapJoinCafeDataDto> CmapLocation(@Valid CmapParameterDTO.CmapLocationParamDto param) {
+
+        return cmapRepository.findCmapJoinCafe(param);
     }
 }

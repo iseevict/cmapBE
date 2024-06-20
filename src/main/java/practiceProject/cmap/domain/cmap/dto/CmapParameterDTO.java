@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class CmapParameterDTO {
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
@@ -39,5 +42,18 @@ public class CmapParameterDTO {
         Long cafeId;
         @NotNull
         Long memberId;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapLocationParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        BigDecimal centerX;
+        @NotNull
+        BigDecimal centerY;
+        @NotNull
+        BigDecimal radius;
     }
 }
