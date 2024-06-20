@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MateResponseDTO {
 
@@ -22,5 +23,12 @@ public class MateResponseDTO {
 
         String message;
         LocalDateTime deletedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MateListResponseDto {
+
+        Long memberId;
+        List<MateDataDTO.MateListDataDto> mateListDataDtoList;
     }
 }

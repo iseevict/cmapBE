@@ -12,6 +12,9 @@ import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.member.repository.MateRepository;
 import practiceProject.cmap.domain.member.repository.MemberRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -33,6 +36,8 @@ public class MateServiceImpl implements MateService{
 
         Member fromMember = memberRepository.findById(param.getMemberId())
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        if (toMember.equals(fromMember)) throw new CommonHandler(ErrorStatus._MEMBER_MATE_SAME);
 
         mateRepository.findMateByMemberAndMate(fromMember, toMember)
                 .ifPresent(c -> {
@@ -63,5 +68,20 @@ public class MateServiceImpl implements MateService{
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._MATE_NOT_FOUND));
 
         mateRepository.delete(findMate);
+    }
+
+    /**
+     * Mate 리스트 가져오기 API
+     * 반환 : List<Mate>
+     */
+    @Override
+    public List<Mate> MateList(@Valid MateParameterDTO.MateListParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        List<Mate> mateList = mateRepository.findAllByMember(findMember).orElse(new ArrayList<>());
+
+        return mateList;
     }
 }
