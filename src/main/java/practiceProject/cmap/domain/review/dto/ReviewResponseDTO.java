@@ -37,4 +37,15 @@ public class ReviewResponseDTO {
         @NotEmpty
         LocalDateTime deletedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class SingleReviewResponseDto {
+
+        String title;
+        String body;
+        Float score;
+        String writer;
+        Long memberId;
+        LocalDateTime updatedAt;
+    }
 }

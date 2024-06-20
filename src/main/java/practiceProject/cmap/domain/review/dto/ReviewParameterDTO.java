@@ -46,4 +46,13 @@ public class ReviewParameterDTO {
         @NotNull
         Long reviewId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class SingleReviewParamDto {
+
+        @NotNull
+        Long cafeId;
+        @NotNull
+        Long reviewId;
+    }
 }

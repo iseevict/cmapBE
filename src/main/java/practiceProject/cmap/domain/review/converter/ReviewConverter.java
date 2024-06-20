@@ -10,6 +10,18 @@ import java.time.LocalDateTime;
 
 public class ReviewConverter {
 
+    public static ReviewResponseDTO.SingleReviewResponseDto toSingleReviewResultDto(Review review) {
+
+        return ReviewResponseDTO.SingleReviewResponseDto.builder()
+                .title(review.getTitle())
+                .body(review.getBody())
+                .score(review.getScore())
+                .writer(review.getMember().getName())
+                .memberId(review.getMember().getId())
+                .updatedAt(review.getUpdatedAt())
+                .build();
+    }
+
     public static ReviewResponseDTO.ReviewWriteResponseDto toReviewWriteResultDto(Review review) {
 
         return ReviewResponseDTO.ReviewWriteResponseDto.builder()

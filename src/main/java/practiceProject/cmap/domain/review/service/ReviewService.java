@@ -15,4 +15,5 @@ public interface ReviewService {
     public Review ReviewModify(@Valid ReviewParameterDTO.ReviewModifyParamDto param);
     public void ReviewDelete(@Valid ReviewParameterDTO.ReviewDeleteParamDto param);
     public Slice<Review> CafeDetailReviewList(Cafe cafe, Pageable pageable);
+    public Review SingleReviewData(ReviewParameterDTO.SingleReviewParamDto param);
 }
