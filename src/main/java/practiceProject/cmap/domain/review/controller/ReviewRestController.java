@@ -36,7 +36,7 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewWriteResponseDto> WriteReview(@RequestBody @Valid ReviewRequestDTO.ReviewWriteRequestDto request, @PathVariable("cafeId") Long cafeId) {
+    public ApiResponse<ReviewResponseDTO.ReviewWriteResponseDto> ReviewWrite(@RequestBody @Valid ReviewRequestDTO.ReviewWriteRequestDto request, @PathVariable("cafeId") Long cafeId) {
         ReviewParameterDTO.ReviewWriteParamDto reviewWriteParamDto = ReviewDtoConverter.INSTANCE.toReviewWriteParamDto(request, cafeId);
         Review newReview = reviewService.ReviewWrite(reviewWriteParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toReviewWriteResultDto(newReview));
@@ -54,7 +54,7 @@ public class ReviewRestController {
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable"),
             @Parameter(name = "reviewId", description = "리뷰 식별자, PathVariable")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewModifyResponseDto> ModifyReview(@RequestBody @Valid ReviewRequestDTO.ReviewModifyRequestDto request, @PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
+    public ApiResponse<ReviewResponseDTO.ReviewModifyResponseDto> ReviewModify(@RequestBody @Valid ReviewRequestDTO.ReviewModifyRequestDto request, @PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
         ReviewParameterDTO.ReviewModifyParamDto reviewModifyParamDto = ReviewDtoConverter.INSTANCE.toReviewModifyParamDto(request, cafeId, reviewId);
         Review review = reviewService.ReviewModify(reviewModifyParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toReviewModifyResultDto(review));
@@ -72,9 +72,22 @@ public class ReviewRestController {
             @Parameter(name = "cafeId", description = "카페 식별자, PathVariable"),
             @Parameter(name = "reviewId", description = "리뷰 식별자, PathVariable")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewDeleteResponseDto> DeleteReview(@PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
+    public ApiResponse<ReviewResponseDTO.ReviewDeleteResponseDto> ReviewDelete(@PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
         ReviewParameterDTO.ReviewDeleteParamDto reviewDeleteParamDto = ReviewDtoConverter.INSTANCE.toReviewDeleteParamDto(cafeId, reviewId);
         reviewService.ReviewDelete(reviewDeleteParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toReviewDeleteResultDto());
+    }
+
+    @GetMapping("/cafes/{cafeId}/reviews/{reviewId}")
+    @Operation(summary = "단일 리뷰 데이터 가져오기 API", description = "단일 리뷰 데이터 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "REVIEW1003", description = "해당 카페의 리뷰가 아닙니다.")
+    })
+    public ApiResponse<ReviewResponseDTO.SingleReviewResponseDto> SingleReviewData(@PathVariable("cafeId") Long cafeId, @PathVariable("reviewId") Long reviewId) {
+
+        ReviewParameterDTO.SingleReviewParamDto singleReviewParamDto = ReviewDtoConverter.INSTANCE.toSingleReviewParamDto(cafeId, reviewId);
+        Review review = reviewService.SingleReviewData(singleReviewParamDto);
+        return ApiResponse.onSuccess(ReviewConverter.toSingleReviewResultDto(review));
     }
 }

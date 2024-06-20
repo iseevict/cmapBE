@@ -116,4 +116,22 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.findAllByCafeToSlice(cafe, pageable);
     }
+
+    /**
+     * 리뷰 데이터 가져오기 API
+     * 반환 : Review
+     */
+    @Override
+    public Review SingleReviewData(ReviewParameterDTO.SingleReviewParamDto param) {
+
+        Cafe findCafe = cafeRepository.findById(param.getCafeId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._REVIEW_NOT_FOUND));
+
+        Review findReview = reviewRepository.findById(param.getReviewId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._REVIEW_NOT_FOUND));
+
+        if (!findReview.getCafe().equals(findCafe)) throw new CommonHandler(ErrorStatus._REVIEW_CAFE_NOT_MATCHING);
+
+        return findReview;
+    }
 }
