@@ -25,4 +25,15 @@ public class Mate extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mate_id")
     private Member mate;
+
+    // 연관관계 편의 메서드
+    public void setMemberAndMate(Member toMember, Member fromMember) {
+
+        if (this.member != null) {
+            member.getMateList().remove(this);
+        }
+        this.member = fromMember;
+        this.mate = toMember;
+        this.member.getMateList().add(this);
+    }
 }
