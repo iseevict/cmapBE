@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CmapResponseDTO {
 
@@ -39,5 +40,11 @@ public class CmapResponseDTO {
         String message;
         @NotEmpty
         LocalDateTime deletedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapLocationResponseDto {
+
+        List<CmapDataDTO.CmapLocationDataDto> cmapLocationDataDtoList;
     }
 }
