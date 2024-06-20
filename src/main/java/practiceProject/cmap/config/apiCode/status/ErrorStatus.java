@@ -58,7 +58,8 @@ public enum ErrorStatus {
 
     // Mate 관련
     _ALREADY_MATE(HttpStatus.CONFLICT, "MATE1001", "이미 Mate 입니다."),
-    _MATE_NOT_FOUND(HttpStatus.NOT_FOUND, "MATE1002", "Mate를 찾을 수 없습니다.");
+    _MATE_NOT_FOUND(HttpStatus.NOT_FOUND, "MATE1002", "Mate를 찾을 수 없습니다."),
+    _MEMBER_MATE_SAME(HttpStatus.FORBIDDEN, "MATE1003", "본인은 Mate로 설정할 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

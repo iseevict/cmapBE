@@ -25,4 +25,11 @@ public class MateParameterDTO {
         @NotNull
         Long mateId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MateListParamDto {
+
+        @NotNull
+        Long memberId;
+    }
 }
