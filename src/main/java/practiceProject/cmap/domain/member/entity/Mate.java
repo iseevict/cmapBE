@@ -36,4 +36,5 @@ public class Mate extends BaseTimeEntity {
         this.mate = toMember;
         this.member.getMateList().add(this);
     }
+
 }

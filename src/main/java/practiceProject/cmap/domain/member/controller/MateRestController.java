@@ -40,4 +40,20 @@ public class MateRestController {
         Mate mate = mateService.MateCreate(mateCreateParamDto);
         return ApiResponse.onSuccess(MateConverter.toMateCreateResultDto(mate));
     }
+
+    @DeleteMapping("/profiles/{mateId}")
+    @Operation(summary = "Mate 삭제 API", description = "Mate 삭제 API입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MATE1002", description = "Mate를 찾을 수 없습니다.")
+    })
+    @Parameters({
+            @Parameter(name = "mateId", description = "회원(mate) 식별자, PathVariable")
+    })
+    public ApiResponse<MateResponseDTO.MateDeleteResponseDto> MateDelete(@RequestBody @Valid MateRequestDTO.MateDeleteRequestDto request, @PathVariable("mateId") Long mateId) {
+
+        MateParameterDTO.MateDeleteParamDto mateDeleteParamDto = MateDtoConverter.INSTANCE.toMateDeleteParamDto(request, mateId);
+        mateService.MateDelete(mateDeleteParamDto);
+        return ApiResponse.onSuccess(MateConverter.toMateDeleteResultDto());
+    }
 }

@@ -16,4 +16,11 @@ public class MateResponseDTO {
         Long memberId;
         LocalDateTime createdAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MateDeleteResponseDto {
+
+        String message;
+        LocalDateTime deletedAt;
+    }
 }

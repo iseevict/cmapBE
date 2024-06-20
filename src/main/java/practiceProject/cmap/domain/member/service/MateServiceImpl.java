@@ -44,4 +44,24 @@ public class MateServiceImpl implements MateService{
         newMate.setMemberAndMate(toMember, fromMember);
         return mateRepository.save(newMate);
     }
+
+    /**
+     * Mate 삭제 API
+     * 반환 : Void
+     */
+    @Override
+    @Transactional
+    public void MateDelete(@Valid MateParameterDTO.MateDeleteParamDto param) {
+
+        Member toMember = memberRepository.findById(param.getMateId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Member fromMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Mate findMate = mateRepository.findMateByMemberAndMate(fromMember, toMember)
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MATE_NOT_FOUND));
+
+        mateRepository.delete(findMate);
+    }
 }
