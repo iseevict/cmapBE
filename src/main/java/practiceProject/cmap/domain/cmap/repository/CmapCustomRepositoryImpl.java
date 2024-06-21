@@ -8,11 +8,13 @@ import practiceProject.cmap.domain.cafe.entity.QCafe;
 import practiceProject.cmap.domain.cmap.dto.CmapDataDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.dto.QCmapDataDTO_CmapJoinCafeDataDto;
+import practiceProject.cmap.domain.cmap.entity.Cmap;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 import practiceProject.cmap.domain.cmap.entity.QCmap;
 import practiceProject.cmap.domain.member.entity.Member;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -64,5 +66,19 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
                         .and(cafe.posY.between(lowPosY, highPosY))
                         .and(cmap.member.id.eq(param.getMemberId())))
                 .fetch();
+    }
+
+    @Override
+    public List<Cmap> findAllCmapByMemberAndStatus (Member member) {
+
+        QCmap cmap = QCmap.cmap;
+
+        List<Cmap> cmapList = jpaQueryFactory
+                .selectFrom(cmap)
+                .where(cmap.member.eq(member)
+                        .and(cmap.status.eq(CmapStatus.WANT)))
+                .fetch();
+
+        return cmapList != null ? cmapList : new ArrayList<>();
     }
 }

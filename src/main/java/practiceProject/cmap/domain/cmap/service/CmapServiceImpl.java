@@ -124,4 +124,19 @@ public class CmapServiceImpl implements CmapService{
 
         return cmapRepository.findCmapJoinCafe(param);
     }
+
+    /**
+     * 유저 WANT List 가져오기 API
+     * 반환 : List<Cafe>
+     */
+    @Override
+    public List<Cmap> CmapDefaultWantList(@Valid CmapParameterDTO.CmapDefaultWantListParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        List<Cmap> cmapList = cmapRepository.findAllCmapByMemberAndStatus(findMember);
+
+        return cmapList;
+    }
 }

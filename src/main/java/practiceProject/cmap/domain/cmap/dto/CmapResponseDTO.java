@@ -47,4 +47,10 @@ public class CmapResponseDTO {
 
         List<CmapDataDTO.CmapLocationDataDto> cmapLocationDataDtoList;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDefaultWantListResponseDto {
+
+        List<CmapDataDTO.CmapDefaultWantListDataDto> cmapWantListDataDtoList;
+    }
 }
