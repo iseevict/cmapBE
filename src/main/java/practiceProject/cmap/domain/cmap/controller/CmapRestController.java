@@ -21,6 +21,7 @@ import practiceProject.cmap.domain.cmap.service.CmapService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -96,15 +97,17 @@ public class CmapRestController {
         return ApiResponse.onSuccess(CmapConverter.toCmapLocationResultDto(cmapJoinCafeDataDtoList));
     }
 
-    @GetMapping("/want-list/{memberId}/default")
+    @GetMapping("/want-list/{memberId}")
     @Operation(summary = "유저 WANT List 가져오기 API", description = "유저 WANT List 가져오기 API 입니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
-    public ApiResponse<CmapResponseDTO.CmapDefaultWantListResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId) {
+    public ApiResponse<CmapResponseDTO.CmapWantListResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId,
+                                                                                    @RequestParam List<Long> themaList) {
 
-        CmapParameterDTO.CmapDefaultWantListParamDto cmapDefaultWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultWantListParamDto(memberId);
-        List<Cmap> cmapList = cmapService.CmapDefaultWantList(cmapDefaultWantListParamDto);
+        if (themaList == null) themaList = new ArrayList<>();
+        CmapParameterDTO.CmapWantListParamDto cmapWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultWantListParamDto(memberId, themaList);
+        List<Cmap> cmapList = cmapService.CmapWantList(cmapWantListParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapDefaultWantListResultDto(cmapList));
     }
 }

@@ -44,7 +44,7 @@ public class CmapDataDTO {
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CmapDefaultWantListDataDto {
+    public static class CmapWantListDataDto {
 
         String cafeName;
         Long cafeId;

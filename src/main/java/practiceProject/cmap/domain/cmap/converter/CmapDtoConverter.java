@@ -6,6 +6,7 @@ import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapRequestDTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Mapper
 public interface CmapDtoConverter {
@@ -16,5 +17,5 @@ public interface CmapDtoConverter {
     CmapParameterDTO.CmapStatusChangeParamDto toCmapStatusChangeParamDto(CmapRequestDTO.CmapStatusChangeRequestDto request, Long cafeId);
     CmapParameterDTO.CmapDeleteParamDto toCmapDeleteParamDto(CmapRequestDTO.CmapDeleteRequestDto request, Long cafeId);
     CmapParameterDTO.CmapLocationParamDto toCmapLocationParamDto(Long memberId, BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
-    CmapParameterDTO.CmapDefaultWantListParamDto toCmapDefaultWantListParamDto(Long memberId);
+    CmapParameterDTO.CmapWantListParamDto toCmapDefaultWantListParamDto(Long memberId, List<Long> themaList);
 }

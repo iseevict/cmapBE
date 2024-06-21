@@ -1,10 +1,14 @@
 package practiceProject.cmap.domain.cmap.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Repository;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.entity.QCafe;
+import practiceProject.cmap.domain.cafe.entity.mapping.QCafeThema;
 import practiceProject.cmap.domain.cmap.dto.CmapDataDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.dto.QCmapDataDTO_CmapJoinCafeDataDto;
@@ -69,14 +73,28 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
     }
 
     @Override
-    public List<Cmap> findAllCmapByMemberAndStatus (Member member) {
+    public List<Cmap> findAllCmapByMemberAndStatusAndThema (Member member, List<Long> themaList) {
 
+        BooleanBuilder builder = new BooleanBuilder();
         QCmap cmap = QCmap.cmap;
+        QCafeThema cafeThema = QCafeThema.cafeThema;
+
+        if (!themaList.isEmpty()) {
+            builder.and(cmap.cafe.id.in(
+                    JPAExpressions
+                            .select(cafeThema.cafe.id)
+                            .from(cafeThema)
+                            .groupBy(cafeThema.cafe.id)
+                            .having(cafeThema.cafe.id.count().eq(Expressions.constant(themaList.size())))
+                            .where(cafeThema.thema.id.in(themaList))
+            ));
+        }
 
         List<Cmap> cmapList = jpaQueryFactory
                 .selectFrom(cmap)
                 .where(cmap.member.eq(member)
-                        .and(cmap.status.eq(CmapStatus.WANT)))
+                        .and(cmap.status.eq(CmapStatus.WANT))
+                        .and(builder))
                 .fetch();
 
         return cmapList != null ? cmapList : new ArrayList<>();
