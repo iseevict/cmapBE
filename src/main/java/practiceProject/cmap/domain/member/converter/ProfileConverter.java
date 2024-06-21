@@ -8,6 +8,18 @@ import java.time.LocalDateTime;
 
 public class ProfileConverter {
 
+    public static ProfileResponseDTO.ProfileGetResponseDto toProfileGetResultDto(Profile profile) {
+
+        return ProfileResponseDTO.ProfileGetResponseDto.builder()
+                .memberName(profile.getMember().getName())
+                .boardNum(profile.getMember().getBoardList().size())
+                .reviewNum(profile.getMember().getReviewList().size())
+                .introduce(profile.getIntroduce())
+                .favoriteCafeTitle(profile.getFavoriteCafeTitle())
+                .favoriteCafeBody(profile.getFavoriteCafeBody())
+                .build();
+    }
+
     public static ProfileResponseDTO.ProfileModifyResponseDto toProfileModifyResultDto(Profile profile) {
 
         return ProfileResponseDTO.ProfileModifyResponseDto.builder()

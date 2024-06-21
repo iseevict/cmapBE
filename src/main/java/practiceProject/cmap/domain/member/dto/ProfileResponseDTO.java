@@ -19,4 +19,15 @@ public class ProfileResponseDTO {
         @NotEmpty
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ProfileGetResponseDto {
+
+        String memberName;
+        Integer boardNum;
+        Integer reviewNum;
+        String introduce;
+        String favoriteCafeTitle;
+        String favoriteCafeBody;
+    }
 }

@@ -11,4 +11,5 @@ public interface ProfileDtoConverter {
     ProfileDtoConverter INSTANCE = Mappers.getMapper(ProfileDtoConverter.class);
 
     ProfileParameterDTO.ProfileModifyParamDto toProfileModifyParamDto(ProfileRequestDTO.ProfileModifyRequestDto request, Long memberId);
+    ProfileParameterDTO.ProfileGetParamDto toProfileGetParamDto(Long memberId);
 }
