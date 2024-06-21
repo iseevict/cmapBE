@@ -1,5 +1,7 @@
 package practiceProject.cmap.domain.board.converter;
 
+import org.springframework.data.domain.Page;
+import practiceProject.cmap.domain.board.dto.BoardDataDTO;
 import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
@@ -8,17 +10,30 @@ import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoardConverter {
+
+    public static BoardResponseDTO.BoardListResponseDto toBoardListResultDto(Page<Board> boardPage, List<BoardDataDTO.BoardDataDto> boardDataDtoList) {
+
+        return BoardResponseDTO.BoardListResponseDto.builder()
+                .boardDataDtoList(boardDataDtoList)
+                .listSize(boardDataDtoList.size())
+                .totalPage(boardPage.getTotalPages())
+                .totalElements(boardPage.getTotalElements())
+                .isFirst(boardPage.isFirst())
+                .isLast(boardPage.isLast())
+                .build();
+    }
 
     public static BoardResponseDTO.HomeRandomBoardResponseDto toHomeRandomBoardResultDto(List<Board> boardList) {
 
         return BoardResponseDTO.HomeRandomBoardResponseDto.builder()
-                .firstBoard(BoardResponseDTO.RandomBoardDataDto.builder()
+                .firstBoard(BoardResponseDTO.RandomBoardResponseDto.builder()
                         .boardId(boardList.get(0).getId())
                         .cafeName(boardList.get(0).getCafe().getName())
                         .build())
-                .secondBoard(BoardResponseDTO.RandomBoardDataDto.builder()
+                .secondBoard(BoardResponseDTO.RandomBoardResponseDto.builder()
                         .boardId(boardList.get(1).getId())
                         .cafeName(boardList.get(1).getCafe().getName())
                         .build())

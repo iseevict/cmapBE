@@ -16,4 +16,5 @@ public interface BoardDtoConverter {
     BoardParameterDTO.BoardDeleteParamDto toBoardDeleteParamDto(BoardRequestDTO.BoardDeleteRequestDto request, Long boardId);
     BoardParameterDTO.BoardHeartOnParamDto toBoardHeartOnParamDto(BoardRequestDTO.BoardHeartOnRequestDto request, Long boardId);
     BoardParameterDTO.BoardHeartOffParamDto toBoardHeartOffParamDto(Long memberId, Long boardId);
+    BoardParameterDTO.BoardListParamDto toBoardListParamDto(Integer page, Integer size);
 }

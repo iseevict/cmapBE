@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import practiceProject.cmap.domain.board.entity.Board;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,14 +59,25 @@ public class BoardResponseDTO {
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class HomeRandomBoardResponseDto {
-        RandomBoardDataDto firstBoard;
-        RandomBoardDataDto secondBoard;
+        RandomBoardResponseDto firstBoard;
+        RandomBoardResponseDto secondBoard;
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class RandomBoardDataDto {
+    public static class RandomBoardResponseDto {
 
         Long boardId;
         String cafeName;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardListResponseDto {
+
+        List<BoardDataDTO.BoardDataDto> boardDataDtoList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
     }
 }

@@ -68,4 +68,13 @@ public class BoardParameterDTO {
         @NotNull
         Long boardId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardListParamDto {
+
+        @NotEmpty
+        Integer page;
+        @NotEmpty
+        Integer size;
+    }
 }
