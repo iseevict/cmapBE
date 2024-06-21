@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CmapDataDTO {
 
@@ -39,5 +40,13 @@ public class CmapDataDTO {
             this.status = status;
             this.cafeId = cafeId;
         }
+
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDefaultWantListDataDto {
+
+        String cafeName;
+        Long cafeId;
     }
 }

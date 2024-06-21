@@ -56,4 +56,11 @@ public class CmapParameterDTO {
         @NotNull
         BigDecimal radius;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDefaultWantListParamDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

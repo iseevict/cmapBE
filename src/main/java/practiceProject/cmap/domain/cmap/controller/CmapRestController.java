@@ -95,4 +95,16 @@ public class CmapRestController {
         List<CmapDataDTO.CmapJoinCafeDataDto> cmapJoinCafeDataDtoList = cmapService.CmapLocation(cmapLocationParamDto);
         return ApiResponse.onSuccess(CmapConverter.toCmapLocationResultDto(cmapJoinCafeDataDtoList));
     }
+
+    @GetMapping("/want-list/{memberId}/default")
+    @Operation(summary = "유저 WANT List 가져오기 API", description = "유저 WANT List 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CmapResponseDTO.CmapDefaultWantListResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId) {
+
+        CmapParameterDTO.CmapDefaultWantListParamDto cmapDefaultWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultWantListParamDto(memberId);
+        List<Cmap> cmapList = cmapService.CmapDefaultWantList(cmapDefaultWantListParamDto);
+        return ApiResponse.onSuccess(CmapConverter.toCmapDefaultWantListResultDto(cmapList));
+    }
 }
