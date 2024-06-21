@@ -58,10 +58,12 @@ public class CmapParameterDTO {
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CmapWantListParamDto {
+    public static class CmapListByStatusAndThemaParamDto {
 
         @NotNull
         Long memberId;
+        @NotNull
+        CmapStatus status;
         List<Long> themaList;
     }
 

@@ -18,6 +18,6 @@ public interface CmapService {
     public void CmapDelete(@Valid CmapParameterDTO.CmapDeleteParamDto param);
     public CmapStatus CmapStatusCheck(@Valid CafeParameterDTO.CafeDetailParamDto param);
     public List<CmapDataDTO.CmapJoinCafeDataDto> CmapLocation(@Valid CmapParameterDTO.CmapLocationParamDto param);
-    public List<Cmap> CmapWantList(@Valid CmapParameterDTO.CmapWantListParamDto param);
+    public List<Cmap> CmapListByStatusAndThema(@Valid CmapParameterDTO.CmapListByStatusAndThemaParamDto param);
     public List<Cmap> CmapDefaultListByStatus(@Valid CmapParameterDTO.CmapDefaultListByStatusParamDto param);
 }

@@ -126,16 +126,16 @@ public class CmapServiceImpl implements CmapService{
     }
 
     /**
-     * 유저 WANT List 가져오기 API
+     * 유저 Cmap List By Status And Thema API
      * 반환 : List<Cmap>
      */
     @Override
-    public List<Cmap> CmapWantList(@Valid CmapParameterDTO.CmapWantListParamDto param) {
+    public List<Cmap> CmapListByStatusAndThema(@Valid CmapParameterDTO.CmapListByStatusAndThemaParamDto param) {
 
         Member findMember = memberRepository.findById(param.getMemberId())
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
 
-        List<Cmap> cmapList = cmapRepository.findAllCmapByMemberAndStatusAndThema(findMember, param.getThemaList());
+        List<Cmap> cmapList = cmapRepository.findAllCmapByMemberAndStatusAndThema(findMember, param.getThemaList(), param.getStatus());
 
         return cmapList;
     }

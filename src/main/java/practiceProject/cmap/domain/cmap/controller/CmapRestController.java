@@ -98,18 +98,19 @@ public class CmapRestController {
         return ApiResponse.onSuccess(CmapConverter.toCmapLocationResultDto(cmapJoinCafeDataDtoList));
     }
 
-    @GetMapping("/want-list/{memberId}")
-    @Operation(summary = "유저 WANT List 가져오기 API", description = "유저 WANT List 가져오기 API 입니다.")
+    @GetMapping("/cmap-list/{memberId}")
+    @Operation(summary = "유저 Cmap List By Status And Thema API", description = "유저 Cmap List By Status And Thema API 입니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
-    public ApiResponse<CmapResponseDTO.CmapWantListResponseDto> CmapWantList(@PathVariable("memberId") Long memberId,
-                                                                             @RequestParam List<Long> themaList) {
+    public ApiResponse<CmapResponseDTO.CmapListByStatusAndThemaResponseDto> CmapListByStatusAndThema(@PathVariable("memberId") Long memberId,
+                                                                                                     @RequestParam List<Long> themaList,
+                                                                                                     @RequestParam CmapStatus status) {
 
         if (themaList == null) themaList = new ArrayList<>();
-        CmapParameterDTO.CmapWantListParamDto cmapWantListParamDto = CmapDtoConverter.INSTANCE.toCmapWantListParamDto(memberId, themaList);
-        List<Cmap> cmapList = cmapService.CmapWantList(cmapWantListParamDto);
-        return ApiResponse.onSuccess(CmapConverter.toCmapWantListResultDto(cmapList));
+        CmapParameterDTO.CmapListByStatusAndThemaParamDto cmapListByStatusAndThemaParamDto = CmapDtoConverter.INSTANCE.toCmapListByStatusAndThemaParamDto(memberId, themaList, status);
+        List<Cmap> cmapList = cmapService.CmapListByStatusAndThema(cmapListByStatusAndThemaParamDto);
+        return ApiResponse.onSuccess(CmapConverter.toCmapListByStatusAndThemaResultDto(cmapList));
     }
 
     @GetMapping("/cmap-list/{memberId}/default")
@@ -117,7 +118,7 @@ public class CmapRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
-    public ApiResponse<CmapResponseDTO.CmapDefaultListByStatusResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId,
+    public ApiResponse<CmapResponseDTO.CmapDefaultListByStatusResponseDto> CmapDefaultListByStatus(@PathVariable("memberId") Long memberId,
                                                                                                @RequestParam CmapStatus status) {
 
         CmapParameterDTO.CmapDefaultListByStatusParamDto cmapDefaultWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultListByStatusParamDto(memberId, status);
