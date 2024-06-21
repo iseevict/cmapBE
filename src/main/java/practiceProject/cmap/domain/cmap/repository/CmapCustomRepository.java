@@ -15,5 +15,5 @@ public interface CmapCustomRepository {
 
     CmapStatus findCampStatusByCafeAndMember(Cafe cafe, Member member);
     List<CmapDataDTO.CmapJoinCafeDataDto> findCmapJoinCafe(@Valid CmapParameterDTO.CmapLocationParamDto param);
-    List<Cmap> findAllCmapByMemberAndStatus (Member member);
+    List<Cmap> findAllCmapByMemberAndStatusAndThema (Member member, List<Long> themaList);
 }

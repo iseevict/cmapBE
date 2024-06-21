@@ -13,17 +13,17 @@ import java.util.stream.Collectors;
 
 public class CmapConverter {
 
-    public static CmapResponseDTO.CmapDefaultWantListResponseDto toCmapDefaultWantListResultDto(List<Cmap> cmapList) {
+    public static CmapResponseDTO.CmapWantListResponseDto toCmapDefaultWantListResultDto(List<Cmap> cmapList) {
 
-        List<CmapDataDTO.CmapDefaultWantListDataDto> cmapDefaultWantListDataDtoList = cmapList.stream()
+        List<CmapDataDTO.CmapWantListDataDto> cmapDefaultWantListDataDtoList = cmapList.stream()
                 .map(cmap ->
-                        CmapDataDTO.CmapDefaultWantListDataDto.builder()
+                        CmapDataDTO.CmapWantListDataDto.builder()
                                 .cafeId(cmap.getCafe().getId())
                                 .cafeName(cmap.getCafe().getName())
                                 .build()
                 ).collect(Collectors.toList());
 
-        return CmapResponseDTO.CmapDefaultWantListResponseDto.builder()
+        return CmapResponseDTO.CmapWantListResponseDto.builder()
                 .cmapWantListDataDtoList(cmapDefaultWantListDataDtoList)
                 .build();
     }
