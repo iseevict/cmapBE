@@ -2,12 +2,15 @@ package practiceProject.cmap.domain.board.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practiceProject.cmap.config.apiCode.status.ErrorStatus;
 import practiceProject.cmap.config.exception.handler.CommonHandler;
 import practiceProject.cmap.domain.board.converter.BoardConverter;
 import practiceProject.cmap.domain.board.converter.BoardHashtagConverter;
+import practiceProject.cmap.domain.board.dto.BoardDataDTO;
 import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
@@ -220,5 +223,36 @@ public class BoardServiceImpl implements BoardService{
                 .orElseThrow(() -> new CommonHandler(ErrorStatus._HEART_NOT_FOUND));
 
         memberLikeBoardRepository.delete(findMemberLikeBoard);
+    }
+
+    /**
+     * 게시글 리스트 가져오기 API
+     * 반환 : Page<Board>
+     */
+    @Override
+    public Page<Board> BoardList(BoardParameterDTO.BoardListParamDto param) {
+
+        return boardRepository.findAllForPage(PageRequest.of(param.getPage(), param.getSize()));
+    }
+
+    /**
+     * 게시글 리스트 가져오기 API
+     * 게시글마다 tagList 가져오기
+     * 반환 : List<BoardDataDTO.BoardDataDto>
+     */
+    @Override
+    public List<BoardDataDTO.BoardDataDto> BoardTagList(Page<Board> boardPage) {
+
+        return boardPage.stream()
+                .map(board -> BoardDataDTO.BoardDataDto.builder()
+                .title(board.getTitle())
+                .body(board.getBody())
+                .tagList(boardRepository.findAllTagByBoard(board))
+                .memberId(board.getMember().getId())
+                .memberName(board.getMember().getName())
+                .cafeId(board.getCafe().getId())
+                .cafeName(board.getCafe().getName())
+                .build()
+                ).collect(Collectors.toList());
     }
 }

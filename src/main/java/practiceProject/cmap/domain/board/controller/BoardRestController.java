@@ -6,10 +6,12 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.board.converter.BoardConverter;
 import practiceProject.cmap.domain.board.converter.BoardDtoConverter;
+import practiceProject.cmap.domain.board.dto.BoardDataDTO;
 import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardRequestDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
@@ -118,5 +120,18 @@ public class BoardRestController {
         BoardParameterDTO.BoardHeartOffParamDto boardHeartOffParamDto = BoardDtoConverter.INSTANCE.toBoardHeartOffParamDto(memberId, boardId);
         boardService.BoardHeartOff(boardHeartOffParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardHeartOffResultDto());
+    }
+
+    @GetMapping("/boards/default")
+    @Operation(summary = "게시글 리스트 가져오기 API", description = "게시글 리스트 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<BoardResponseDTO.BoardListResponseDto> BoardList(@RequestParam Integer page, @RequestParam Integer size) {
+
+        BoardParameterDTO.BoardListParamDto boardListParamDto = BoardDtoConverter.INSTANCE.toBoardListParamDto(page, size);
+        Page<Board> boardPage = boardService.BoardList(boardListParamDto);
+        List<BoardDataDTO.BoardDataDto> boardDataDtoList = boardService.BoardTagList(boardPage);
+        return ApiResponse.onSuccess(BoardConverter.toBoardListResultDto(boardPage, boardDataDtoList));
     }
 }
