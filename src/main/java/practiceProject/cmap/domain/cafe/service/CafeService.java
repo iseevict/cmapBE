@@ -17,4 +17,5 @@ public interface CafeService {
     public List<Cafe> CafeSearch(@Valid CafeParameterDTO.CafeSearchParamDto param);
     public Cafe CafeDetail(@Valid CafeParameterDTO.CafeDetailParamDto param);
     public List<CafeThema> CafeDetailThema(Cafe cafe);
+    public Cafe RandomCafe(@Valid CafeParameterDTO.RandomCafeParamDto param);
 }

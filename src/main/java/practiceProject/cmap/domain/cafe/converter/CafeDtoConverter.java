@@ -6,6 +6,7 @@ import practiceProject.cmap.domain.cafe.dto.CafeParameterDTO;
 import practiceProject.cmap.domain.cafe.dto.CafeRequestDTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Mapper
 public interface CafeDtoConverter {
@@ -18,4 +19,5 @@ public interface CafeDtoConverter {
     CafeParameterDTO.CafeLocationParamDto toCafeLocationParamDto(BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
     CafeParameterDTO.CafeSearchParamDto toCafeSearchParamDto(BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
     CafeParameterDTO.CafeDetailParamDto toCafeDetailParamDto(Long memberId, Long cafeId);
+    CafeParameterDTO.RandomCafeParamDto toRandomCafeParamDto(Long memberId, List<Long> themaList);
 }

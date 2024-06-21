@@ -25,6 +25,7 @@ import practiceProject.cmap.domain.review.service.ReviewService;
 import practiceProject.cmap.domain.thema.entity.Thema;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -132,5 +133,20 @@ public class CafeRestController {
         List<CafeThema> cafeThemaList = cafeService.CafeDetailThema(cafe);
         CmapStatus cmapStatus = cmapService.CmapStatusCheck(cafeDetailParamDto);
         return ApiResponse.onSuccess(CafeConverter.toCafeDetailResultDto(cafe, reviewSlice, cafeThemaList, cmapStatus));
+    }
+
+    @GetMapping("/random")
+    @Operation(summary = "랜덤 카페id 가져오기 API", description = "랜덤 카페id 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "CAFE1004", description = "조건에 해당하는 카페가 없습니다.")
+    })
+    public ApiResponse<CafeResponseDTO.RandomCafeResponseDto> RandomCafe(@RequestParam Long memberId,
+                                                                         @RequestParam List<Long> themaList) {
+
+        if (themaList == null) themaList = new ArrayList<>();
+        CafeParameterDTO.RandomCafeParamDto randomCafeParamDto = CafeDtoConverter.INSTANCE.toRandomCafeParamDto(memberId, themaList);
+        Cafe cafe = cafeService.RandomCafe(randomCafeParamDto);
+        return ApiResponse.onSuccess(CafeConverter.toRandomCafeResultDto(cafe));
     }
 }

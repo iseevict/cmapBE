@@ -1,15 +1,21 @@
 package practiceProject.cmap.domain.cafe.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.entity.QCafe;
 import practiceProject.cmap.domain.cafe.entity.mapping.QCafeThema;
+import practiceProject.cmap.domain.cmap.entity.QCmap;
+import practiceProject.cmap.domain.member.entity.Member;
 import practiceProject.cmap.domain.review.entity.QReview;
 import practiceProject.cmap.domain.thema.entity.QThema;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -40,17 +46,39 @@ public class CafeCustomRepositoryImpl implements CafeCustomRepository {
     }
 
     @Override
-    public Cafe findWithReviewAndThema(Long cafeId) {
+    public List<Cafe> findRandomCafeByThema(Member member, List<Long> themaList) {
 
         QCafe cafe = QCafe.cafe;
-        QReview review = QReview.review;
         QCafeThema cafeThema = QCafeThema.cafeThema;
-        QThema thema = QThema.thema;
+        QCmap cmap = QCmap.cmap;
 
-        return jpaQueryFactory
-                .selectFrom(cafe)
-                .leftJoin(cafe.reviewList, review).fetchJoin()
-                .where(cafe.id.eq(cafeId))
-                .fetchOne();
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (!themaList.isEmpty()) {
+
+            builder.and(cafeThema.cafe.id.in(
+                    JPAExpressions
+                            .select(cafeThema.cafe.id)
+                            .from(cafeThema)
+                            .groupBy(cafeThema.cafe.id)
+                            .having(cafeThema.cafe.id.count().eq(Expressions.constant(themaList.size())))
+                            .where(cafeThema.thema.id.in(themaList))
+            ));
+        }
+
+        List<Long> cafeIdList = jpaQueryFactory
+                .select(cmap.cafe.id)
+                .from(cmap)
+                .where(cmap.member.eq(member))
+                .fetch();
+
+        List<Cafe> cafeList = jpaQueryFactory
+                .select(cafeThema.cafe)
+                .from(cafeThema)
+                .where(builder
+                        .and(cafeThema.cafe.id.notIn(cafeIdList)))
+                .fetch();
+
+        return cafeList != null ? cafeList : new ArrayList<>();
     }
 }
