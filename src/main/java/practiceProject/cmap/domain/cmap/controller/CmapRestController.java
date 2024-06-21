@@ -17,6 +17,7 @@ import practiceProject.cmap.domain.cmap.dto.CmapParameterDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapRequestDTO;
 import practiceProject.cmap.domain.cmap.dto.CmapResponseDTO;
 import practiceProject.cmap.domain.cmap.entity.Cmap;
+import practiceProject.cmap.domain.cmap.entity.CmapStatus;
 import practiceProject.cmap.domain.cmap.service.CmapService;
 
 import java.math.BigDecimal;
@@ -102,12 +103,26 @@ public class CmapRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
-    public ApiResponse<CmapResponseDTO.CmapWantListResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId,
-                                                                                    @RequestParam List<Long> themaList) {
+    public ApiResponse<CmapResponseDTO.CmapWantListResponseDto> CmapWantList(@PathVariable("memberId") Long memberId,
+                                                                             @RequestParam List<Long> themaList) {
 
         if (themaList == null) themaList = new ArrayList<>();
-        CmapParameterDTO.CmapWantListParamDto cmapWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultWantListParamDto(memberId, themaList);
+        CmapParameterDTO.CmapWantListParamDto cmapWantListParamDto = CmapDtoConverter.INSTANCE.toCmapWantListParamDto(memberId, themaList);
         List<Cmap> cmapList = cmapService.CmapWantList(cmapWantListParamDto);
-        return ApiResponse.onSuccess(CmapConverter.toCmapDefaultWantListResultDto(cmapList));
+        return ApiResponse.onSuccess(CmapConverter.toCmapWantListResultDto(cmapList));
     }
+
+    @GetMapping("/cmap-list/{memberId}/default")
+    @Operation(summary = "유저 Default Cmap List By Status API", description = "유저 Default Cmap List By Status API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<CmapResponseDTO.CmapDefaultListByStatusResponseDto> CmapDefaultWantList(@PathVariable("memberId") Long memberId,
+                                                                                               @RequestParam CmapStatus status) {
+
+        CmapParameterDTO.CmapDefaultListByStatusParamDto cmapDefaultWantListParamDto = CmapDtoConverter.INSTANCE.toCmapDefaultListByStatusParamDto(memberId, status);
+        List<Cmap> cmapList = cmapService.CmapDefaultListByStatus(cmapDefaultWantListParamDto);
+        return ApiResponse.onSuccess(CmapConverter.toCmapDefaultListByStatusResultDto(cmapList));
+    }
+
 }
