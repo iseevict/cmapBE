@@ -40,4 +40,19 @@ public class ProfileRestController {
         Profile profile = profileService.ProfileModify(profileModifyParamDto);
         return ApiResponse.onSuccess(ProfileConverter.toProfileModifyResultDto(profile));
     }
+
+    @GetMapping("/profiles/{memberId}")
+    @Operation(summary = "프로필 화면 API", description = "프로필 화면 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "회원 식별자, PathVariable")
+    })
+    public ApiResponse<ProfileResponseDTO.ProfileGetResponseDto> ProfileGet(@PathVariable("memberId") Long memberId) {
+
+        ProfileParameterDTO.ProfileGetParamDto profileGetParamDto = ProfileDtoConverter.INSTANCE.toProfileGetParamDto(memberId);
+        Profile profile = profileService.ProfileGet(profileGetParamDto);
+        return ApiResponse.onSuccess(ProfileConverter.toProfileGetResultDto(profile));
+    }
 }

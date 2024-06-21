@@ -21,4 +21,11 @@ public class ProfileParameterDTO {
         @NotBlank
         String favoriteCafeBody;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ProfileGetParamDto {
+
+        @NotNull
+        Long memberId;
+    }
 }

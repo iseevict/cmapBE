@@ -36,4 +36,20 @@ public class ProfileServiceImpl implements ProfileService {
         findProfile.modifyProfile(param.getIntroduce(), param.getFavoriteCafeTitle(), param.getFavoriteCafeBody());
         return findProfile;
     }
+
+    /**
+     * 프로필 화면 API
+     * 반환 : Profile
+     */
+    @Override
+    public Profile ProfileGet(ProfileParameterDTO.ProfileGetParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        Profile profile = profileRepository.findByMember(findMember)
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._PROFILE_NOT_FOUND));
+
+        return profile;
+    }
 }
