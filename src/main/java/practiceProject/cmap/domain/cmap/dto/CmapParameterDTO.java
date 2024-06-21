@@ -64,4 +64,14 @@ public class CmapParameterDTO {
         Long memberId;
         List<Long> themaList;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDefaultListByStatusParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        CmapStatus status;
+    }
+
 }

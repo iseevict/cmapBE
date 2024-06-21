@@ -127,7 +127,7 @@ public class CmapServiceImpl implements CmapService{
 
     /**
      * 유저 WANT List 가져오기 API
-     * 반환 : List<Cafe>
+     * 반환 : List<Cmap>
      */
     @Override
     public List<Cmap> CmapWantList(@Valid CmapParameterDTO.CmapWantListParamDto param) {
@@ -139,4 +139,18 @@ public class CmapServiceImpl implements CmapService{
 
         return cmapList;
     }
+
+
+    /**
+     * 유저 Default Cafe List By Status API
+     * 반환 : List<Cmap>
+     */
+    public List<Cmap> CmapDefaultListByStatus(@Valid CmapParameterDTO.CmapDefaultListByStatusParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        return cmapRepository.findAllCmapByMemberAndStatus(findMember, param.getStatus());
+    }
+
 }

@@ -99,4 +99,18 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
 
         return cmapList != null ? cmapList : new ArrayList<>();
     }
+
+    @Override
+    public List<Cmap> findAllCmapByMemberAndStatus(Member member, CmapStatus status) {
+
+        QCmap cmap = QCmap.cmap;
+
+        List<Cmap> cmapList = jpaQueryFactory
+                .selectFrom(cmap)
+                .where(cmap.member.eq(member)
+                        .and(cmap.status.eq(status)))
+                .fetch();
+
+        return cmapList != null ? cmapList : new ArrayList<>();
+    }
 }

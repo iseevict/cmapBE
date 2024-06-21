@@ -49,4 +49,12 @@ public class CmapDataDTO {
         String cafeName;
         Long cafeId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CmapDefaultListByStatusDataDto {
+
+        String cafeName;
+        Long cafeId;
+    }
+
 }

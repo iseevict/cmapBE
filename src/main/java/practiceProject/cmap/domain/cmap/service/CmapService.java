@@ -19,4 +19,5 @@ public interface CmapService {
     public CmapStatus CmapStatusCheck(@Valid CafeParameterDTO.CafeDetailParamDto param);
     public List<CmapDataDTO.CmapJoinCafeDataDto> CmapLocation(@Valid CmapParameterDTO.CmapLocationParamDto param);
     public List<Cmap> CmapWantList(@Valid CmapParameterDTO.CmapWantListParamDto param);
+    public List<Cmap> CmapDefaultListByStatus(@Valid CmapParameterDTO.CmapDefaultListByStatusParamDto param);
 }
