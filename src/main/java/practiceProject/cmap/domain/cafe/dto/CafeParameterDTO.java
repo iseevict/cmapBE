@@ -87,4 +87,12 @@ public class CafeParameterDTO {
         @NotNull
         Long cafeId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class RandomCafeParamDto {
+
+        @NotNull
+        Long memberId;
+        List<Long> themaList;
+    }
 }

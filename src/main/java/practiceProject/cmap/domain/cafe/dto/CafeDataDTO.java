@@ -46,5 +46,4 @@ public class CafeDataDTO {
         ReviewDataDTO.ReviewPreviewListDataDto reviewPreviewListDataDto;
     }
 
-
 }

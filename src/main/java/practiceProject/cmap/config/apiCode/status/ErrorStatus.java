@@ -26,6 +26,7 @@ public enum ErrorStatus {
     _CAFE_POS_EXIST(HttpStatus.CONFLICT, "CAFE1001", "이미 카페가 존재하는 위치입니다."),
     _CAFE_NOT_FOUND(HttpStatus.NOT_FOUND, "CAFE1002", "카페를 찾지 못했습니다."),
     _NOT_MEMBERS_CAFE(HttpStatus.FORBIDDEN, "CAFE1003", "카페 주인이 아닙니다."),
+    _RANDOM_CAFE_NOT_FOUND(HttpStatus.NOT_FOUND, "CAFE1004", "조건에 해당하는 카페가 없습니다."),
     
     // 테마 관련
     _THEMA_NOT_FOUND(HttpStatus.NOT_FOUND, "THEMA1001", "테마를 찾을 수 없습니다."),

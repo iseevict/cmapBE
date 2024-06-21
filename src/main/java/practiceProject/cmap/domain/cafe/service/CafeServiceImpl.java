@@ -21,6 +21,7 @@ import practiceProject.cmap.domain.thema.entity.Thema;
 import practiceProject.cmap.domain.thema.repository.ThemaRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -187,4 +188,22 @@ public class CafeServiceImpl implements CafeService{
         return cafeThemaRepository.findAllByCafe(cafe).orElse(new ArrayList<>());
     }
 
+    /**
+     * 랜덤 카페 가져오기 API
+     * 반환 : Cafe
+     */
+    @Override
+    public Cafe RandomCafe(@Valid CafeParameterDTO.RandomCafeParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        List<Cafe> cafeList = cafeRepository.findRandomCafeByThema(findMember, param.getThemaList());
+
+        if (cafeList.isEmpty()) throw new CommonHandler(ErrorStatus._RANDOM_CAFE_NOT_FOUND);
+
+        Collections.shuffle(cafeList);
+
+        return cafeList.get(0);
+    }
 }

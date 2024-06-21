@@ -60,4 +60,10 @@ public class CafeResponseDTO {
         CafeDataDTO.CafeDetailDataDto cafeDetailDataDtoList;
     }
 
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class RandomCafeResponseDto {
+
+        @NotNull
+        Long cafeId;
+    }
 }

@@ -19,6 +19,13 @@ import java.util.stream.Collectors;
 
 public class CafeConverter {
 
+    public static CafeResponseDTO.RandomCafeResponseDto toRandomCafeResultDto(Cafe cafe) {
+
+        return CafeResponseDTO.RandomCafeResponseDto.builder()
+                .cafeId(cafe.getId())
+                .build();
+    }
+
     public static CafeResponseDTO.CafeCreateResponseDto toCafeCreateResultDto (Cafe cafe) {
 
         return CafeResponseDTO.CafeCreateResponseDto.builder()
