@@ -18,6 +18,6 @@ public interface CmapDtoConverter {
     CmapParameterDTO.CmapStatusChangeParamDto toCmapStatusChangeParamDto(CmapRequestDTO.CmapStatusChangeRequestDto request, Long cafeId);
     CmapParameterDTO.CmapDeleteParamDto toCmapDeleteParamDto(CmapRequestDTO.CmapDeleteRequestDto request, Long cafeId);
     CmapParameterDTO.CmapLocationParamDto toCmapLocationParamDto(Long memberId, BigDecimal centerX, BigDecimal centerY, BigDecimal radius);
-    CmapParameterDTO.CmapWantListParamDto toCmapWantListParamDto(Long memberId, List<Long> themaList);
+    CmapParameterDTO.CmapListByStatusAndThemaParamDto toCmapListByStatusAndThemaParamDto(Long memberId, List<Long> themaList, CmapStatus status);
     CmapParameterDTO.CmapDefaultListByStatusParamDto toCmapDefaultListByStatusParamDto(Long memberId, CmapStatus status);
 }

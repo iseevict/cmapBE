@@ -73,7 +73,7 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
     }
 
     @Override
-    public List<Cmap> findAllCmapByMemberAndStatusAndThema (Member member, List<Long> themaList) {
+    public List<Cmap> findAllCmapByMemberAndStatusAndThema (Member member, List<Long> themaList, CmapStatus status) {
 
         BooleanBuilder builder = new BooleanBuilder();
         QCmap cmap = QCmap.cmap;
@@ -93,7 +93,7 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
         List<Cmap> cmapList = jpaQueryFactory
                 .selectFrom(cmap)
                 .where(cmap.member.eq(member)
-                        .and(cmap.status.eq(CmapStatus.WANT))
+                        .and(cmap.status.eq(status))
                         .and(builder))
                 .fetch();
 

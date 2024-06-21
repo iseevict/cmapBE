@@ -49,9 +49,9 @@ public class CmapResponseDTO {
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class CmapWantListResponseDto {
+    public static class CmapListByStatusAndThemaResponseDto {
 
-        List<CmapDataDTO.CmapWantListDataDto> cmapWantListDataDtoList;
+        List<CmapDataDTO.CmapListByStatusAndThemaDataDto> cmapListByStatusAndThemaDataDtoList;
     }
 
     @Getter @Builder @NoArgsConstructor @AllArgsConstructor

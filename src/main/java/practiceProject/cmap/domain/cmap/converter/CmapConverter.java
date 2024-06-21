@@ -28,18 +28,18 @@ public class CmapConverter {
                 .build();
     }
 
-    public static CmapResponseDTO.CmapWantListResponseDto toCmapWantListResultDto(List<Cmap> cmapList) {
+    public static CmapResponseDTO.CmapListByStatusAndThemaResponseDto toCmapListByStatusAndThemaResultDto(List<Cmap> cmapList) {
 
-        List<CmapDataDTO.CmapWantListDataDto> cmapDefaultWantListDataDtoList = cmapList.stream()
+        List<CmapDataDTO.CmapListByStatusAndThemaDataDto> cmapListByStatusAndThemaDataDtoList = cmapList.stream()
                 .map(cmap ->
-                        CmapDataDTO.CmapWantListDataDto.builder()
+                        CmapDataDTO.CmapListByStatusAndThemaDataDto.builder()
                                 .cafeId(cmap.getCafe().getId())
                                 .cafeName(cmap.getCafe().getName())
                                 .build()
                 ).collect(Collectors.toList());
 
-        return CmapResponseDTO.CmapWantListResponseDto.builder()
-                .cmapWantListDataDtoList(cmapDefaultWantListDataDtoList)
+        return CmapResponseDTO.CmapListByStatusAndThemaResponseDto.builder()
+                .cmapListByStatusAndThemaDataDtoList(cmapListByStatusAndThemaDataDtoList)
                 .build();
     }
 
