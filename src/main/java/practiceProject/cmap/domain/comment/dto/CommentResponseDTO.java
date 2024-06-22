@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CommentResponseDTO {
 
@@ -36,5 +37,15 @@ public class CommentResponseDTO {
         String message;
         @NotEmpty
         LocalDateTime deletedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardCommentListResponseDto {
+
+        List<CommentDataDTO.CommentDataDto> commentDataDtoList;
+        Boolean hasNext;
+        Integer pageNum;
+        Integer pageSize;
+        Integer elementNum;
     }
 }

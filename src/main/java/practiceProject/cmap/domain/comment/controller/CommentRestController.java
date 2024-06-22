@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.comment.converter.CommentConverter;
@@ -75,5 +76,22 @@ public class CommentRestController {
         CommentParameterDTO.CommentDeleteParamDto commentDeleteParamDto = CommentDtoConverter.INSTANCE.toCommentDeleteParamDto(request, boardId, commentId);
         commentService.CommentDelete(commentDeleteParamDto);
         return ApiResponse.onSuccess(CommentConverter.toCommentDeleteResultDto());
+    }
+
+    @GetMapping("/boards/{boardId}/reviews")
+    @Operation(summary = "게시글 댓글 리스트 가져오기 API", description = "게시글 댓글 리스트 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable")
+    })
+    public ApiResponse<CommentResponseDTO.BoardCommentListResponseDto> BoardCommentList(@PathVariable("boardId") Long boardId,
+                                                                                    @RequestParam Integer page,
+                                                                                    @RequestParam Integer size) {
+
+        CommentParameterDTO.BoardCommentListParamDto boardCommentListParamDto = CommentDtoConverter.INSTANCE.toBoardCommentListParamDto(boardId, page, size);
+        Slice<Comment> commentSlice = commentService.BoardCommentList(boardCommentListParamDto);
+        return ApiResponse.onSuccess(CommentConverter.toBoardCommentListResultDto(commentSlice));
     }
 }

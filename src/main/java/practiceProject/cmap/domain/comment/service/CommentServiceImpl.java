@@ -1,6 +1,8 @@
 package practiceProject.cmap.domain.comment.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practiceProject.cmap.config.apiCode.status.ErrorStatus;
@@ -91,5 +93,18 @@ public class CommentServiceImpl implements CommentService{
         if (!findComment.getBoard().equals(findBoard)) throw new CommonHandler(ErrorStatus._NOT_BOARDS_COMMENT);
 
         commentRepository.delete(findComment);
+    }
+
+    /**
+     * 게시글 댓글 리스트 가져오기 API
+     * 반환 : Slice<Comment>
+     */
+    @Override
+    public Slice<Comment> BoardCommentList(CommentParameterDTO.BoardCommentListParamDto param) {
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        return commentRepository.findAllForSliceByBoard(findBoard, PageRequest.of(param.getPage(), param.getSize()));
     }
 }
