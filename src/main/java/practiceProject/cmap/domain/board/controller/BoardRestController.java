@@ -19,6 +19,7 @@ import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.board.service.BoardService;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -133,5 +134,21 @@ public class BoardRestController {
         Page<Board> boardPage = boardService.BoardList(boardListParamDto);
         List<BoardDataDTO.BoardDataDto> boardDataDtoList = boardService.BoardTagList(boardPage);
         return ApiResponse.onSuccess(BoardConverter.toBoardListResultDto(boardPage, boardDataDtoList));
+    }
+
+    @GetMapping("/boards")
+    @Operation(summary = "게시글 리스트 가져오기 By Tag API", description = "게시글 리스트 가져오기 By Tag API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<BoardResponseDTO.BoardListByTagResponseDto> BoardListByTag(@RequestParam Integer page,
+                                                                                  @RequestParam Integer size,
+                                                                                  @RequestParam List<Long> tagList) {
+
+        if (tagList.isEmpty()) tagList = new ArrayList<>();
+        BoardParameterDTO.BoardListByTagParamDto boardListByTagParamDto = BoardDtoConverter.INSTANCE.toBoardListByTagParamDto(page, size, tagList);
+        Page<Board> boardPage = boardService.BoardListByTag(boardListByTagParamDto);
+        List<BoardDataDTO.BoardDataDto> boardDataDtoList = boardService.BoardTagList(boardPage);
+        return ApiResponse.onSuccess(BoardConverter.toBoardListByTagResultDto(boardPage, boardDataDtoList));
     }
 }

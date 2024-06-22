@@ -21,4 +21,5 @@ public interface BoardService {
     public List<Board> HomeRandomBoard();
     public Page<Board> BoardList(BoardParameterDTO.BoardListParamDto param);
     public List<BoardDataDTO.BoardDataDto> BoardTagList(Page<Board> boardPage);
+    public Page<Board> BoardListByTag(BoardParameterDTO.BoardListByTagParamDto param);
 }

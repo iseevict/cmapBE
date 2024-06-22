@@ -236,8 +236,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     /**
-     * 게시글 리스트 가져오기 API
-     * 게시글마다 tagList 가져오기
+     * 게시글마다 tagList 가져오기 함수
      * 반환 : List<BoardDataDTO.BoardDataDto>
      */
     @Override
@@ -254,5 +253,14 @@ public class BoardServiceImpl implements BoardService{
                 .cafeName(board.getCafe().getName())
                 .build()
                 ).collect(Collectors.toList());
+    }
+
+    /**
+     * 게시글 리스트 가져오기 By Tag API
+     * 반환 : Page<Board>
+     */
+    public Page<Board> BoardListByTag(BoardParameterDTO.BoardListByTagParamDto param) {
+
+        return boardRepository.findAllForPageByTag(PageRequest.of(param.getPage(), param.getSize()), param.getTagList());
     }
 }

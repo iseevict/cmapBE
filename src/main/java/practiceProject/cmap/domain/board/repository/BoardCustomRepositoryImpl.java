@@ -1,5 +1,8 @@
 package practiceProject.cmap.domain.board.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -57,5 +60,42 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                 .fetch();
 
         return tagList != null ? tagList : new ArrayList<>();
+    }
+
+    @Override
+    public Page<Board> findAllForPageByTag(PageRequest pageRequest, List<Long> tagList) {
+
+        QBoard board = QBoard.board;
+        QBoardHashtag boardHashtag = QBoardHashtag.boardHashtag;
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (!tagList.isEmpty()) {
+
+            builder.and(board.id.in(
+                    JPAExpressions
+                            .select(boardHashtag.board.id)
+                            .from(boardHashtag)
+                            .groupBy(boardHashtag.board.id)
+                            .having(boardHashtag.board.id.count().eq(Expressions.constant(tagList.size())))
+                            .where(boardHashtag.hashtag.id.in(tagList))
+            ));
+        }
+
+        List<Board> boardList = jpaQueryFactory
+                .selectFrom(board)
+                .offset(pageRequest.getOffset())
+                .limit(pageRequest.getPageSize())
+                .where(builder)
+                .fetch();
+
+        Long total = Optional.ofNullable(
+                jpaQueryFactory
+                        .select(board.count())
+                        .from(board)
+                        .where(builder)
+                        .fetchOne()
+        ).orElse(0L);
+
+        return new PageImpl<>(boardList, pageRequest, total);
     }
 }

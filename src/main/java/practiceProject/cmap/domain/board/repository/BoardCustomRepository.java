@@ -12,4 +12,5 @@ public interface BoardCustomRepository {
 
     Page<Board> findAllForPage(PageRequest pageRequest);
     List<Long> findAllTagByBoard(Board board);
+    Page<Board> findAllForPageByTag(PageRequest pageRequest, List<Long> tagList);
 }
