@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.review.converter.ReviewConverter;
@@ -89,5 +90,19 @@ public class ReviewRestController {
         ReviewParameterDTO.SingleReviewParamDto singleReviewParamDto = ReviewDtoConverter.INSTANCE.toSingleReviewParamDto(cafeId, reviewId);
         Review review = reviewService.SingleReviewData(singleReviewParamDto);
         return ApiResponse.onSuccess(ReviewConverter.toSingleReviewResultDto(review));
+    }
+
+    @GetMapping("/reviews/{memberId}")
+    @Operation(summary = "유저 리뷰 리스트 가져오기 API", description = "유저 리뷰 리스트 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<ReviewResponseDTO.MemberReviewListResponseDto> MemberReviewList(@RequestParam Integer page,
+                                                                                       @RequestParam Integer size,
+                                                                                       @PathVariable("memberId") Long memberId) {
+
+        ReviewParameterDTO.MemberReviewListParamDto memberReviewListParamDto = ReviewDtoConverter.INSTANCE.toMemberReviewListParamDto(memberId, page, size);
+        Page<Review> reviewPage = reviewService.MemberReviewList(memberReviewListParamDto);
+        return ApiResponse.onSuccess(ReviewConverter.toMemberReviewListResultDto(reviewPage));
     }
 }

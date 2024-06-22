@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReviewResponseDTO {
 
@@ -47,5 +48,16 @@ public class ReviewResponseDTO {
         String writer;
         Long memberId;
         LocalDateTime updatedAt;
+    }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberReviewListResponseDto {
+
+        List<ReviewDataDTO.ReviewDataDto> reviewDataDtoList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
     }
 }

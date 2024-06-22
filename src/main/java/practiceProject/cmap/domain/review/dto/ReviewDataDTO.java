@@ -28,4 +28,15 @@ public class ReviewDataDTO {
         String writer;
         LocalDateTime updatedAt;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ReviewDataDto {
+
+        Long reviewId;
+        String title;
+        String body;
+        LocalDateTime updatedAt;
+        Long cafeId;
+        String cafeName;
+    }
 }
