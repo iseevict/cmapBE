@@ -14,6 +14,26 @@ import java.util.stream.Collectors;
 
 public class BoardConverter {
 
+    public static BoardResponseDTO.BoardDataResponseDto toBoardDataResultDto(Board board) {
+
+        List<Long> tagList = board.getBoardHashtagList().stream()
+                .map(boardHashtag ->
+                        boardHashtag.getHashtag().getId())
+                .collect(Collectors.toList());
+
+        return BoardResponseDTO.BoardDataResponseDto.builder()
+                .title(board.getTitle())
+                .body(board.getBody())
+                .writer(board.getMember().getName())
+                .memberId(board.getMember().getId())
+                .likeNum(board.getMemberLikeBoardList().size())
+                .updatedAt(board.getUpdatedAt())
+                .tagList(tagList)
+                .cafeId(board.getCafe().getId())
+                .cafeName(board.getCafe().getName())
+                .build();
+    }
+
     public static BoardResponseDTO.BoardListByTagResponseDto toBoardListByTagResultDto(Page<Board> boardPage, List<BoardDataDTO.BoardDataDto> boardDataDtoList) {
 
         return BoardResponseDTO.BoardListByTagResponseDto.builder()

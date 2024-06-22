@@ -263,4 +263,16 @@ public class BoardServiceImpl implements BoardService{
 
         return boardRepository.findAllForPageByTag(PageRequest.of(param.getPage(), param.getSize()), param.getTagList());
     }
+    /**
+     * 게시글 가져오기 API
+     * 반환 : Board
+     */
+    @Override
+    public Board BoardGet(BoardParameterDTO.BoardDataParamDto param) {
+
+        Board findBoard = boardRepository.findById(param.getBoardId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._BOARD_NOT_FOUND));
+
+        return findBoard;
+    }
 }
