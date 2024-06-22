@@ -87,4 +87,11 @@ public class BoardParameterDTO {
         Integer size;
         List<Long> tagList;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardDataParamDto {
+
+        @NotNull
+        Long boardId;
+    }
 }

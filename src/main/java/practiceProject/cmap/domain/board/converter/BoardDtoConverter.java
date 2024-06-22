@@ -20,4 +20,5 @@ public interface BoardDtoConverter {
     BoardParameterDTO.BoardHeartOffParamDto toBoardHeartOffParamDto(Long memberId, Long boardId);
     BoardParameterDTO.BoardListParamDto toBoardListParamDto(Integer page, Integer size);
     BoardParameterDTO.BoardListByTagParamDto toBoardListByTagParamDto(Integer page, Integer size, List<Long> tagList);
+    BoardParameterDTO.BoardDataParamDto toBoardDataParamDto(Long boardId);
 }

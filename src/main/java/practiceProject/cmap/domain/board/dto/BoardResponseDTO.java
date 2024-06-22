@@ -91,4 +91,18 @@ public class BoardResponseDTO {
         Boolean isFirst;
         Boolean isLast;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardDataResponseDto {
+
+        String title;
+        String body;
+        String writer;
+        Long memberId;
+        Integer likeNum;
+        LocalDateTime updatedAt;
+        List<Long> tagList;
+        Long cafeId;
+        String cafeName;
+    }
 }

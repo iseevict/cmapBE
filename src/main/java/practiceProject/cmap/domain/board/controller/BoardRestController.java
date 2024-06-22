@@ -151,4 +151,16 @@ public class BoardRestController {
         List<BoardDataDTO.BoardDataDto> boardDataDtoList = boardService.BoardTagList(boardPage);
         return ApiResponse.onSuccess(BoardConverter.toBoardListByTagResultDto(boardPage, boardDataDtoList));
     }
+
+    @GetMapping("/boards/{boardId}")
+    @Operation(summary = "게시글 가져오기 API", description = "게시글 가져오기 API 입니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
+    })
+    public ApiResponse<BoardResponseDTO.BoardDataResponseDto> BoardGet(@PathVariable("boardId") Long boardId) {
+
+        BoardParameterDTO.BoardDataParamDto boardDataParamDto = BoardDtoConverter.INSTANCE.toBoardDataParamDto(boardId);
+        Board board = boardService.BoardGet(boardDataParamDto);
+        return ApiResponse.onSuccess(BoardConverter.toBoardDataResultDto(board));
+    }
 }
