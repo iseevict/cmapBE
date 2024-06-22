@@ -80,6 +80,7 @@ public class CmapCustomRepositoryImpl implements CmapCustomRepository {
         QCafeThema cafeThema = QCafeThema.cafeThema;
 
         if (!themaList.isEmpty()) {
+
             builder.and(cmap.cafe.id.in(
                     JPAExpressions
                             .select(cafeThema.cafe.id)

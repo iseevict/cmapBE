@@ -6,6 +6,8 @@ import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardRequestDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 
+import java.util.List;
+
 @Mapper
 public interface BoardDtoConverter {
 
@@ -17,4 +19,5 @@ public interface BoardDtoConverter {
     BoardParameterDTO.BoardHeartOnParamDto toBoardHeartOnParamDto(BoardRequestDTO.BoardHeartOnRequestDto request, Long boardId);
     BoardParameterDTO.BoardHeartOffParamDto toBoardHeartOffParamDto(Long memberId, Long boardId);
     BoardParameterDTO.BoardListParamDto toBoardListParamDto(Integer page, Integer size);
+    BoardParameterDTO.BoardListByTagParamDto toBoardListByTagParamDto(Integer page, Integer size, List<Long> tagList);
 }

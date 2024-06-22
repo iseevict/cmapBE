@@ -77,4 +77,14 @@ public class BoardParameterDTO {
         @NotEmpty
         Integer size;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardListByTagParamDto {
+
+        @NotEmpty
+        Integer page;
+        @NotEmpty
+        Integer size;
+        List<Long> tagList;
+    }
 }

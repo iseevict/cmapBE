@@ -80,4 +80,15 @@ public class BoardResponseDTO {
         Boolean isFirst;
         Boolean isLast;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardListByTagResponseDto {
+
+        List<BoardDataDTO.BoardDataDto> boardDataDtoList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
 }

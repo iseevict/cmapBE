@@ -14,6 +14,18 @@ import java.util.stream.Collectors;
 
 public class BoardConverter {
 
+    public static BoardResponseDTO.BoardListByTagResponseDto toBoardListByTagResultDto(Page<Board> boardPage, List<BoardDataDTO.BoardDataDto> boardDataDtoList) {
+
+        return BoardResponseDTO.BoardListByTagResponseDto.builder()
+                .boardDataDtoList(boardDataDtoList)
+                .listSize(boardDataDtoList.size())
+                .totalPage(boardPage.getTotalPages())
+                .totalElements(boardPage.getTotalElements())
+                .isFirst(boardPage.isFirst())
+                .isLast(boardPage.isLast())
+                .build();
+    }
+
     public static BoardResponseDTO.BoardListResponseDto toBoardListResultDto(Page<Board> boardPage, List<BoardDataDTO.BoardDataDto> boardDataDtoList) {
 
         return BoardResponseDTO.BoardListResponseDto.builder()
