@@ -2,6 +2,8 @@ package practiceProject.cmap.domain.review.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -133,5 +135,18 @@ public class ReviewServiceImpl implements ReviewService{
         if (!findReview.getCafe().equals(findCafe)) throw new CommonHandler(ErrorStatus._REVIEW_CAFE_NOT_MATCHING);
 
         return findReview;
+    }
+
+    /**
+     * 유저 리뷰 리스트 가져오기 API
+     * 반환 : Page<Review>
+     */
+    @Override
+    public Page<Review> MemberReviewList(ReviewParameterDTO.MemberReviewListParamDto param) {
+
+        Member findMember = memberRepository.findById(param.getMemberId())
+                .orElseThrow(() -> new CommonHandler(ErrorStatus._MEMBER_NOT_FOUND));
+
+        return reviewRepository.findAllForPageByMember(findMember, PageRequest.of(param.getPage(), param.getSize()));
     }
 }

@@ -55,4 +55,15 @@ public class ReviewParameterDTO {
         @NotNull
         Long reviewId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MemberReviewListParamDto {
+
+        @NotNull
+        Long memberId;
+        @NotNull
+        Integer page;
+        @NotNull
+        Integer size;
+    }
 }

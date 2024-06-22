@@ -1,6 +1,7 @@
 package practiceProject.cmap.domain.review.service;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
@@ -16,4 +17,5 @@ public interface ReviewService {
     public void ReviewDelete(@Valid ReviewParameterDTO.ReviewDeleteParamDto param);
     public Slice<Review> CafeDetailReviewList(Cafe cafe, Pageable pageable);
     public Review SingleReviewData(ReviewParameterDTO.SingleReviewParamDto param);
+    public Page<Review> MemberReviewList(ReviewParameterDTO.MemberReviewListParamDto param);
 }
