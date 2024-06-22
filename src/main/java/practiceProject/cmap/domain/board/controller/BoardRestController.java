@@ -157,6 +157,9 @@ public class BoardRestController {
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다.")
     })
+    @Parameters({
+            @Parameter(name = "boardId", description = "게시글 식별자, PathVariable")
+    })
     public ApiResponse<BoardResponseDTO.BoardDataResponseDto> BoardGet(@PathVariable("boardId") Long boardId) {
 
         BoardParameterDTO.BoardDataParamDto boardDataParamDto = BoardDtoConverter.INSTANCE.toBoardDataParamDto(boardId);

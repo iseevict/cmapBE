@@ -43,4 +43,15 @@ public class CommentParameterDTO {
         @NotNull
         Long boardId;
     }
+
+    @Getter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class BoardCommentListParamDto {
+
+        @NotNull
+        Long boardId;
+        @NotNull
+        Integer page;
+        @NotNull
+        Integer size;
+    }
 }

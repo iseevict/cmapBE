@@ -1,12 +1,37 @@
 package practiceProject.cmap.domain.comment.converter;
 
+import org.springframework.data.domain.Slice;
+import practiceProject.cmap.domain.comment.dto.CommentDataDTO;
 import practiceProject.cmap.domain.comment.dto.CommentParameterDTO;
 import practiceProject.cmap.domain.comment.dto.CommentResponseDTO;
 import practiceProject.cmap.domain.comment.entity.Comment;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommentConverter {
+
+    public static CommentResponseDTO.BoardCommentListResponseDto toBoardCommentListResultDto(Slice<Comment> commentSlice) {
+
+        List<CommentDataDTO.CommentDataDto> commentDataDtoList = commentSlice.stream()
+                .map(comment ->
+                        CommentDataDTO.CommentDataDto.builder()
+                                .body(comment.getBody())
+                                .writer(comment.getMember().getName())
+                                .memberId(comment.getMember().getId())
+                                .updatedAt(comment.getUpdatedAt())
+                                .build()
+                ).collect(Collectors.toList());
+
+        return CommentResponseDTO.BoardCommentListResponseDto.builder()
+                .commentDataDtoList(commentDataDtoList)
+                .hasNext(commentSlice.hasNext())
+                .pageNum(commentSlice.getNumber())
+                .pageSize(commentSlice.getSize())
+                .elementNum(commentSlice.getNumberOfElements())
+                .build();
+    }
 
     public static CommentResponseDTO.CommentWriteResponseDto toCommentWriteResultDto(Comment comment) {
 
