@@ -25,17 +25,14 @@ public class Profile extends BaseTimeEntity {
     @Column(length = 254)
     private String introduce;
 
-    @ColumnDefault("'default_image_url'")
-    private String profileImageUrl;
-
-    @ColumnDefault("'default_image_url'")
-    private String favoriteCafeImageUrl;
-
     @Column(length = 50)
     private String favoriteCafeTitle;
 
     @Lob
     private String favoriteCafeBody;
+
+    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL)
+    private ProfileImage profileImage;
 
     // 비즈니스 로직
     public void modifyProfile(String introduce, String favoriteCafeTitle, String favoriteCafeBody) {
