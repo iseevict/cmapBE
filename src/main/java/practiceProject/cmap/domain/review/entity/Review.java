@@ -9,6 +9,9 @@ import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.member.entity.Member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -39,6 +42,9 @@ public class Review extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", updatable = false)
     private Member member;
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    private List<ReviewImage> reviewImageList = new ArrayList<>();
 
     // 연관관계 편의 메서드
     public void setCafe(Cafe cafe) {

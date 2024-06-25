@@ -51,6 +51,9 @@ public class Board extends BaseTimeEntity {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<BoardImage> boardImageList = new ArrayList<>();
+
     // 연관관계 편의 메서드
     public void setMember(Member member) {
 

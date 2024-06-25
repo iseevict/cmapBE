@@ -63,6 +63,9 @@ public class Cafe extends BaseTimeEntity {
     @JsonIgnore
     private List<Review> reviewList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "cafe", cascade = CascadeType.ALL)
+    private List<CafeImage> cafeImageList = new ArrayList<>();
+
     // 연관관계 편의 메서드
 
     public void setMember(Member member) {
