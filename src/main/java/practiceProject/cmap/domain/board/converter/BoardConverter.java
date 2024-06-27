@@ -5,6 +5,7 @@ import practiceProject.cmap.domain.board.dto.BoardDataDTO;
 import practiceProject.cmap.domain.board.dto.BoardParameterDTO;
 import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
+import practiceProject.cmap.domain.board.entity.BoardImage;
 import practiceProject.cmap.domain.member.entity.mapping.MemberLikeBoard;
 
 import java.time.LocalDateTime;
@@ -119,5 +120,18 @@ public class BoardConverter {
                 .body(param.getBody())
                 .boardHashtagList(new ArrayList<>())
                 .build();
+    }
+
+    public static List<BoardImage> toBoardImage(List<String> imageUrlList, Board board) {
+
+        List<BoardImage> boardImageList = imageUrlList.stream()
+                .map(imageUrl ->
+                        BoardImage.builder()
+                                .boardImageUrl(imageUrl)
+                                .board(board)
+                                .build()
+                ).collect(Collectors.toList());
+
+        return boardImageList;
     }
 }

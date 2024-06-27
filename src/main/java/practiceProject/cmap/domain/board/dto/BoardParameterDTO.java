@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class BoardParameterDTO {
         String title;
         @NotEmpty
         String body;
+
+        List<MultipartFile> boardPictureList;
 
         List<Long> hashtagList;
     }
