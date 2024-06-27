@@ -4,10 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import practiceProject.cmap.config.ApiResponse;
 import practiceProject.cmap.domain.board.converter.BoardConverter;
 import practiceProject.cmap.domain.board.converter.BoardDtoConverter;
@@ -40,16 +43,20 @@ public class BoardRestController {
         return ApiResponse.onSuccess(BoardConverter.toHomeRandomBoardResultDto(boardList));
     }
 
-    @PostMapping("/boards")
+    @PostMapping(value = "/boards", consumes = "multipart/form-data")
     @Operation(summary = "게시글 작성 API", description = "게시글 작성 API 입니다.")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "TAG1001", description = "태그를 찾지 못했습니다."),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "TAG1002", description = "권한이 없습니다.")
     })
-    public ApiResponse<BoardResponseDTO.BoardWriteResponseDto> BoardWrite(@RequestBody @Valid BoardRequestDTO.BoardWriteRequestDto request) {
+    public ApiResponse<BoardResponseDTO.BoardWriteResponseDto> BoardWrite(@RequestPart("request") @Valid BoardRequestDTO.BoardWriteRequestDto request,
+                                                                          @RequestPart("boardPictureList") List<MultipartFile> boardPictureList) {
 
-        BoardParameterDTO.BoardWriteParamDto boardWriteParamDto = BoardDtoConverter.INSTANCE.toBoardWriteParamDto(request);
+        if (boardPictureList == null) boardPictureList = new ArrayList<>();
+        System.out.println(boardPictureList.get(1).getOriginalFilename());
+        System.out.println(boardPictureList.get(0).getOriginalFilename());
+        BoardParameterDTO.BoardWriteParamDto boardWriteParamDto = BoardDtoConverter.INSTANCE.toBoardWriteParamDto(request, boardPictureList);
         Board board = boardService.BoardWrite(boardWriteParamDto);
         return ApiResponse.onSuccess(BoardConverter.toBoardWriteResultDto(board));
     }

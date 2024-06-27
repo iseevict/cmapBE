@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practiceProject.cmap.config.apiCode.status.ErrorStatus;
 import practiceProject.cmap.config.exception.handler.CommonHandler;
+import practiceProject.cmap.config.s3.AmazonS3Manager;
+import practiceProject.cmap.config.s3.Uuid;
+import practiceProject.cmap.config.s3.UuidRepository;
 import practiceProject.cmap.domain.board.converter.BoardConverter;
 import practiceProject.cmap.domain.board.converter.BoardHashtagConverter;
 import practiceProject.cmap.domain.board.dto.BoardDataDTO;
@@ -16,6 +19,7 @@ import practiceProject.cmap.domain.board.dto.BoardResponseDTO;
 import practiceProject.cmap.domain.board.entity.Board;
 import practiceProject.cmap.domain.board.entity.mapping.BoardHashtag;
 import practiceProject.cmap.domain.board.repository.BoardHashtagRepository;
+import practiceProject.cmap.domain.board.repository.BoardImageRepository;
 import practiceProject.cmap.domain.board.repository.BoardRepository;
 import practiceProject.cmap.domain.cafe.entity.Cafe;
 import practiceProject.cmap.domain.cafe.repository.CafeRepository;
@@ -32,6 +36,7 @@ import practiceProject.cmap.domain.member.repository.MemberRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -46,6 +51,9 @@ public class BoardServiceImpl implements BoardService{
     private final HashtagRepository hashtagRepository;
     private final BoardHashtagRepository boardHashtagRepository;
     private final MemberLikeBoardRepository memberLikeBoardRepository;
+    private final AmazonS3Manager amazonS3Manager;
+    private final UuidRepository uuidRepository;
+    private final BoardImageRepository boardImageRepository;
 
     /**
      * 홈 화면 API
@@ -91,6 +99,17 @@ public class BoardServiceImpl implements BoardService{
 
         Board newBoard = BoardConverter.toBoard(param);
 
+        List<String> boardImageUrlList = param.getBoardPictureList().stream()
+                .map(boardImageUrl -> {
+                    String uuid = UUID.randomUUID().toString();
+                    Uuid savedUuid = uuidRepository.save(
+                            Uuid.builder()
+                                    .uuid(uuid)
+                                    .build()
+                    );
+                    return amazonS3Manager.uploadFile(amazonS3Manager.generateBoardKeyName(savedUuid), boardImageUrl);})
+                .collect(Collectors.toList());
+
         // MANAGER만 CMAP 해시태그 가능
         if (param.getHashtagList().stream()
                 .anyMatch(hashtagId -> hashtagId.equals(1L))) {
@@ -115,6 +134,7 @@ public class BoardServiceImpl implements BoardService{
 
         newBoard.setMember(writer);
         newBoard.setCafe(findCafe);
+        boardImageRepository.saveAll(BoardConverter.toBoardImage(boardImageUrlList, newBoard));
         return boardRepository.save(newBoard);
     }
 

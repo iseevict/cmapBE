@@ -14,6 +14,7 @@ import practiceProject.cmap.config.BaseEntity.BaseTimeEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(name = "profile_image")
 public class ProfileImage extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,12 @@ public class ProfileImage extends BaseTimeEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    @ColumnDefault("index/defaultImage.png")
+    @ColumnDefault("'index/defaultImage.png'")
     private String profileImageUrl;
 
-    @ColumnDefault("index/defaultImage.png")
+    @ColumnDefault("'index/defaultImage.png'")
     private String favoriteCafeImageUrl;
 }
